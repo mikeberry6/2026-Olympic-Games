@@ -37,7 +37,7 @@
               <li>You have a strict <strong>$100 budget</strong></li>
               <li>Buy countries at prices pegged to projected medal counts</li>
               <li>Your goal: <strong>Maximize your total medal return</strong></li>
-              <li>If you buy Norway for $36, you're betting they win 36+ medals</li>
+              <li>If you buy Norway for $40, you're betting they win 40+ medals</li>
               <li>Scoring: 🥇 Gold = 3pts | 🥈 Silver = 2pts | 🥉 Bronze = 1pt</li>
             </ul>
           </div>
@@ -46,11 +46,11 @@
             <h3>📊 MARKET TIERS</h3>
             <div class="tier-preview">
               <span class="tier-badge blue-chip">💎 BLUE CHIPS</span>
-              <span class="tier-desc">$27-36 | Safe, high volume</span>
+              <span class="tier-desc">$26-40 | Safe, high volume</span>
             </div>
             <div class="tier-preview">
               <span class="tier-badge mid-cap">📈 MID-CAPS</span>
-              <span class="tier-desc">$12-19 | Value plays & host bumps</span>
+              <span class="tier-desc">$9-20 | Value plays & host bumps</span>
             </div>
             <div class="tier-preview">
               <span class="tier-badge penny-stock">🎰 PENNY STOCKS</span>
@@ -64,18 +64,18 @@
         <h3>📝 Sample Portfolios</h3>
 
         <div class="portfolio-example">
-          <h4>🦅 "North American & Host" Aggressive ($99)</h4>
-          <p>USA ($32) + Canada ($27) + Italy ($19) + Austria ($18) + New Zealand ($3)</p>
+          <h4>🦅 "Norwegian Empire" ($99)</h4>
+          <p>Norway ($40) + Austria ($20) + Netherlands ($15) + Japan ($14) + South Korea ($10)</p>
         </div>
 
         <div class="portfolio-example">
-          <h4>🏔️ "Euro-Zone" Stability ($100)</h4>
-          <p>Norway ($36) + Germany ($28) + Sweden ($18) + Netherlands ($16) + Poland ($1)</p>
+          <h4>🏔️ "North American Power" ($100)</h4>
+          <p>USA ($32) + Canada ($26) + Switzerland ($17) + Japan ($14) + Czech Republic ($7) + Australia ($4)</p>
         </div>
 
         <div class="portfolio-example">
-          <h4>🎲 "Penny Stock Army" ($100)</h4>
-          <p>Germany ($28) + Italy ($19) + Japan ($16) + France ($15) + China ($12) + South Korea ($7) + New Zealand ($3)</p>
+          <h4>🎲 "Mid-Cap Spread" ($100)</h4>
+          <p>Italy ($18) + Sweden ($19) + France ($16) + Netherlands ($15) + South Korea ($10) + China ($9) + Finland ($9) + Australia ($4)</p>
         </div>
       </div>
 
@@ -172,7 +172,7 @@
 
       <!-- Blue Chips -->
       <section class="market-tier">
-        <h2 class="tier-title">💎 BLUE CHIPS <span class="tier-subtitle">High floor, reliable volume (25+ medals projected)</span></h2>
+        <h2 class="tier-title">💎 BLUE CHIPS <span class="tier-subtitle">High floor, reliable volume (26+ medals projected)</span></h2>
         <div class="country-grid" id="blue-chip-grid">
           <!-- Populated by JS -->
         </div>
@@ -180,7 +180,7 @@
 
       <!-- Mid Caps -->
       <section class="market-tier">
-        <h2 class="tier-title">📈 MID-CAPS <span class="tier-subtitle">Value plays & host bumps (12-19 medals projected)</span></h2>
+        <h2 class="tier-title">📈 MID-CAPS <span class="tier-subtitle">Value plays & host bumps (9-20 medals projected)</span></h2>
         <div class="country-grid" id="mid-cap-grid">
           <!-- Populated by JS -->
         </div>
@@ -244,7 +244,7 @@
     <!-- Footer with Admin Access -->
     <footer class="app-footer">
       <div class="footer-info">
-        <span class="version">v3.1 Milano Edition</span>
+        <span class="version">v4.0 Milano Edition</span>
         <span class="last-updated" id="last-updated"></span>
       </div>
       <button id="admin-key-btn" class="admin-key-btn" aria-label="Admin access">
@@ -1700,118 +1700,184 @@
     ];
 
     const COUNTRIES = {
-      // BLUE CHIPS ($27-36)
+      // BLUE CHIPS ($26-40) — 25+ medals projected
       'nor': {
-        id: 'nor', name: 'Norway', flag: '🇳🇴', price: 36, tier: 'blue-chip',
-        projection: '~36 medals, ~14 golds',
-        description: 'The undisputed king of winter. Led by Johannes Høsflot Klæbo in XC and dominant Biathlon squad.',
+        id: 'nor', name: 'Norway', flag: '🇳🇴', price: 40, tier: 'blue-chip',
+        projection: '~40 medals, ~17 golds',
+        description: 'The undisputed king of winter. Klæbo in XC, dominant Biathlon squad, and Russia\'s ban redistributes medals their way.',
         olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/nor'
       },
       'usa': {
         id: 'usa', name: 'USA', flag: '🇺🇸', price: 32, tier: 'blue-chip',
-        projection: '~32 medals, ~13 golds',
-        description: 'Bullish. NHL players return, Jordan Stolz dominates speed skating, Shiffrin seeks alpine redemption.',
+        projection: '~32 medals, ~12 golds',
+        description: 'NHL players return. Jordan Stolz dominates speed skating, Shiffrin seeks alpine redemption. Huge freestyle/snowboard depth.',
         olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/usa'
       },
       'ger': {
-        id: 'ger', name: 'Germany', flag: '🇩🇪', price: 28, tier: 'blue-chip',
-        projection: '~28 medals, ~12 golds',
-        description: 'The sliding sports monopoly. The Cortina track is their fortress for Luge and Bobsleigh.',
+        id: 'ger', name: 'Germany', flag: '🇩🇪', price: 29, tier: 'blue-chip',
+        projection: '~29 medals, ~11 golds',
+        description: 'The sliding sports monopoly. Luge, Bobsled, Skeleton fortress on the Cortina track. Strong Biathlon and Ski Jumping.',
         olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/ger'
       },
       'can': {
-        id: 'can', name: 'Canada', flag: '🇨🇦', price: 27, tier: 'blue-chip',
-        projection: '~27 medals, ~10 golds',
-        description: 'Crosby and McDavid finally team up. Men\'s Hockey is a "double gold" swing with the Women.',
+        id: 'can', name: 'Canada', flag: '🇨🇦', price: 26, tier: 'blue-chip',
+        projection: '~26 medals, ~8 golds',
+        description: 'Crosby and McDavid finally team up. Men\'s Hockey is a "double gold" swing with the Women. Strong Freestyle and Short Track.',
         olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/can'
       },
 
-      // MID-CAPS ($12-19)
-      'ita': {
-        id: 'ita', name: 'Italy', flag: '🇮🇹', price: 19, tier: 'mid-cap',
-        projection: '~19 medals (Host target)',
-        description: 'The Host Bump. Home-field advantage in the Dolomites for Sofia Goggia and Federica Brignone.',
-        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/ita'
-      },
+      // MID-CAPS ($9-20) — 9-20 medals projected
       'aut': {
-        id: 'aut', name: 'Austria', flag: '🇦🇹', price: 18, tier: 'mid-cap',
-        projection: '~18 medals',
-        description: 'Alpine skiing royalty. If the Bormio slopes are icy and fast, their technical team will feast.',
+        id: 'aut', name: 'Austria', flag: '🇦🇹', price: 20, tier: 'mid-cap',
+        projection: '~20 medals, ~7 golds',
+        description: 'Alpine skiing royalty. Bormio slopes built for their technical squad. Plus Ski Jumping, Nordic Combined, and Luge.',
         olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/aut'
       },
       'swe': {
-        id: 'swe', name: 'Sweden', flag: '🇸🇪', price: 18, tier: 'mid-cap',
-        projection: '~18 medals',
-        description: 'The quiet achiever. Biathlon relays, XC sprints, and Sandra Näslund in Ski Cross.',
+        id: 'swe', name: 'Sweden', flag: '🇸🇪', price: 19, tier: 'mid-cap',
+        projection: '~19 medals, ~7 golds',
+        description: 'The quiet achiever. Cross-country skiing depth, Biathlon relays, Curling, and NHL-boosted Hockey.',
         olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/swe'
       },
+      'ita': {
+        id: 'ita', name: 'Italy', flag: '🇮🇹', price: 18, tier: 'mid-cap',
+        projection: '~18 medals, ~5 golds (Host)',
+        description: 'The Host Bump. Home-field advantage for Goggia and Brignone in alpine. New Ski Mountaineering events favor Italy heavily.',
+        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/ita'
+      },
+      'sui': {
+        id: 'sui', name: 'Switzerland', flag: '🇨🇭', price: 17, tier: 'mid-cap',
+        projection: '~17 medals, ~6 golds',
+        description: 'Marco Odermatt is the alpine GOAT-in-waiting. Ski Mountaineering, Snowboard Cross, and Bobsled add depth.',
+        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/sui'
+      },
+      'fra': {
+        id: 'fra', name: 'France', flag: '🇫🇷', price: 16, tier: 'mid-cap',
+        projection: '~16 medals, ~5 golds',
+        description: 'Biathlon powerhouse plus alpine and freestyle upside. New Ski Mountaineering events are a boost.',
+        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/fra'
+      },
       'ned': {
-        id: 'ned', name: 'Netherlands', flag: '🇳🇱', price: 16, tier: 'mid-cap',
-        projection: '~16 medals',
-        description: 'Speed Skating pure-play. Volatile: if the Milan oval is fast, they could return 20.',
+        id: 'ned', name: 'Netherlands', flag: '🇳🇱', price: 15, tier: 'mid-cap',
+        projection: '~15 medals, ~6 golds',
+        description: 'Speed Skating pure-play. Volatile: if the Milan oval is fast, they could return 20. Minimal diversification.',
         olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/ned'
       },
       'jpn': {
-        id: 'jpn', name: 'Japan', flag: '🇯🇵', price: 16, tier: 'mid-cap',
-        projection: '~16 medals',
-        description: 'Figure skating excellence and Halfpipe specialists. Consistent, technical, high gold-equity.',
+        id: 'jpn', name: 'Japan', flag: '🇯🇵', price: 14, tier: 'mid-cap',
+        projection: '~14 medals, ~4 golds',
+        description: 'Figure skating excellence, Ski Jumping depth, Speed Skating, and Halfpipe specialists. Consistent and technical.',
         olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/jpn'
       },
-      'fra': {
-        id: 'fra', name: 'France', flag: '🇫🇷', price: 15, tier: 'mid-cap',
-        projection: '~15 medals',
-        description: 'Relying heavily on Biathlon squad to replicate 2022 magic. Riskier hold than Sweden.',
-        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/fra'
-      },
-      'chn': {
-        id: 'chn', name: 'China', flag: '🇨🇳', price: 12, tier: 'mid-cap',
-        projection: '~12 medals',
-        description: 'Post-host slump from 15 in Beijing, but elite strength in Aerials and Short Track remains.',
-        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/chn'
-      },
-
-      // PENNY STOCKS ($1-7)
       'kor': {
-        id: 'kor', name: 'South Korea', flag: '🇰🇷', price: 7, tier: 'penny-stock',
-        projection: '~7 medals, ~3 golds',
-        description: 'The Trap. Heavily reliant on Short Track. One crash or DQ wipes out your investment.',
+        id: 'kor', name: 'South Korea', flag: '🇰🇷', price: 10, tier: 'mid-cap',
+        projection: '~10 medals, ~3 golds',
+        description: 'Short Track factory. Upgraded from penny stock after dominant 2024-25 World Cup season. One crash or DQ still hurts.',
         olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/kor'
       },
+      'chn': {
+        id: 'chn', name: 'China', flag: '🇨🇳', price: 9, tier: 'mid-cap',
+        projection: '~9 medals, ~3 golds',
+        description: 'Post-host correction from 15 in Beijing. Still elite in Short Track and Freestyle Aerials. Eileen Gu factor.',
+        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/chn'
+      },
       'fin': {
-        id: 'fin', name: 'Finland', flag: '🇫🇮', price: 6, tier: 'penny-stock',
-        projection: '~6 medals',
-        description: 'Men\'s Hockey and Iivo Niskanen in XC skiing. High-floor defensive stock.',
+        id: 'fin', name: 'Finland', flag: '🇫🇮', price: 9, tier: 'mid-cap',
+        projection: '~9 medals, ~2 golds',
+        description: 'NHL-boosted Men\'s Hockey, Cross-country skiing, and Ski Jumping. Solid floor with hockey upside.',
         olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/fin'
       },
+
+      // PENNY STOCKS ($1-7) — 1-7 medals projected
+      'cze': {
+        id: 'cze', name: 'Czech Republic', flag: '🇨🇿', price: 7, tier: 'penny-stock',
+        projection: '~7 medals, ~2 golds',
+        description: 'Ester Ledecká is a dual-sport superstar (alpine + snowboard). Biathlon squad and NHL Hockey add upside.',
+        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/cze'
+      },
+      'svn': {
+        id: 'svn', name: 'Slovenia', flag: '🇸🇮', price: 5, tier: 'penny-stock',
+        projection: '~5 medals, ~2 golds',
+        description: 'Ski Jumping powerhouse for their size. Alpine skiing and Cross-country add sneaky value.',
+        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/svn'
+      },
       'gbr': {
-        id: 'gbr', name: 'Great Britain', flag: '🇬🇧', price: 5, tier: 'penny-stock',
-        projection: '4-8 medals',
-        description: 'Targeting a record haul. Curling is anchor, Skeleton and Freestyle (Mia Brookes) offer upside.',
+        id: 'gbr', name: 'Great Britain', flag: '🇬🇧', price: 4, tier: 'penny-stock',
+        projection: '~4 medals',
+        description: 'Curling is the anchor. Skeleton pedigree plus Freestyle upside with Mia Brookes in snowboard.',
         olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/gbr'
       },
       'aus': {
         id: 'aus', name: 'Australia', flag: '🇦🇺', price: 4, tier: 'penny-stock',
         projection: '~4 medals',
-        description: 'Efficient. Jakara Anthony (Moguls) and Scotty James (Halfpipe) are near-locks. Best value?',
+        description: 'Efficient. Jakara Anthony (Moguls) and strong Halfpipe squad are near-locks. Best bang for your buck?',
         olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/aus'
       },
       'nzl': {
-        id: 'nzl', name: 'New Zealand', flag: '🇳🇿', price: 3, tier: 'penny-stock',
-        projection: '~3 medals',
-        description: 'Snowboard gold hunting with Zoi Sadowski-Synnott. Low volume, high prestige.',
+        id: 'nzl', name: 'New Zealand', flag: '🇳🇿', price: 2, tier: 'penny-stock',
+        projection: '~2 medals',
+        description: 'Zoi Sadowski-Synnott hunts Snowboard gold. Low volume, but elite upside in Slopestyle and Big Air.',
         olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/nzl'
       },
-      'sui': {
-        id: 'sui', name: 'Switzerland', flag: '🇨🇭', price: 15, tier: 'mid-cap',
-        projection: '~15 medals',
-        description: 'Marco Odermatt leads alpine dominance. Strong in Ski Cross and Freestyle.',
-        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/sui'
+      'hun': {
+        id: 'hun', name: 'Hungary', flag: '🇭🇺', price: 2, tier: 'penny-stock',
+        projection: '~2 medals',
+        description: 'Short Track speed skating specialists. Liu brothers carry the hopes. Boom-or-bust lottery ticket.',
+        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/hun'
       },
       'pol': {
-        id: 'pol', name: 'Poland', flag: '🇵🇱', price: 1, tier: 'penny-stock',
-        projection: '1-3 medals',
-        description: 'Ski Jumping or bust. The ultimate lottery ticket.',
+        id: 'pol', name: 'Poland', flag: '🇵🇱', price: 2, tier: 'penny-stock',
+        projection: '~2 medals',
+        description: 'Ski Jumping squad and Cross-country dark horses. Cheap diversification play.',
         olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/pol'
+      },
+      'svk': {
+        id: 'svk', name: 'Slovakia', flag: '🇸🇰', price: 1, tier: 'penny-stock',
+        projection: '~1 medal',
+        description: 'Alpine skiing and Biathlon long shots. Petra Vlhová\'s comeback could pay off big.',
+        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/svk'
+      },
+      'bel': {
+        id: 'bel', name: 'Belgium', flag: '🇧🇪', price: 1, tier: 'penny-stock',
+        projection: '~1 medal',
+        description: 'Skeleton and Speed Skating dark horse. The ultimate deep-value contrarian pick.',
+        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/bel'
+      },
+      'est': {
+        id: 'est', name: 'Estonia', flag: '🇪🇪', price: 1, tier: 'penny-stock',
+        projection: '~1 medal',
+        description: 'Cross-country skiing specialists. Could surprise in Biathlon relays.',
+        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/est'
+      },
+      'lat': {
+        id: 'lat', name: 'Latvia', flag: '🇱🇻', price: 1, tier: 'penny-stock',
+        projection: '~1 medal',
+        description: 'Bobsled, Luge, and Skeleton contenders. The Baltic sliding factory.',
+        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/lat'
+      },
+      'esp': {
+        id: 'esp', name: 'Spain', flag: '🇪🇸', price: 1, tier: 'penny-stock',
+        projection: '~1 medal',
+        description: 'New Ski Mountaineering events are Spain\'s golden ticket. A true wildcard.',
+        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/esp'
+      },
+      'den': {
+        id: 'den', name: 'Denmark', flag: '🇩🇰', price: 1, tier: 'penny-stock',
+        projection: '~1 medal',
+        description: 'Curling and Speed Skating hopefuls. Low probability, but costs nothing.',
+        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/den'
+      },
+      'ukr': {
+        id: 'ukr', name: 'Ukraine', flag: '🇺🇦', price: 1, tier: 'penny-stock',
+        projection: '~1 medal',
+        description: 'Biathlon and Freestyle skiing contenders. Resilient program competing against the odds.',
+        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/ukr'
+      },
+      'kaz': {
+        id: 'kaz', name: 'Kazakhstan', flag: '🇰🇿', price: 1, tier: 'penny-stock',
+        projection: '~1 medal',
+        description: 'Cross-country skiing and Freestyle dark horse. Central Asian wildcard at the minimum price.',
+        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/kaz'
       }
     };
 
