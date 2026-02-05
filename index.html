@@ -241,6 +241,22 @@
         </div>
       </section>
 
+      <!-- Commissioner Commentary -->
+      <section class="commentary-section" id="commentary-section">
+        <h2 class="section-title">📰 Commissioner's Commentary</h2>
+        <div id="commentary-card" class="commentary-card glass-card">
+          <p class="empty-state" id="commentary-text">No commentary yet. The Commissioner is sharpening his quill...</p>
+        </div>
+      </section>
+
+      <!-- Achievement Badges -->
+      <section class="achievements-section">
+        <h2 class="section-title">🏆 League Achievements</h2>
+        <div id="achievements-grid" class="achievements-grid">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+
       <!-- Portfolio Details Section -->
       <section class="portfolios-section">
         <h2 class="section-title">📊 Team Portfolios</h2>
@@ -253,7 +269,7 @@
     <!-- Footer with Admin Access -->
     <footer class="app-footer">
       <div class="footer-info">
-        <span class="version">v5.0 Milano Edition</span>
+        <span class="version">v6.0 Milano Edition</span>
         <span class="last-updated" id="last-updated"></span>
       </div>
       <button id="admin-key-btn" class="admin-key-btn" aria-label="Admin access">
@@ -274,6 +290,15 @@
       </header>
 
       <div class="modal-body">
+        <!-- Session Banner -->
+        <div id="session-banner" class="session-banner hidden">
+          <div class="session-banner-info">
+            <span class="session-banner-icon">📝</span>
+            <span class="session-banner-text" id="session-banner-text">0 medals added this session</span>
+          </div>
+          <button id="publish-update-btn" class="btn btn-primary btn-publish">Publish Daily Update</button>
+        </div>
+
         <!-- Add Medal Section -->
         <section class="admin-section">
           <h3 class="admin-section-title">🏅 Record Medal</h3>
@@ -312,6 +337,16 @@
           </div>
         </section>
 
+        <!-- Commissioner Commentary Section -->
+        <section class="admin-section">
+          <h3 class="admin-section-title">📰 Commissioner's Commentary</h3>
+          <div class="form-group">
+            <label for="commentary-input">Write your daily dispatch</label>
+            <textarea id="commentary-input" class="form-input commentary-textarea" rows="3" placeholder="e.g., The Norwegian Empire marches on! But watch out for the Swiss..."></textarea>
+          </div>
+          <button id="save-commentary-btn" class="btn btn-primary">Publish Commentary</button>
+        </section>
+
         <!-- Data Management Section -->
         <section class="admin-section">
           <h3 class="admin-section-title">⚙️ League Management</h3>
@@ -324,6 +359,22 @@
         </section>
       </div>
     </div>
+  </div>
+
+  <!-- Medal Celebration Overlay -->
+  <div id="celebration-overlay" class="celebration-overlay hidden" aria-hidden="true">
+    <canvas id="confetti-canvas"></canvas>
+    <div class="celebration-content">
+      <div class="celebration-medal" id="celebration-medal"></div>
+      <div class="celebration-text" id="celebration-text"></div>
+      <div class="celebration-event" id="celebration-event"></div>
+    </div>
+  </div>
+
+  <!-- Breaking News Ticker -->
+  <div id="news-ticker" class="news-ticker hidden">
+    <div class="ticker-label">DAILY RECAP</div>
+    <div class="ticker-text" id="ticker-text"></div>
   </div>
 
   <!-- Toast Notification -->
@@ -1811,7 +1862,341 @@
     }
 
     /* ========================================
-       19. RESPONSIVE
+       20. SESSION BANNER
+       ======================================== */
+    .session-banner {
+      background: linear-gradient(135deg, rgba(0, 212, 255, 0.12), rgba(0, 140, 69, 0.08));
+      border: 1px solid rgba(0, 212, 255, 0.25);
+      border-radius: var(--radius-md);
+      padding: var(--space-md);
+      margin-bottom: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .session-banner.hidden { display: none !important; }
+
+    .session-banner-info {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .session-banner-icon {
+      font-size: 1.25rem;
+    }
+
+    .session-banner-text {
+      font-weight: 700;
+      color: var(--accent-primary);
+      font-size: 0.9375rem;
+    }
+
+    .btn-publish {
+      width: 100%;
+      min-height: 48px;
+      font-size: 1rem;
+      background: linear-gradient(135deg, var(--accent-gold), #FFA500);
+      color: #000;
+    }
+
+    .btn-publish:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+    }
+
+    /* Inline medal confirmation (replaces confirm dialog) */
+    .medal-added-flash {
+      background: rgba(0, 230, 118, 0.15);
+      border: 1px solid rgba(0, 230, 118, 0.3);
+      border-radius: var(--radius-md);
+      padding: var(--space-sm) var(--space-md);
+      margin-bottom: var(--space-md);
+      font-size: 0.875rem;
+      color: var(--success);
+      font-weight: 600;
+      animation: flashIn 0.3s ease;
+    }
+
+    @keyframes flashIn {
+      from { opacity: 0; transform: translateY(-5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ========================================
+       21. MEDAL CELEBRATION OVERLAY
+       ======================================== */
+    .celebration-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.85);
+      animation: celebrationFadeIn 0.3s ease;
+    }
+
+    .celebration-overlay.hidden {
+      display: none !important;
+    }
+
+    @keyframes celebrationFadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    #confetti-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .celebration-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      animation: celebrationPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes celebrationPop {
+      0% { transform: scale(0.3); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .celebration-medal {
+      font-size: 6rem;
+      margin-bottom: var(--space-md);
+      animation: celebrationBounce 0.6s ease infinite alternate;
+    }
+
+    @keyframes celebrationBounce {
+      from { transform: translateY(0); }
+      to { transform: translateY(-15px); }
+    }
+
+    .celebration-text {
+      font-size: 1.75rem;
+      font-weight: 800;
+      margin-bottom: var(--space-sm);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .celebration-text.gold-text {
+      background: linear-gradient(135deg, #FFD700, #FFA500, #FFD700);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .celebration-text.silver-text {
+      background: linear-gradient(135deg, #C0C0C0, #E8E8E8, #C0C0C0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .celebration-text.bronze-text {
+      background: linear-gradient(135deg, #CD7F32, #E8A850, #CD7F32);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .celebration-event {
+      font-size: 1.125rem;
+      color: var(--text-secondary);
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    /* ========================================
+       21. BREAKING NEWS TICKER
+       ======================================== */
+    .news-ticker {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1500;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(90deg, #0a1628, #141c2f);
+      color: #fff;
+      font-weight: 700;
+      overflow: hidden;
+      height: 44px;
+      border-bottom: 2px solid var(--accent-gold);
+      animation: tickerSlideDown 0.4s ease;
+    }
+
+    .news-ticker.hidden {
+      display: none !important;
+    }
+
+    @keyframes tickerSlideDown {
+      from { transform: translateY(-100%); }
+      to { transform: translateY(0); }
+    }
+
+    .ticker-label {
+      background: linear-gradient(135deg, var(--accent-gold), #FFA500);
+      color: #000;
+      padding: 0 var(--space-md);
+      font-size: 0.6875rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .ticker-text {
+      white-space: nowrap;
+      padding: 0 var(--space-lg);
+      font-size: 0.875rem;
+      animation: tickerScroll 15s linear;
+    }
+
+    @keyframes tickerScroll {
+      0% { transform: translateX(100vw); }
+      100% { transform: translateX(0); }
+    }
+
+    /* ========================================
+       22. VIEW TRANSITIONS
+       ======================================== */
+    .view-enter {
+      animation: viewFadeSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) both;
+    }
+
+    @keyframes viewFadeSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ========================================
+       23. COMMISSIONER COMMENTARY
+       ======================================== */
+    .commentary-section {
+      margin-bottom: var(--space-xl);
+    }
+
+    .commentary-card {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .commentary-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent-gold), var(--olympic-yellow));
+    }
+
+    .commentary-card .commentary-body {
+      font-size: 1.0625rem;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      font-style: italic;
+    }
+
+    .commentary-card .commentary-sig {
+      margin-top: var(--space-md);
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      font-style: normal;
+      text-align: right;
+    }
+
+    .commentary-textarea {
+      resize: vertical;
+      min-height: 80px;
+      line-height: 1.5;
+    }
+
+    /* ========================================
+       24. ACHIEVEMENT BADGES
+       ======================================== */
+    .achievements-section {
+      margin-bottom: var(--space-xl);
+    }
+
+    .achievements-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+    }
+
+    .achievement-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      padding: var(--space-sm) var(--space-md);
+      background: var(--glass-bg);
+      border: var(--glass-border);
+      border-radius: var(--radius-xl);
+      font-size: 0.8125rem;
+      transition: all var(--transition-normal);
+    }
+
+    .achievement-badge.unlocked {
+      border-color: var(--accent-gold);
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.12), rgba(255, 215, 0, 0.04));
+      animation: badgeUnlock 0.5s ease;
+    }
+
+    .achievement-badge.locked {
+      opacity: 0.35;
+      filter: grayscale(1);
+    }
+
+    @keyframes badgeUnlock {
+      0% { transform: scale(0.8); opacity: 0; }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .achievement-icon {
+      font-size: 1.25rem;
+    }
+
+    .achievement-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .achievement-name {
+      font-weight: 700;
+      font-size: 0.8125rem;
+      color: var(--text-primary);
+    }
+
+    .achievement-desc {
+      font-size: 0.6875rem;
+      color: var(--text-muted);
+    }
+
+    .achievement-badge.unlocked .achievement-name {
+      color: var(--accent-gold);
+    }
+
+    /* ========================================
+       25. RESPONSIVE
        ======================================== */
     @media (max-width: 767px) {
       .modal-content {
@@ -1839,6 +2224,27 @@
 
       .countdown-value {
         font-size: 1.25rem;
+      }
+
+      .celebration-medal {
+        font-size: 4rem;
+      }
+
+      .celebration-text {
+        font-size: 1.25rem;
+      }
+
+      .celebration-event {
+        font-size: 0.9375rem;
+      }
+
+      .achievements-grid {
+        gap: var(--space-xs);
+      }
+
+      .achievement-badge {
+        padding: var(--space-xs) var(--space-sm);
+        font-size: 0.75rem;
       }
     }
 
@@ -2089,6 +2495,7 @@
     let currentParticipantId = null;
     let currentCart = [];
     let selectedMedalType = null;
+    let sessionMedals = []; // tracks medals added in current admin session
 
     /* ========================================
        3. STATE MANAGEMENT
@@ -2102,10 +2509,11 @@
           if (!appState.portfolios) appState.portfolios = {};
           if (!appState.medalsLog) appState.medalsLog = [];
           if (appState.marketOpen === undefined) appState.marketOpen = true;
+          if (!appState.commentary) appState.commentary = '';
         }
       } catch (e) {
         console.error('Failed to load state:', e);
-        appState = { portfolios: {}, medalsLog: [], marketOpen: true };
+        appState = { portfolios: {}, medalsLog: [], marketOpen: true, commentary: '' };
       }
     }
 
@@ -2437,6 +2845,8 @@
       renderTotalPoints();
       renderLastUpdated();
       renderLeaderboard();
+      renderCommentary();
+      renderAchievements();
       renderPortfolios();
     }
 
@@ -2539,19 +2949,67 @@
         if (pass !== null) showToast('Access denied', 'error');
         return;
       }
+      sessionMedals = [];
       document.getElementById('admin-modal').classList.remove('hidden');
       renderAdminPanel();
+      updateSessionBanner();
     }
 
     function closeAdmin() {
       document.getElementById('admin-modal').classList.add('hidden');
       resetAdminForm();
+
+      // If medals were entered this session, trigger the daily update celebration
+      if (sessionMedals.length > 0) {
+        const medalsThisSession = [...sessionMedals];
+        sessionMedals = [];
+
+        renderDashboard();
+
+        setTimeout(() => {
+          showDailyRecapTicker(medalsThisSession);
+        }, 200);
+
+        setTimeout(() => {
+          launchDailyCelebration(medalsThisSession);
+        }, 800);
+      }
+    }
+
+    function publishDailyUpdate() {
+      // Also save commentary if written
+      const input = document.getElementById('commentary-input');
+      if (input && input.value.trim()) {
+        saveCommentary();
+      }
+      closeAdmin();
+    }
+
+    function updateSessionBanner() {
+      const banner = document.getElementById('session-banner');
+      const text = document.getElementById('session-banner-text');
+      const btn = document.getElementById('publish-update-btn');
+
+      if (sessionMedals.length === 0) {
+        banner.classList.add('hidden');
+      } else {
+        banner.classList.remove('hidden');
+        const golds = sessionMedals.filter(m => m.medal === 'gold').length;
+        const silvers = sessionMedals.filter(m => m.medal === 'silver').length;
+        const bronzes = sessionMedals.filter(m => m.medal === 'bronze').length;
+        const parts = [];
+        if (golds) parts.push(`${golds}G`);
+        if (silvers) parts.push(`${silvers}S`);
+        if (bronzes) parts.push(`${bronzes}B`);
+        text.textContent = `${sessionMedals.length} medal${sessionMedals.length !== 1 ? 's' : ''} added (${parts.join(' ')})`;
+      }
     }
 
     function renderAdminPanel() {
       renderCountrySelect();
       renderTransactionLog();
       resetAdminForm();
+      updateSessionBanner();
     }
 
     function renderCountrySelect() {
@@ -2603,25 +3061,55 @@
 
     function addMedal() {
       const countryId = document.getElementById('country-select').value;
-      const eventDesc = document.getElementById('event-input').value.trim();
+      const eventInput = document.getElementById('event-input');
+      const eventDesc = eventInput.value.trim();
       if (!countryId || !eventDesc || !selectedMedalType) return;
 
       const c = COUNTRIES[countryId];
-      if (!confirm(`Record ${selectedMedalType.toUpperCase()} for ${c.flag} ${c.name}?\nEvent: ${eventDesc}`)) return;
+      const medalType = selectedMedalType;
 
-      appState.medalsLog.push({
+      const entry = {
         id: generateId(),
         countryId,
         eventDescription: eventDesc,
-        medal: selectedMedalType,
+        medal: medalType,
         timestamp: Date.now()
-      });
-      saveState();
+      };
 
-      showToast(`${MEDAL_EMOJI[selectedMedalType]} Medal recorded!`, 'success');
-      resetAdminForm();
+      appState.medalsLog.push(entry);
+      saveState();
+      sessionMedals.push(entry);
+
+      // Show inline flash confirmation (no confirm dialog for speed)
+      showMedalFlash(medalType, c, eventDesc);
+
+      // Only clear event field and medal selection -- keep country selected for rapid entry
+      eventInput.value = '';
+      selectedMedalType = null;
+      document.querySelectorAll('.medal-btn').forEach(b => b.classList.remove('selected'));
+      updateAddMedalButton();
+
+      // Refresh log and session banner
       renderTransactionLog();
-      renderDashboard();
+      updateSessionBanner();
+
+      // Focus back on event input for next entry
+      eventInput.focus();
+    }
+
+    function showMedalFlash(medalType, country, eventDesc) {
+      // Remove any existing flash
+      const existing = document.querySelector('.medal-added-flash');
+      if (existing) existing.remove();
+
+      const flash = document.createElement('div');
+      flash.className = 'medal-added-flash';
+      flash.textContent = `${MEDAL_EMOJI[medalType]} ${country.flag} ${country.name} — ${eventDesc}`;
+
+      const addBtn = document.getElementById('add-medal-btn');
+      addBtn.parentNode.insertBefore(flash, addBtn);
+
+      setTimeout(() => flash.remove(), 2500);
     }
 
     function removeMedal(medalId) {
@@ -2890,6 +3378,347 @@
     }
 
     /* ========================================
+       14E. MEDAL CELEBRATION & CONFETTI
+       ======================================== */
+
+    const MEDAL_COLORS = {
+      gold: ['#FFD700', '#FFA500', '#FFE066', '#FFCC00', '#FFF8DC'],
+      silver: ['#C0C0C0', '#E8E8E8', '#A9A9A9', '#D3D3D3', '#FFFFFF'],
+      bronze: ['#CD7F32', '#E8A850', '#B87333', '#D4956A', '#8B4513']
+    };
+
+    function launchDailyCelebration(medals) {
+      const overlay = document.getElementById('celebration-overlay');
+      const canvas = document.getElementById('confetti-canvas');
+      const medalEl = document.getElementById('celebration-medal');
+      const textEl = document.getElementById('celebration-text');
+      const eventEl = document.getElementById('celebration-event');
+
+      // Compute summary
+      const golds = medals.filter(m => m.medal === 'gold').length;
+      const silvers = medals.filter(m => m.medal === 'silver').length;
+      const bronzes = medals.filter(m => m.medal === 'bronze').length;
+      const uniqueCountries = [...new Set(medals.map(m => m.countryId))];
+      const flags = uniqueCountries.map(id => COUNTRIES[id].flag).join(' ');
+      const day = getCompetitionDay();
+
+      // Pick the "best" medal color for confetti (gold if any golds, etc.)
+      const topMedal = golds > 0 ? 'gold' : silvers > 0 ? 'silver' : 'bronze';
+
+      // Set content
+      medalEl.textContent = `🏅 ${medals.length}`;
+      textEl.textContent = day ? `Day ${day} Results` : 'Daily Update';
+      textEl.className = 'celebration-text gold-text';
+
+      const parts = [];
+      if (golds) parts.push(`🥇${golds}`);
+      if (silvers) parts.push(`🥈${silvers}`);
+      if (bronzes) parts.push(`🥉${bronzes}`);
+      eventEl.innerHTML = `${parts.join('  ')} across ${uniqueCountries.length} countries<br><span style="font-size:1.5rem;letter-spacing:0.15em;margin-top:8px;display:inline-block">${flags}</span>`;
+
+      // Show overlay
+      overlay.classList.remove('hidden');
+
+      // Launch confetti with mixed colors
+      const allColors = [...MEDAL_COLORS.gold, ...MEDAL_COLORS.silver, ...MEDAL_COLORS.bronze];
+      launchConfetti(canvas, allColors);
+
+      // Auto-dismiss after 5s (longer for summary), or click to dismiss
+      const dismiss = () => {
+        overlay.classList.add('hidden');
+        overlay.removeEventListener('click', dismiss);
+      };
+      overlay.addEventListener('click', dismiss);
+      setTimeout(dismiss, 5000);
+    }
+
+    function getCompetitionDay() {
+      const gameStart = new Date('2026-02-06');
+      const now = new Date();
+      const diffDays = Math.floor((now - gameStart) / (1000 * 60 * 60 * 24)) + 1;
+      return diffDays >= 1 && diffDays <= 17 ? diffDays : 0;
+    }
+
+    function launchConfetti(canvas, colors) {
+      const ctx = canvas.getContext('2d');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const particles = [];
+      const PARTICLE_COUNT = 150;
+
+      for (let i = 0; i < PARTICLE_COUNT; i++) {
+        particles.push({
+          x: canvas.width / 2 + (Math.random() - 0.5) * 200,
+          y: canvas.height / 2,
+          vx: (Math.random() - 0.5) * 20,
+          vy: (Math.random() - 1) * 18 - 5,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          size: Math.random() * 8 + 4,
+          rotation: Math.random() * 360,
+          rotationSpeed: (Math.random() - 0.5) * 15,
+          gravity: 0.25 + Math.random() * 0.15,
+          opacity: 1,
+          shape: Math.random() > 0.5 ? 'rect' : 'circle'
+        });
+      }
+
+      let frame = 0;
+      const maxFrames = 120;
+
+      function animate() {
+        if (frame >= maxFrames) {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          return;
+        }
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        particles.forEach(p => {
+          p.x += p.vx;
+          p.vy += p.gravity;
+          p.y += p.vy;
+          p.vx *= 0.98;
+          p.rotation += p.rotationSpeed;
+          p.opacity = Math.max(0, 1 - (frame / maxFrames));
+
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate((p.rotation * Math.PI) / 180);
+          ctx.globalAlpha = p.opacity;
+          ctx.fillStyle = p.color;
+
+          if (p.shape === 'rect') {
+            ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.6);
+          } else {
+            ctx.beginPath();
+            ctx.arc(0, 0, p.size / 2, 0, Math.PI * 2);
+            ctx.fill();
+          }
+          ctx.restore();
+        });
+
+        frame++;
+        requestAnimationFrame(animate);
+      }
+
+      animate();
+    }
+
+    /* ========================================
+       14F. BREAKING NEWS TICKER
+       ======================================== */
+
+    function showDailyRecapTicker(medals) {
+      const ticker = document.getElementById('news-ticker');
+      const text = document.getElementById('ticker-text');
+
+      const golds = medals.filter(m => m.medal === 'gold').length;
+      const silvers = medals.filter(m => m.medal === 'silver').length;
+      const bronzes = medals.filter(m => m.medal === 'bronze').length;
+      const uniqueCountries = [...new Set(medals.map(m => m.countryId))];
+      const day = getCompetitionDay();
+
+      const parts = [];
+      if (golds) parts.push(`${golds} Gold`);
+      if (silvers) parts.push(`${silvers} Silver`);
+      if (bronzes) parts.push(`${bronzes} Bronze`);
+
+      const dayLabel = day ? `Day ${day}` : 'Today';
+      text.textContent = `${dayLabel}: ${medals.length} medals recorded — ${parts.join(', ')} across ${uniqueCountries.length} countries. Leaderboard updated!`;
+
+      ticker.classList.remove('hidden');
+
+      // Reset animation
+      text.style.animation = 'none';
+      text.offsetHeight; // force reflow
+      text.style.animation = '';
+
+      setTimeout(() => {
+        ticker.classList.add('hidden');
+      }, 8000);
+    }
+
+    /* ========================================
+       14G. VIEW TRANSITIONS
+       ======================================== */
+
+    showView = function(viewId) {
+      const nextView = document.getElementById(viewId);
+
+      // Hide all views
+      document.querySelectorAll('.view').forEach(v => {
+        v.classList.add('hidden');
+        v.classList.remove('view-enter');
+      });
+
+      // Show and animate new view
+      nextView.classList.remove('hidden');
+      nextView.classList.add('view-enter');
+
+      // Scroll to top
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    };
+
+    /* ========================================
+       14H. COMMISSIONER COMMENTARY
+       ======================================== */
+
+    function saveCommentary() {
+      const input = document.getElementById('commentary-input');
+      const text = input.value.trim();
+      if (!text) {
+        showToast('Write something first!', 'error');
+        return;
+      }
+
+      const day = getCompetitionDay();
+      appState.commentary = text;
+      appState.commentaryTimestamp = Date.now();
+      appState.commentaryDay = day || null;
+      saveState();
+
+      showToast('Commentary published!', 'success');
+      renderCommentary();
+    }
+
+    function renderCommentary() {
+      const card = document.getElementById('commentary-card');
+      const input = document.getElementById('commentary-input');
+
+      if (appState.commentary) {
+        const dayLabel = appState.commentaryDay ? `Day ${appState.commentaryDay}` : formatTimestamp(appState.commentaryTimestamp);
+        card.innerHTML = `
+          <div class="commentary-body">"${appState.commentary}"</div>
+          <div class="commentary-sig">— Commissioner Reif-Wray, ${dayLabel}</div>
+        `;
+        // Pre-fill admin textarea with current commentary for editing
+        if (input) input.value = appState.commentary;
+      } else {
+        card.innerHTML = '<p class="empty-state">No commentary yet. The Commissioner is sharpening his quill...</p>';
+        if (input) {
+          const day = getCompetitionDay();
+          if (day) input.placeholder = `Day ${day}: The Norwegian Empire marches on! But watch out for the Swiss...`;
+        }
+      }
+    }
+
+    /* ========================================
+       14I. ACHIEVEMENT BADGES
+       ======================================== */
+
+    const ACHIEVEMENTS = [
+      {
+        id: 'first_blood',
+        icon: '⚔️',
+        name: 'First Blood',
+        desc: 'First medal recorded in the league',
+        check: (state) => state.medalsLog.length >= 1
+      },
+      {
+        id: 'gold_rush',
+        icon: '🥇',
+        name: 'Gold Rush',
+        desc: '10 gold medals recorded',
+        check: (state) => state.medalsLog.filter(m => m.medal === 'gold').length >= 10
+      },
+      {
+        id: 'century_club',
+        icon: '💯',
+        name: 'Century Club',
+        desc: 'League reaches 100 total points',
+        check: (state) => {
+          return PARTICIPANTS.reduce((sum, p) => sum + getScoresForParticipant(p.id).total, 0) >= 100;
+        }
+      },
+      {
+        id: 'penny_pays',
+        icon: '🎰',
+        name: 'Penny Pays Off',
+        desc: 'A penny stock country wins a gold medal',
+        check: (state) => {
+          return state.medalsLog.some(m => {
+            const c = COUNTRIES[m.countryId];
+            return c && c.tier === 'penny-stock' && m.medal === 'gold';
+          });
+        }
+      },
+      {
+        id: 'blue_chip_bonanza',
+        icon: '💎',
+        name: 'Blue Chip Bonanza',
+        desc: 'A blue chip country reaches 10+ medals',
+        check: (state) => {
+          return Object.values(COUNTRIES)
+            .filter(c => c.tier === 'blue-chip')
+            .some(c => getMedalsForCountry(c.id).length >= 10);
+        }
+      },
+      {
+        id: 'diversity_wins',
+        icon: '🌍',
+        name: 'Diversity Wins',
+        desc: '15 different countries have won medals',
+        check: (state) => {
+          const countries = new Set(state.medalsLog.map(m => m.countryId));
+          return countries.size >= 15;
+        }
+      },
+      {
+        id: 'medal_marathon',
+        icon: '🏃',
+        name: 'Medal Marathon',
+        desc: '50 total medals recorded',
+        check: (state) => state.medalsLog.length >= 50
+      },
+      {
+        id: 'photo_finish',
+        icon: '📸',
+        name: 'Photo Finish',
+        desc: 'Two teams are tied in points',
+        check: (state) => {
+          const scores = PARTICIPANTS.map(p => getScoresForParticipant(p.id).total).filter(s => s > 0);
+          return scores.length !== new Set(scores).size;
+        }
+      },
+      {
+        id: 'host_hero',
+        icon: '🇮🇹',
+        name: 'Host Hero',
+        desc: 'Italy wins 5+ medals',
+        check: (state) => getMedalsForCountry('ita').length >= 5
+      },
+      {
+        id: 'upset_special',
+        icon: '🤯',
+        name: 'Upset Special',
+        desc: 'A $1 country earns 5+ points',
+        check: (state) => {
+          return Object.values(COUNTRIES)
+            .filter(c => c.price === 1)
+            .some(c => getPointsForCountry(c.id) >= 5);
+        }
+      }
+    ];
+
+    function renderAchievements() {
+      const grid = document.getElementById('achievements-grid');
+      if (!grid) return;
+
+      grid.innerHTML = ACHIEVEMENTS.map(a => {
+        const unlocked = a.check(appState);
+        return `
+          <div class="achievement-badge ${unlocked ? 'unlocked' : 'locked'}">
+            <span class="achievement-icon">${a.icon}</span>
+            <div class="achievement-info">
+              <span class="achievement-name">${a.name}</span>
+              <span class="achievement-desc">${a.desc}</span>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    /* ========================================
        15. EVENT LISTENERS
        ======================================== */
 
@@ -2927,6 +3756,8 @@
       document.getElementById('event-input').addEventListener('input', updateAddMedalButton);
       document.getElementById('add-medal-btn').addEventListener('click', addMedal);
 
+      document.getElementById('publish-update-btn').addEventListener('click', publishDailyUpdate);
+      document.getElementById('save-commentary-btn').addEventListener('click', saveCommentary);
       document.getElementById('export-btn').addEventListener('click', exportData);
       document.getElementById('import-btn').addEventListener('click', importData);
       document.getElementById('reopen-market-btn').addEventListener('click', reopenMarket);
