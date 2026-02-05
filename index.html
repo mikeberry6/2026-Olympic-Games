@@ -22,17 +22,17 @@
       <header class="welcome-header">
         <div class="olympic-rings">●●●●●</div>
         <h1 class="logo"><span class="city">Milano Cortina</span><span class="year">2026</span></h1>
-        <p class="welcome-subtitle">🇮🇹 🏔️ Fantasy Medal Market 🏔️ 🇮🇹</p>
+        <p class="welcome-subtitle">🏔️ Fantasy Medal Market 🏔️</p>
       </header>
 
       <div class="commissioner-card glass-card">
-        <div class="commissioner-badge">🇮🇹 COMMISSIONER REIF-WRAY'S BRIEFING 🇮🇹</div>
+        <div class="commissioner-badge">📋 COMMISSIONER REIF-WRAY'S BRIEFING</div>
         <div class="commissioner-content">
           <p class="commissioner-date">📅 Today is <strong>Thursday, February 5, 2026</strong></p>
           <p class="commissioner-intro">Benvenuti, competitors! The Opening Ceremony at the San Siro is just <strong>24 hours away</strong>. I am Commissioner Reif-Wray, your host for the Milan-Cortina 2026 Fantasy Market.</p>
 
           <div class="rules-box">
-            <h3>💰 LE REGOLE (THE RULES)</h3>
+            <h3>💰 The Rules</h3>
             <ul>
               <li>You have a strict <strong>$100 budget</strong></li>
               <li>Buy countries at prices pegged to projected medal counts</li>
@@ -61,7 +61,7 @@
       </div>
 
       <div class="sample-portfolios glass-card">
-        <h3>📝 PORTAFOGLI DI ESEMPIO (SAMPLE PORTFOLIOS)</h3>
+        <h3>📝 Sample Portfolios</h3>
 
         <div class="portfolio-example">
           <h4>🦅 "North American & Host" Aggressive ($99)</h4>
@@ -80,8 +80,44 @@
       </div>
 
       <button id="enter-market-btn" class="btn btn-primary btn-large">
-        🇮🇹 Andiamo! Enter the Market 🇮🇹
+        🎿 Andiamo! Enter the Market
       </button>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- VIEW A2: VIDEO INTERSTITIAL                  -->
+  <!-- ============================================ -->
+  <section id="video-view" class="view hidden">
+    <div class="container video-container">
+      <header class="video-header">
+        <div class="olympic-rings">●●●●●</div>
+        <h2 class="video-title">🇮🇹 Milano Cortina 2026 🇮🇹</h2>
+        <p class="video-subtitle">The Winter Games Await</p>
+      </header>
+
+      <div class="video-wrapper glass-card">
+        <div class="video-responsive">
+          <iframe
+            id="intro-video"
+            src=""
+            title="Milano Cortina 2026 Preview"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+
+      <div class="video-actions">
+        <button id="continue-to-draft-btn" class="btn btn-primary btn-large">
+          🏔️ Continue to Draft 🏔️
+        </button>
+        <button id="skip-video-btn" class="btn btn-secondary">
+          Skip Video
+        </button>
+      </div>
     </div>
   </section>
 
@@ -95,8 +131,8 @@
         <h1 class="logo small"><span class="city">Milano Cortina</span><span class="year">2026</span></h1>
       </header>
 
-      <h2 class="view-title">👥 Scegli la Tua Squadra</h2>
-      <p class="view-desc">🇮🇹 Who's building their portfolio? 🇮🇹</p>
+      <h2 class="view-title">👥 Select Your Team</h2>
+      <p class="view-desc">Who's building their portfolio?</p>
 
       <div id="participant-list" class="participant-list">
         <!-- Populated by JS -->
@@ -136,7 +172,7 @@
 
       <!-- Blue Chips -->
       <section class="market-tier">
-        <h2 class="tier-title">💎 BLUE CHIPS <span class="tier-subtitle">Le stelle - High floor, reliable volume (25+ medals projected)</span></h2>
+        <h2 class="tier-title">💎 BLUE CHIPS <span class="tier-subtitle">High floor, reliable volume (25+ medals projected)</span></h2>
         <div class="country-grid" id="blue-chip-grid">
           <!-- Populated by JS -->
         </div>
@@ -160,7 +196,7 @@
 
       <div class="market-actions">
         <button id="confirm-portfolio-btn" class="btn btn-primary btn-large" disabled>
-          ✅ Conferma! Confirm Portfolio 🇮🇹
+          ✅ Confirm Portfolio
         </button>
         <button id="clear-cart-btn" class="btn btn-secondary">
           🗑️ Clear Selection
@@ -190,7 +226,7 @@
 
       <!-- Leaderboard Section -->
       <section class="leaderboard-section">
-        <h2 class="section-title">🏅 La Classifica 🇮🇹</h2>
+        <h2 class="section-title">🏅 Leaderboard</h2>
         <div id="leaderboard-cards" class="leaderboard-cards">
           <!-- Populated by JS -->
         </div>
@@ -198,7 +234,7 @@
 
       <!-- Portfolio Details Section -->
       <section class="portfolios-section">
-        <h2 class="section-title">📊 I Portafogli 🇮🇹</h2>
+        <h2 class="section-title">📊 Team Portfolios</h2>
         <div id="portfolio-grid" class="portfolio-grid">
           <!-- Populated by JS -->
         </div>
@@ -208,7 +244,7 @@
     <!-- Footer with Admin Access -->
     <footer class="app-footer">
       <div class="footer-info">
-        <span class="version">🇮🇹 v3.0 Milano Edition 🇮🇹</span>
+        <span class="version">v3.1 Milano Edition</span>
         <span class="last-updated" id="last-updated"></span>
       </div>
       <button id="admin-key-btn" class="admin-key-btn" aria-label="Admin access">
@@ -616,42 +652,32 @@
 
     .commissioner-card {
       margin-bottom: var(--space-lg);
-      border-top: 4px solid var(--italian-green);
-      border-bottom: 4px solid var(--italian-red);
+      border: none;
       position: relative;
+      overflow: hidden;
     }
 
     .commissioner-card::before {
       content: '';
       position: absolute;
-      top: -4px;
-      left: 33.33%;
-      right: 33.33%;
+      top: 0;
+      left: 0;
+      right: 0;
       height: 4px;
-      background: white;
-    }
-
-    .commissioner-card::after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      left: 33.33%;
-      right: 33.33%;
-      height: 4px;
-      background: white;
+      background: linear-gradient(90deg, var(--italian-green), white, var(--italian-red));
     }
 
     .commissioner-badge {
       display: inline-block;
-      background: linear-gradient(90deg, var(--italian-green) 0%, var(--italian-green) 33%, white 33%, white 66%, var(--italian-red) 66%, var(--italian-red) 100%);
+      background: linear-gradient(135deg, var(--accent-gold), #FFA500);
       color: #000;
       padding: var(--space-sm) var(--space-lg);
       border-radius: var(--radius-sm);
       font-weight: 700;
       font-size: 0.875rem;
       margin-bottom: var(--space-md);
-      text-shadow: 0 0 2px rgba(255,255,255,0.8);
-      letter-spacing: 0.05em;
+      letter-spacing: 0.02em;
+      box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
     }
 
     .commissioner-date {
@@ -666,12 +692,12 @@
     }
 
     .rules-box {
-      background: rgba(0, 212, 255, 0.1);
+      background: rgba(0, 212, 255, 0.08);
       border-radius: var(--radius-md);
       padding: var(--space-md);
       margin-bottom: var(--space-lg);
-      border-left: 4px solid var(--italian-green);
-      border-right: 4px solid var(--italian-red);
+      border: 1px solid rgba(0, 212, 255, 0.2);
+      border-top: 3px solid var(--accent-primary);
     }
 
     .rules-box h3 {
@@ -734,8 +760,16 @@
 
     .sample-portfolios {
       margin-bottom: var(--space-xl);
-      border-top: 3px solid;
-      border-image: linear-gradient(90deg, var(--italian-green), white, var(--italian-red)) 1;
+    }
+
+    .sample-portfolios::before {
+      content: '';
+      display: block;
+      height: 3px;
+      margin: calc(var(--space-lg) * -1);
+      margin-bottom: var(--space-lg);
+      background: linear-gradient(90deg, var(--italian-green), white, var(--italian-red));
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
     }
 
     .sample-portfolios h3 {
@@ -760,6 +794,76 @@
     .portfolio-example p {
       font-size: 0.8125rem;
       color: var(--text-muted);
+    }
+
+    /* ========================================
+       8B. VIDEO INTERSTITIAL
+       ======================================== */
+    .video-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: var(--space-lg);
+    }
+
+    .video-header {
+      text-align: center;
+      margin-bottom: var(--space-lg);
+    }
+
+    .video-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: var(--space-xs);
+      background: linear-gradient(135deg, var(--italian-green), var(--accent-gold), var(--italian-red));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .video-subtitle {
+      color: var(--text-secondary);
+      font-size: 1rem;
+    }
+
+    .video-wrapper {
+      width: 100%;
+      max-width: 800px;
+      padding: var(--space-sm);
+      margin-bottom: var(--space-lg);
+    }
+
+    .video-responsive {
+      position: relative;
+      padding-bottom: 56.25%; /* 16:9 */
+      height: 0;
+      overflow: hidden;
+      border-radius: var(--radius-md);
+    }
+
+    .video-responsive iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: var(--radius-md);
+    }
+
+    .video-actions {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    #skip-video-btn {
+      font-size: 0.875rem;
+      min-height: 40px;
+      opacity: 0.7;
     }
 
     /* ========================================
@@ -1068,9 +1172,6 @@
       display: flex;
       flex-direction: column;
       gap: var(--space-xs);
-      padding-left: var(--space-md);
-      border-left: 4px solid;
-      border-image: linear-gradient(180deg, var(--italian-green), white, var(--italian-red)) 1;
     }
 
     .total-medals {
@@ -1126,8 +1227,19 @@
       align-items: center;
       gap: var(--space-md);
       transition: all var(--transition-normal);
-      border-left: 3px solid var(--italian-green);
-      border-right: 3px solid var(--italian-red);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .leaderboard-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--italian-green), white, var(--italian-red));
+      opacity: 0.5;
     }
 
     .leaderboard-card.rank-1 {
@@ -1862,9 +1974,26 @@
        7. WELCOME VIEW
        ======================================== */
 
+    const INTRO_VIDEO_ID = 'dcJb-MrHypI';
+
     function enterMarket() {
+      showView('video-view');
+      // Load video with autoplay
+      const iframe = document.getElementById('intro-video');
+      iframe.src = `https://www.youtube.com/embed/${INTRO_VIDEO_ID}?autoplay=1&rel=0&modestbranding=1`;
+    }
+
+    function skipVideo() {
+      // Stop video
+      const iframe = document.getElementById('intro-video');
+      iframe.src = '';
+      // Go to participant selection
       showView('participant-view');
       renderParticipantList();
+    }
+
+    function continueToDraft() {
+      skipVideo(); // Same behavior, just different button
     }
 
     /* ========================================
@@ -2322,6 +2451,10 @@
     function initEventListeners() {
       // Welcome
       document.getElementById('enter-market-btn').addEventListener('click', enterMarket);
+
+      // Video interstitial
+      document.getElementById('continue-to-draft-btn').addEventListener('click', continueToDraft);
+      document.getElementById('skip-video-btn').addEventListener('click', skipVideo);
 
       // Market
       document.getElementById('confirm-portfolio-btn').addEventListener('click', confirmPortfolio);
