@@ -93,7 +93,7 @@
     <!-- Footer with Admin Access -->
     <footer class="app-footer">
       <div class="footer-info">
-        <span class="version">v1.0</span>
+        <span class="version">v2.0</span>
         <span class="last-updated" id="last-updated"></span>
       </div>
       <button id="admin-key-btn" class="admin-key-btn" aria-label="Admin access">
@@ -742,16 +742,23 @@
       color: var(--text-secondary);
     }
 
+    .asset-links {
+      display: flex;
+      gap: var(--space-xs);
+    }
+
     .asset-link {
       color: var(--text-muted);
       text-decoration: none;
-      font-size: 0.875rem;
+      font-size: 0.8125rem;
       padding: var(--space-xs);
       transition: color var(--transition-fast);
+      border-radius: var(--radius-sm);
     }
 
     .asset-link:hover {
       color: var(--accent-primary);
+      background: rgba(255, 255, 255, 0.05);
     }
 
     .asset-medals {
@@ -1159,71 +1166,177 @@
 
     // Participants (7 couples/teams)
     const PARTICIPANTS = [
-      { id: 1, name: 'Mike & Allegra' },
-      { id: 2, name: 'Matt & Jess' },
-      { id: 3, name: 'Scott & Liz' },
-      { id: 4, name: 'Jake & Lauren' },
-      { id: 5, name: 'Chris & Cait' },
-      { id: 6, name: 'Drew & Christie' },
-      { id: 7, name: 'Pete & Suzy' }
+      { id: 1, name: 'Mike & Allegra Berry' },
+      { id: 2, name: 'Christopher & Rebecca Wray' },
+      { id: 3, name: 'Stephen & Rhandi Zipp' },
+      { id: 4, name: 'Ryan & Haley Baskerville' },
+      { id: 5, name: 'Preston & Maddi Amundson' },
+      { id: 6, name: 'Jaynen & Britt Rissling' },
+      { id: 7, name: 'Kieran & Zoe Armstrong' }
     ];
 
-    // Bundles (7 fantasy bundles)
+    // Bundles (7 balanced fantasy bundles based on 2026 medal projections)
     const BUNDLES = [
       {
         id: 1,
-        name: 'The Specialist',
-        assets: ['norway-xc', 'jordan-stolz']
+        name: 'Nordic Lightning',
+        assets: ['norway-xc', 'sweden-general']
       },
       {
         id: 2,
-        name: 'The North',
-        assets: ['norway-biathlon', 'canada-hockey']
+        name: 'Precision & Power',
+        assets: ['germany-general', 'norway-biathlon']
       },
       {
         id: 3,
-        name: 'The Powerhouse',
-        assets: ['usa-general']
+        name: 'American Dream',
+        assets: ['jordan-stolz', 'chloe-kim', 'usa-general']
       },
       {
         id: 4,
-        name: 'The Precision',
-        assets: ['germany-sliding', 'eileen-gu']
-      },
-      {
-        id: 5,
-        name: 'The Speed',
-        assets: ['netherlands-skating', 'italy-general']
-      },
-      {
-        id: 6,
-        name: 'The Alpine',
+        name: 'Alpine Royalty',
         assets: ['switzerland-general', 'austria-general', 'mikaela-shiffrin']
       },
       {
+        id: 5,
+        name: 'Speed Dynasty',
+        assets: ['netherlands-skating', 'italy-general', 'france-general']
+      },
+      {
+        id: 6,
+        name: 'Eastern Promise',
+        assets: ['eileen-gu', 'japan-general', 'china-general']
+      },
+      {
         id: 7,
-        name: 'The East',
-        assets: ['china-general', 'japan-general', 'connor-mcdavid']
+        name: 'Ice Warriors',
+        assets: ['canada-general', 'finland-general', 'ilia-malinin']
       }
     ];
 
-    // Assets (15 trackable entities)
+    // Assets (18 trackable entities with Olympics.com links)
     const ASSETS = {
-      'norway-xc': { name: 'Norway (XC Skiing Only)', bundleId: 1 },
-      'jordan-stolz': { name: 'Jordan Stolz (USA)', bundleId: 1 },
-      'norway-biathlon': { name: 'Norway (Biathlon Only)', bundleId: 2 },
-      'canada-hockey': { name: 'Canada (Hockey)', bundleId: 2 },
-      'usa-general': { name: 'Team USA (General - Excl. Stolz/Shiffrin)', bundleId: 3 },
-      'germany-sliding': { name: 'Germany (Sliding/Biathlon)', bundleId: 4 },
-      'eileen-gu': { name: 'Eileen Gu (China)', bundleId: 4 },
-      'netherlands-skating': { name: 'Netherlands (Speed Skating)', bundleId: 5 },
-      'italy-general': { name: 'Italy (General)', bundleId: 5 },
-      'switzerland-general': { name: 'Switzerland (General)', bundleId: 6 },
-      'austria-general': { name: 'Austria (General)', bundleId: 6 },
-      'mikaela-shiffrin': { name: 'Mikaela Shiffrin (USA)', bundleId: 6 },
-      'china-general': { name: 'China (General - Excl. Gu)', bundleId: 7 },
-      'japan-general': { name: 'Japan (General)', bundleId: 7 },
-      'connor-mcdavid': { name: 'Connor McDavid (CAN)', bundleId: 7 }
+      // Bundle 1: Nordic Lightning
+      'norway-xc': {
+        name: 'Norway (Cross-Country Skiing)',
+        bundleId: 1,
+        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/nor',
+        scheduleUrl: 'https://olympics.com/en/milano-cortina-2026/schedule/ccs'
+      },
+      'sweden-general': {
+        name: 'Sweden (General)',
+        bundleId: 1,
+        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/swe',
+        scheduleUrl: 'https://olympics.com/en/milano-cortina-2026/schedule'
+      },
+      // Bundle 2: Precision & Power
+      'germany-general': {
+        name: 'Germany (Sliding/Biathlon)',
+        bundleId: 2,
+        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/ger',
+        scheduleUrl: 'https://olympics.com/en/milano-cortina-2026/schedule/bth'
+      },
+      'norway-biathlon': {
+        name: 'Norway (Biathlon)',
+        bundleId: 2,
+        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/nor',
+        scheduleUrl: 'https://olympics.com/en/milano-cortina-2026/schedule/bth'
+      },
+      // Bundle 3: American Dream
+      'jordan-stolz': {
+        name: 'Jordan Stolz (USA)',
+        bundleId: 3,
+        olympicsUrl: 'https://olympics.com/en/athletes/jordan-stolz',
+        scheduleUrl: 'https://olympics.com/en/milano-cortina-2026/schedule/ssk'
+      },
+      'chloe-kim': {
+        name: 'Chloe Kim (USA)',
+        bundleId: 3,
+        olympicsUrl: 'https://olympics.com/en/athletes/chloe-kim',
+        scheduleUrl: 'https://olympics.com/en/milano-cortina-2026/schedule/snb'
+      },
+      'usa-general': {
+        name: 'Team USA (General)',
+        bundleId: 3,
+        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/usa',
+        scheduleUrl: 'https://olympics.com/en/milano-cortina-2026/schedule'
+      },
+      // Bundle 4: Alpine Royalty
+      'switzerland-general': {
+        name: 'Switzerland (General)',
+        bundleId: 4,
+        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/sui',
+        scheduleUrl: 'https://olympics.com/en/milano-cortina-2026/schedule/ask'
+      },
+      'austria-general': {
+        name: 'Austria (General)',
+        bundleId: 4,
+        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/aut',
+        scheduleUrl: 'https://olympics.com/en/milano-cortina-2026/schedule/ask'
+      },
+      'mikaela-shiffrin': {
+        name: 'Mikaela Shiffrin (USA)',
+        bundleId: 4,
+        olympicsUrl: 'https://olympics.com/en/athletes/mikaela-shiffrin',
+        scheduleUrl: 'https://olympics.com/en/milano-cortina-2026/schedule/ask'
+      },
+      // Bundle 5: Speed Dynasty
+      'netherlands-skating': {
+        name: 'Netherlands (Speed Skating)',
+        bundleId: 5,
+        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/ned',
+        scheduleUrl: 'https://olympics.com/en/milano-cortina-2026/schedule/ssk'
+      },
+      'italy-general': {
+        name: 'Italy (Host Nation)',
+        bundleId: 5,
+        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/ita',
+        scheduleUrl: 'https://olympics.com/en/milano-cortina-2026/schedule'
+      },
+      'france-general': {
+        name: 'France (General)',
+        bundleId: 5,
+        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/fra',
+        scheduleUrl: 'https://olympics.com/en/milano-cortina-2026/schedule/bth'
+      },
+      // Bundle 6: Eastern Promise
+      'eileen-gu': {
+        name: 'Eileen Gu (China)',
+        bundleId: 6,
+        olympicsUrl: 'https://olympics.com/en/athletes/eileen-gu',
+        scheduleUrl: 'https://olympics.com/en/milano-cortina-2026/schedule/frs'
+      },
+      'japan-general': {
+        name: 'Japan (General)',
+        bundleId: 6,
+        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/jpn',
+        scheduleUrl: 'https://olympics.com/en/milano-cortina-2026/schedule/fsk'
+      },
+      'china-general': {
+        name: 'China (General)',
+        bundleId: 6,
+        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/chn',
+        scheduleUrl: 'https://olympics.com/en/milano-cortina-2026/schedule/sts'
+      },
+      // Bundle 7: Ice Warriors
+      'canada-general': {
+        name: 'Canada (Hockey + General)',
+        bundleId: 7,
+        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/can',
+        scheduleUrl: 'https://olympics.com/en/milano-cortina-2026/schedule/ihk'
+      },
+      'finland-general': {
+        name: 'Finland (General)',
+        bundleId: 7,
+        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/fin',
+        scheduleUrl: 'https://olympics.com/en/milano-cortina-2026/schedule/ihk'
+      },
+      'ilia-malinin': {
+        name: 'Ilia Malinin (USA)',
+        bundleId: 7,
+        olympicsUrl: 'https://olympics.com/en/athletes/ilia-malinin',
+        scheduleUrl: 'https://olympics.com/en/milano-cortina-2026/schedule/fsk'
+      }
     };
 
     // Scoring
@@ -1295,9 +1408,14 @@
       });
     }
 
-    function getSearchUrl(assetName) {
-      const query = encodeURIComponent(`Milan 2026 Olympics results ${assetName}`);
-      return `https://www.google.com/search?q=${query}`;
+    function getOlympicsUrl(assetId) {
+      const asset = ASSETS[assetId];
+      return asset ? asset.olympicsUrl : '#';
+    }
+
+    function getScheduleUrl(assetId) {
+      const asset = ASSETS[assetId];
+      return asset ? asset.scheduleUrl : '#';
     }
 
     function getBundleById(bundleId) {
@@ -1555,7 +1673,8 @@
         const assetsHtml = bundle.assets.map(assetId => {
           const asset = ASSETS[assetId];
           const medals = getMedalsForAsset(assetId);
-          const searchUrl = getSearchUrl(asset.name);
+          const olympicsUrl = getOlympicsUrl(assetId);
+          const scheduleUrl = getScheduleUrl(assetId);
 
           const medalsHtml = medals.length > 0 ? `
             <div class="asset-medals">
@@ -1572,7 +1691,10 @@
             <div class="roster-asset">
               <div class="asset-header">
                 <span class="asset-name">${asset.name}</span>
-                <a href="${searchUrl}" target="_blank" rel="noopener noreferrer" class="asset-link" title="Search results">↗</a>
+                <div class="asset-links">
+                  <a href="${olympicsUrl}" target="_blank" rel="noopener noreferrer" class="asset-link" title="Olympics.com Profile">🔗</a>
+                  <a href="${scheduleUrl}" target="_blank" rel="noopener noreferrer" class="asset-link" title="Event Schedule">📅</a>
+                </div>
               </div>
               ${medalsHtml}
             </div>
