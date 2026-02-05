@@ -1,0 +1,1836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="description" content="Milan 2026 Olympic Fantasy League - Track medals and compete with friends">
+  <meta name="theme-color" content="#050505">
+  <title>Milan 2026 Fantasy League</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- ============================================ -->
+  <!-- VIEW A: DRAFT SELECTION                      -->
+  <!-- ============================================ -->
+  <section id="draft-view" class="view">
+    <div class="container">
+      <header class="draft-header">
+        <h1 class="logo">MILAN <span class="accent">2026</span></h1>
+        <p class="subtitle">Fantasy League Draft</p>
+      </header>
+
+      <div class="draft-instructions">
+        <p>Assign each team a bundle. Each bundle can only be selected once.</p>
+      </div>
+
+      <div id="draft-list" class="draft-list">
+        <!-- Populated by JS -->
+      </div>
+
+      <button id="lock-draft-btn" class="btn btn-primary btn-large" disabled>
+        <span class="lock-icon">🔒</span> Lock Draft
+      </button>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- VIEW B: DASHBOARD                            -->
+  <!-- ============================================ -->
+  <section id="dashboard-view" class="view hidden">
+    <div class="container">
+      <header class="dashboard-header">
+        <div class="header-top">
+          <h1 class="logo">MILAN <span class="accent">2026</span></h1>
+          <div class="total-medals">
+            <span class="medal-count" id="total-medal-count">0</span>
+            <span class="medal-label">Medals</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Leaderboard Section -->
+      <section class="leaderboard-section">
+        <h2 class="section-title">Leaderboard</h2>
+
+        <!-- Mobile: Card View -->
+        <div id="leaderboard-cards" class="leaderboard-cards">
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- Desktop: Table View -->
+        <div class="table-wrapper">
+          <table id="leaderboard-table" class="leaderboard-table">
+            <thead>
+              <tr>
+                <th class="col-rank">#</th>
+                <th class="col-team">Team</th>
+                <th class="col-bundle">Bundle</th>
+                <th class="col-medal">G</th>
+                <th class="col-medal">S</th>
+                <th class="col-medal">B</th>
+                <th class="col-points">Pts</th>
+              </tr>
+            </thead>
+            <tbody id="leaderboard-tbody">
+              <!-- Populated by JS -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Team Rosters Section -->
+      <section class="rosters-section">
+        <h2 class="section-title">Team Rosters</h2>
+        <div id="roster-grid" class="roster-grid">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+    </div>
+
+    <!-- Footer with Admin Access -->
+    <footer class="app-footer">
+      <button id="admin-key-btn" class="admin-key-btn" aria-label="Admin access">
+        🔑
+      </button>
+    </footer>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- VIEW C: ADMIN CONSOLE (Modal)               -->
+  <!-- ============================================ -->
+  <div id="admin-modal" class="modal hidden" role="dialog" aria-labelledby="admin-title" aria-modal="true">
+    <div class="modal-backdrop" id="modal-backdrop"></div>
+    <div class="modal-content">
+      <header class="modal-header">
+        <h2 id="admin-title" class="modal-title">Admin Console</h2>
+        <button id="close-modal-btn" class="close-btn" aria-label="Close">&times;</button>
+      </header>
+
+      <div class="modal-body">
+        <!-- Add Medal Section -->
+        <section class="admin-section">
+          <h3 class="admin-section-title">Add Medal</h3>
+
+          <div class="form-group">
+            <label for="entity-select">Select Entity</label>
+            <select id="entity-select" class="form-select">
+              <option value="">-- Select athlete/team --</option>
+              <!-- Populated by JS -->
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="event-input">Event Description</label>
+            <input type="text" id="event-input" class="form-input" placeholder="e.g., Men's 1000m Speed Skating">
+          </div>
+
+          <div class="form-group">
+            <label>Medal Type</label>
+            <div class="medal-buttons">
+              <button type="button" class="medal-btn gold" data-medal="gold">🥇 Gold</button>
+              <button type="button" class="medal-btn silver" data-medal="silver">🥈 Silver</button>
+              <button type="button" class="medal-btn bronze" data-medal="bronze">🥉 Bronze</button>
+            </div>
+          </div>
+
+          <button id="add-medal-btn" class="btn btn-primary" disabled>Add Medal</button>
+        </section>
+
+        <!-- Transaction Log Section -->
+        <section class="admin-section">
+          <h3 class="admin-section-title">Recent Transactions</h3>
+          <div id="transaction-log" class="transaction-log">
+            <p class="empty-state">No medals recorded yet</p>
+          </div>
+        </section>
+
+        <!-- Data Management Section -->
+        <section class="admin-section">
+          <h3 class="admin-section-title">Data Management</h3>
+          <div class="data-actions">
+            <button id="export-btn" class="btn btn-secondary">📋 Export JSON</button>
+            <button id="import-btn" class="btn btn-secondary">📥 Import JSON</button>
+          </div>
+          <button id="edit-draft-btn" class="btn btn-warning">✏️ Edit Draft</button>
+          <button id="reset-btn" class="btn btn-danger">🗑️ Reset League</button>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast hidden" role="alert" aria-live="polite"></div>
+
+  <!-- ============================================ -->
+  <!-- STYLES                                       -->
+  <!-- ============================================ -->
+  <style>
+    /* ========================================
+       1. CSS VARIABLES (Design Tokens)
+       ======================================== */
+    :root {
+      /* Colors */
+      --bg-depth: #050505;
+      --bg-surface: #0F1115;
+      --glass-border: 1px solid rgba(255, 255, 255, 0.08);
+      --glass-bg: rgba(20, 20, 25, 0.6);
+      --accent-primary: #3BF6FF;
+      --accent-primary-dim: rgba(59, 246, 255, 0.15);
+      --text-primary: #FFFFFF;
+      --text-secondary: #CCCCCC;
+      --text-muted: #999999;
+
+      /* Medal Colors */
+      --gold-start: #FFD700;
+      --gold-end: #FDB931;
+      --silver-start: #E0E0E0;
+      --silver-end: #B0B0B0;
+      --bronze-start: #CD7F32;
+      --bronze-end: #8B4513;
+
+      /* Semantic Colors */
+      --success: #4CAF50;
+      --warning: #FF9800;
+      --danger: #FF4444;
+
+      /* Typography */
+      --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --header-tracking: -0.02em;
+
+      /* Spacing */
+      --space-xs: 4px;
+      --space-sm: 8px;
+      --space-md: 16px;
+      --space-lg: 24px;
+      --space-xl: 32px;
+      --space-2xl: 48px;
+
+      /* Border Radius */
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+
+      /* Transitions */
+      --transition-fast: 150ms ease;
+      --transition-normal: 250ms ease;
+    }
+
+    /* ========================================
+       2. RESET & BASE
+       ======================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: 16px;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      font-family: var(--font-family);
+      background-color: var(--bg-depth);
+      color: var(--text-primary);
+      line-height: 1.5;
+      min-height: 100vh;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ========================================
+       3. TYPOGRAPHY
+       ======================================== */
+    h1, h2, h3, h4, h5, h6 {
+      letter-spacing: var(--header-tracking);
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    .logo {
+      font-size: 1.75rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+
+    .logo .accent {
+      color: var(--accent-primary);
+    }
+
+    .section-title {
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: var(--space-md);
+    }
+
+    /* Tabular numbers for scores */
+    .numeric, .medal-count, .points, .rank-number {
+      font-feature-settings: "tnum";
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Medal gradient text */
+    .medal-gold {
+      background: linear-gradient(135deg, var(--gold-start), var(--gold-end));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .medal-silver {
+      background: linear-gradient(135deg, var(--silver-start), var(--silver-end));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .medal-bronze {
+      background: linear-gradient(135deg, var(--bronze-start), var(--bronze-end));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ========================================
+       4. LAYOUT
+       ======================================== */
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: var(--space-md);
+    }
+
+    .view {
+      min-height: 100vh;
+      padding-bottom: 80px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* ========================================
+       5. COMPONENTS - Glass Cards
+       ======================================== */
+    .glass-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+    }
+
+    /* ========================================
+       6. COMPONENTS - Buttons
+       ======================================== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      padding: var(--space-sm) var(--space-md);
+      font-family: inherit;
+      font-size: 0.9375rem;
+      font-weight: 500;
+      border: none;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      min-height: 44px;
+      touch-action: manipulation;
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .btn-primary {
+      background: var(--accent-primary);
+      color: #000;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background: #5FFAFF;
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      border: var(--glass-border);
+    }
+
+    .btn-secondary:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .btn-warning {
+      background: var(--warning);
+      color: #000;
+    }
+
+    .btn-warning:hover:not(:disabled) {
+      background: #FFB033;
+    }
+
+    .btn-danger {
+      background: var(--danger);
+      color: white;
+    }
+
+    .btn-danger:hover:not(:disabled) {
+      background: #FF6666;
+    }
+
+    .btn-large {
+      width: 100%;
+      padding: var(--space-md) var(--space-lg);
+      font-size: 1rem;
+      min-height: 52px;
+    }
+
+    /* ========================================
+       7. COMPONENTS - Forms
+       ======================================== */
+    .form-group {
+      margin-bottom: var(--space-md);
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      margin-bottom: var(--space-xs);
+    }
+
+    .form-select, .form-input {
+      width: 100%;
+      padding: var(--space-sm) var(--space-md);
+      font-family: inherit;
+      font-size: 1rem;
+      color: var(--text-primary);
+      background: var(--bg-surface);
+      border: var(--glass-border);
+      border-radius: var(--radius-md);
+      min-height: 48px;
+      transition: border-color var(--transition-fast);
+    }
+
+    .form-select:focus, .form-input:focus {
+      outline: none;
+      border-color: var(--accent-primary);
+    }
+
+    .form-select option {
+      background: var(--bg-surface);
+      color: var(--text-primary);
+    }
+
+    .form-select option:disabled {
+      color: var(--text-muted);
+    }
+
+    /* ========================================
+       8. VIEW A - DRAFT
+       ======================================== */
+    .draft-header {
+      text-align: center;
+      padding: var(--space-xl) 0;
+    }
+
+    .draft-header .subtitle {
+      color: var(--text-muted);
+      margin-top: var(--space-xs);
+    }
+
+    .draft-instructions {
+      text-align: center;
+      color: var(--text-secondary);
+      margin-bottom: var(--space-lg);
+      font-size: 0.9375rem;
+    }
+
+    .draft-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+      margin-bottom: var(--space-xl);
+    }
+
+    .draft-item {
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-md);
+    }
+
+    .draft-item-name {
+      font-weight: 600;
+      margin-bottom: var(--space-sm);
+    }
+
+    .draft-item .form-select {
+      margin: 0;
+    }
+
+    #lock-draft-btn {
+      margin-top: var(--space-md);
+    }
+
+    /* ========================================
+       9. VIEW B - DASHBOARD
+       ======================================== */
+    .dashboard-header {
+      padding: var(--space-lg) 0;
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .total-medals {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+
+    .total-medals .medal-count {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent-primary);
+      line-height: 1;
+    }
+
+    .total-medals .medal-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Leaderboard Section */
+    .leaderboard-section {
+      margin-bottom: var(--space-xl);
+    }
+
+    /* Mobile: Card View */
+    .leaderboard-cards {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .leaderboard-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-md);
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+    }
+
+    .leaderboard-card.rank-1 {
+      border-color: rgba(255, 215, 0, 0.3);
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), var(--glass-bg));
+    }
+
+    .leaderboard-card.rank-2 {
+      border-color: rgba(192, 192, 192, 0.3);
+    }
+
+    .leaderboard-card.rank-3 {
+      border-color: rgba(205, 127, 50, 0.3);
+    }
+
+    .rank-badge {
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-md);
+      background: var(--bg-surface);
+      flex-shrink: 0;
+    }
+
+    .rank-number {
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    .rank-1 .rank-number { color: var(--gold-start); }
+    .rank-2 .rank-number { color: var(--silver-start); }
+    .rank-3 .rank-number { color: var(--bronze-start); }
+
+    .card-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .card-team-name {
+      font-weight: 600;
+      font-size: 1rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .card-bundle-name {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+    }
+
+    .card-stats {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      flex-shrink: 0;
+    }
+
+    .card-medals {
+      display: flex;
+      gap: var(--space-xs);
+      font-size: 0.8125rem;
+    }
+
+    .card-medals span {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .card-points {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--accent-primary);
+      min-width: 40px;
+      text-align: right;
+    }
+
+    /* Desktop: Table View */
+    .table-wrapper {
+      display: none;
+      overflow-x: auto;
+    }
+
+    .leaderboard-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9375rem;
+    }
+
+    .leaderboard-table th,
+    .leaderboard-table td {
+      padding: var(--space-sm) var(--space-md);
+      text-align: left;
+      border-bottom: var(--glass-border);
+    }
+
+    .leaderboard-table th {
+      font-weight: 600;
+      color: var(--text-muted);
+      font-size: 0.8125rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .leaderboard-table .col-rank { width: 50px; text-align: center; }
+    .leaderboard-table .col-medal { width: 50px; text-align: center; }
+    .leaderboard-table .col-points { width: 70px; text-align: right; font-weight: 600; }
+
+    .leaderboard-table tbody tr:hover {
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .leaderboard-table .rank-cell {
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .leaderboard-table .points-cell {
+      color: var(--accent-primary);
+      font-weight: 700;
+      text-align: right;
+    }
+
+    .leaderboard-table tr.row-rank-1 .rank-cell { color: var(--gold-start); }
+    .leaderboard-table tr.row-rank-2 .rank-cell { color: var(--silver-start); }
+    .leaderboard-table tr.row-rank-3 .rank-cell { color: var(--bronze-start); }
+
+    /* Roster Section */
+    .rosters-section {
+      padding-bottom: var(--space-xl);
+    }
+
+    .roster-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-md);
+    }
+
+    .roster-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: var(--glass-border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    .roster-card-header {
+      padding: var(--space-md);
+      border-bottom: var(--glass-border);
+    }
+
+    .roster-team-name {
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    .roster-bundle-name {
+      font-size: 0.8125rem;
+      color: var(--accent-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .roster-card-body {
+      padding: var(--space-md);
+    }
+
+    .roster-asset {
+      padding: var(--space-sm) 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .roster-asset:last-child {
+      border-bottom: none;
+    }
+
+    .asset-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+    }
+
+    .asset-name {
+      font-size: 0.9375rem;
+      color: var(--text-secondary);
+    }
+
+    .asset-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      padding: var(--space-xs);
+      transition: color var(--transition-fast);
+    }
+
+    .asset-link:hover {
+      color: var(--accent-primary);
+    }
+
+    .asset-medals {
+      margin-top: var(--space-xs);
+      padding-left: var(--space-md);
+    }
+
+    .asset-medal-item {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      padding: 2px 0;
+    }
+
+    .asset-medal-item .medal-emoji {
+      margin-right: var(--space-xs);
+    }
+
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      color: var(--text-muted);
+      padding: var(--space-lg);
+      font-style: italic;
+    }
+
+    /* Footer */
+    .app-footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: var(--space-md);
+      display: flex;
+      justify-content: flex-end;
+      pointer-events: none;
+    }
+
+    .admin-key-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--bg-surface);
+      border: var(--glass-border);
+      cursor: pointer;
+      font-size: 1.125rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all var(--transition-fast);
+      pointer-events: all;
+      opacity: 0.6;
+    }
+
+    .admin-key-btn:hover {
+      opacity: 1;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* ========================================
+       10. VIEW C - ADMIN MODAL
+       ======================================== */
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(4px);
+    }
+
+    .modal-content {
+      position: relative;
+      width: 100%;
+      max-width: 500px;
+      max-height: 90vh;
+      background: var(--bg-surface);
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      animation: slideUp 0.3s ease;
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--space-md) var(--space-lg);
+      border-bottom: var(--glass-border);
+      flex-shrink: 0;
+    }
+
+    .modal-title {
+      font-size: 1.125rem;
+      font-weight: 600;
+    }
+
+    .close-btn {
+      width: 36px;
+      height: 36px;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 1.5rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-sm);
+      transition: all var(--transition-fast);
+    }
+
+    .close-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text-primary);
+    }
+
+    .modal-body {
+      padding: var(--space-lg);
+      overflow-y: auto;
+      flex: 1;
+    }
+
+    .admin-section {
+      margin-bottom: var(--space-xl);
+    }
+
+    .admin-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .admin-section-title {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: var(--space-md);
+    }
+
+    /* Medal Buttons */
+    .medal-buttons {
+      display: flex;
+      gap: var(--space-sm);
+    }
+
+    .medal-btn {
+      flex: 1;
+      padding: var(--space-sm) var(--space-md);
+      font-family: inherit;
+      font-size: 0.875rem;
+      font-weight: 500;
+      border: 2px solid transparent;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      background: var(--bg-depth);
+      color: var(--text-secondary);
+      min-height: 44px;
+    }
+
+    .medal-btn:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .medal-btn.selected {
+      border-color: currentColor;
+    }
+
+    .medal-btn.gold.selected {
+      color: var(--gold-start);
+      background: rgba(255, 215, 0, 0.1);
+    }
+
+    .medal-btn.silver.selected {
+      color: var(--silver-start);
+      background: rgba(192, 192, 192, 0.1);
+    }
+
+    .medal-btn.bronze.selected {
+      color: var(--bronze-start);
+      background: rgba(205, 127, 50, 0.1);
+    }
+
+    /* Transaction Log */
+    .transaction-log {
+      max-height: 200px;
+      overflow-y: auto;
+      background: var(--bg-depth);
+      border-radius: var(--radius-md);
+      padding: var(--space-sm);
+    }
+
+    .transaction-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-sm);
+      border-radius: var(--radius-sm);
+      transition: background var(--transition-fast);
+    }
+
+    .transaction-item:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .transaction-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .transaction-main {
+      font-size: 0.875rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .transaction-time {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .transaction-delete {
+      width: 28px;
+      height: 28px;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all var(--transition-fast);
+      flex-shrink: 0;
+    }
+
+    .transaction-delete:hover {
+      background: rgba(255, 68, 68, 0.2);
+      color: var(--danger);
+    }
+
+    /* Data Actions */
+    .data-actions {
+      display: flex;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-md);
+    }
+
+    .data-actions .btn {
+      flex: 1;
+    }
+
+    #edit-draft-btn {
+      width: 100%;
+      margin-bottom: var(--space-sm);
+    }
+
+    #reset-btn {
+      width: 100%;
+    }
+
+    /* ========================================
+       11. TOAST NOTIFICATIONS
+       ======================================== */
+    .toast {
+      position: fixed;
+      bottom: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--bg-surface);
+      border: var(--glass-border);
+      border-radius: var(--radius-md);
+      padding: var(--space-sm) var(--space-lg);
+      font-size: 0.875rem;
+      color: var(--text-primary);
+      z-index: 1100;
+      animation: toastIn 0.3s ease;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .toast.toast-success {
+      border-color: var(--success);
+    }
+
+    .toast.toast-error {
+      border-color: var(--danger);
+    }
+
+    @keyframes toastIn {
+      from {
+        transform: translateX(-50%) translateY(20px);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(-50%) translateY(0);
+        opacity: 1;
+      }
+    }
+
+    /* ========================================
+       12. RESPONSIVE - TABLET+
+       ======================================== */
+    @media (min-width: 768px) {
+      .container {
+        padding: var(--space-lg);
+      }
+
+      .logo {
+        font-size: 2rem;
+      }
+
+      /* Hide mobile cards, show table */
+      .leaderboard-cards {
+        display: none;
+      }
+
+      .table-wrapper {
+        display: block;
+      }
+
+      /* Roster grid: 2 columns */
+      .roster-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      /* Modal centered */
+      .modal {
+        align-items: center;
+      }
+
+      .modal-content {
+        border-radius: var(--radius-lg);
+        max-height: 80vh;
+      }
+    }
+
+    /* ========================================
+       13. RESPONSIVE - DESKTOP
+       ======================================== */
+    @media (min-width: 1024px) {
+      /* Roster grid: 3 columns */
+      .roster-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .draft-list {
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      #lock-draft-btn {
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+  </style>
+
+  <!-- ============================================ -->
+  <!-- JAVASCRIPT                                   -->
+  <!-- ============================================ -->
+  <script>
+    /* ========================================
+       1. CONSTANTS
+       ======================================== */
+
+    // Participants (7 couples/teams)
+    const PARTICIPANTS = [
+      { id: 1, name: 'Mike & Allegra' },
+      { id: 2, name: 'Matt & Jess' },
+      { id: 3, name: 'Scott & Liz' },
+      { id: 4, name: 'Jake & Lauren' },
+      { id: 5, name: 'Chris & Cait' },
+      { id: 6, name: 'Drew & Christie' },
+      { id: 7, name: 'Pete & Suzy' }
+    ];
+
+    // Bundles (7 fantasy bundles)
+    const BUNDLES = [
+      {
+        id: 1,
+        name: 'The Specialist',
+        assets: ['norway-xc', 'jordan-stolz']
+      },
+      {
+        id: 2,
+        name: 'The North',
+        assets: ['norway-biathlon', 'canada-hockey']
+      },
+      {
+        id: 3,
+        name: 'The Powerhouse',
+        assets: ['usa-general']
+      },
+      {
+        id: 4,
+        name: 'The Precision',
+        assets: ['germany-sliding', 'eileen-gu']
+      },
+      {
+        id: 5,
+        name: 'The Speed',
+        assets: ['netherlands-skating', 'italy-general']
+      },
+      {
+        id: 6,
+        name: 'The Alpine',
+        assets: ['switzerland-general', 'austria-general', 'mikaela-shiffrin']
+      },
+      {
+        id: 7,
+        name: 'The East',
+        assets: ['china-general', 'japan-general', 'connor-mcdavid']
+      }
+    ];
+
+    // Assets (15 trackable entities)
+    const ASSETS = {
+      'norway-xc': { name: 'Norway (XC Skiing Only)', bundleId: 1 },
+      'jordan-stolz': { name: 'Jordan Stolz (USA)', bundleId: 1 },
+      'norway-biathlon': { name: 'Norway (Biathlon Only)', bundleId: 2 },
+      'canada-hockey': { name: 'Canada (Hockey)', bundleId: 2 },
+      'usa-general': { name: 'Team USA (General - Excl. Stolz/Shiffrin)', bundleId: 3 },
+      'germany-sliding': { name: 'Germany (Sliding/Biathlon)', bundleId: 4 },
+      'eileen-gu': { name: 'Eileen Gu (China)', bundleId: 4 },
+      'netherlands-skating': { name: 'Netherlands (Speed Skating)', bundleId: 5 },
+      'italy-general': { name: 'Italy (General)', bundleId: 5 },
+      'switzerland-general': { name: 'Switzerland (General)', bundleId: 6 },
+      'austria-general': { name: 'Austria (General)', bundleId: 6 },
+      'mikaela-shiffrin': { name: 'Mikaela Shiffrin (USA)', bundleId: 6 },
+      'china-general': { name: 'China (General - Excl. Gu)', bundleId: 7 },
+      'japan-general': { name: 'Japan (General)', bundleId: 7 },
+      'connor-mcdavid': { name: 'Connor McDavid (CAN)', bundleId: 7 }
+    };
+
+    // Scoring
+    const MEDAL_POINTS = { gold: 3, silver: 2, bronze: 1 };
+    const MEDAL_EMOJI = { gold: '🥇', silver: '🥈', bronze: '🥉' };
+
+    // Storage key
+    const STORAGE_KEY = 'milan2026_state';
+
+    // Admin passcode
+    const ADMIN_PASSCODE = 'gold';
+
+    /* ========================================
+       2. STATE MANAGEMENT
+       ======================================== */
+
+    let appState = {
+      config: {},      // participantId -> bundleId
+      medalsLog: []    // array of medal entries
+    };
+
+    // Admin UI state (not persisted)
+    let selectedMedalType = null;
+
+    function loadState() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          appState = JSON.parse(saved);
+          // Ensure arrays exist
+          if (!appState.medalsLog) appState.medalsLog = [];
+          if (!appState.config) appState.config = {};
+        }
+      } catch (e) {
+        console.error('Failed to load state:', e);
+        appState = { config: {}, medalsLog: [] };
+      }
+    }
+
+    function saveState() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
+      } catch (e) {
+        console.error('Failed to save state:', e);
+      }
+    }
+
+    function updateState(newState) {
+      appState = { ...appState, ...newState };
+      saveState();
+      render();
+    }
+
+    /* ========================================
+       3. UTILITY FUNCTIONS
+       ======================================== */
+
+    function generateId() {
+      return Date.now().toString(36) + Math.random().toString(36).substr(2, 9);
+    }
+
+    function formatTimestamp(timestamp) {
+      const date = new Date(timestamp);
+      return date.toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit'
+      });
+    }
+
+    function getSearchUrl(assetName) {
+      const query = encodeURIComponent(`Milan 2026 Olympics results ${assetName}`);
+      return `https://www.google.com/search?q=${query}`;
+    }
+
+    function getBundleById(bundleId) {
+      return BUNDLES.find(b => b.id === bundleId);
+    }
+
+    function getParticipantById(participantId) {
+      return PARTICIPANTS.find(p => p.id === participantId);
+    }
+
+    function getParticipantByBundleId(bundleId) {
+      for (const [pId, bId] of Object.entries(appState.config)) {
+        if (bId === bundleId) {
+          return getParticipantById(parseInt(pId));
+        }
+      }
+      return null;
+    }
+
+    function isDraftComplete() {
+      return Object.keys(appState.config).length === PARTICIPANTS.length;
+    }
+
+    /* ========================================
+       4. SCORING CALCULATIONS
+       ======================================== */
+
+    function calculateScores() {
+      // Initialize scores for each participant
+      const scores = {};
+      PARTICIPANTS.forEach(p => {
+        scores[p.id] = { gold: 0, silver: 0, bronze: 0, total: 0 };
+      });
+
+      // Process medals log
+      appState.medalsLog.forEach(entry => {
+        const asset = ASSETS[entry.entityId];
+        if (!asset) return;
+
+        const bundleId = asset.bundleId;
+        const participant = getParticipantByBundleId(bundleId);
+        if (!participant) return;
+
+        scores[participant.id][entry.medal]++;
+        scores[participant.id].total += MEDAL_POINTS[entry.medal];
+      });
+
+      return scores;
+    }
+
+    function getLeaderboard() {
+      const scores = calculateScores();
+
+      const leaderboard = PARTICIPANTS.map(p => {
+        const bundleId = appState.config[p.id];
+        const bundle = getBundleById(bundleId);
+        return {
+          participant: p,
+          bundle: bundle,
+          scores: scores[p.id]
+        };
+      });
+
+      // Sort by total points DESC, then gold count DESC
+      leaderboard.sort((a, b) => {
+        if (b.scores.total !== a.scores.total) {
+          return b.scores.total - a.scores.total;
+        }
+        return b.scores.gold - a.scores.gold;
+      });
+
+      return leaderboard;
+    }
+
+    function getTotalMedals() {
+      return appState.medalsLog.length;
+    }
+
+    function getMedalsForAsset(entityId) {
+      return appState.medalsLog.filter(m => m.entityId === entityId);
+    }
+
+    /* ========================================
+       5. RENDER FUNCTIONS
+       ======================================== */
+
+    function render() {
+      if (!isDraftComplete()) {
+        showDraftView();
+      } else {
+        showDashboardView();
+      }
+    }
+
+    function showDraftView() {
+      document.getElementById('draft-view').classList.remove('hidden');
+      document.getElementById('dashboard-view').classList.add('hidden');
+      renderDraftList();
+    }
+
+    function showDashboardView() {
+      document.getElementById('draft-view').classList.add('hidden');
+      document.getElementById('dashboard-view').classList.remove('hidden');
+      renderDashboard();
+    }
+
+    function renderDraftList() {
+      const container = document.getElementById('draft-list');
+      const selectedBundles = new Set(Object.values(appState.config));
+
+      container.innerHTML = PARTICIPANTS.map(p => {
+        const currentSelection = appState.config[p.id] || '';
+
+        const options = BUNDLES.map(b => {
+          const isSelected = currentSelection === b.id;
+          const isDisabled = !isSelected && selectedBundles.has(b.id);
+          return `<option value="${b.id}" ${isSelected ? 'selected' : ''} ${isDisabled ? 'disabled' : ''}>
+            ${b.name}
+          </option>`;
+        }).join('');
+
+        return `
+          <div class="draft-item">
+            <div class="draft-item-name">${p.name}</div>
+            <select class="form-select draft-select" data-participant-id="${p.id}">
+              <option value="">-- Select bundle --</option>
+              ${options}
+            </select>
+          </div>
+        `;
+      }).join('');
+
+      // Add event listeners
+      container.querySelectorAll('.draft-select').forEach(select => {
+        select.addEventListener('change', handleDraftSelection);
+      });
+
+      updateLockButton();
+    }
+
+    function handleDraftSelection(e) {
+      const participantId = parseInt(e.target.dataset.participantId);
+      const bundleId = e.target.value ? parseInt(e.target.value) : null;
+
+      if (bundleId) {
+        appState.config[participantId] = bundleId;
+      } else {
+        delete appState.config[participantId];
+      }
+
+      saveState();
+      renderDraftList();
+    }
+
+    function updateLockButton() {
+      const btn = document.getElementById('lock-draft-btn');
+      const allSelected = Object.keys(appState.config).length === PARTICIPANTS.length;
+      btn.disabled = !allSelected;
+    }
+
+    function renderDashboard() {
+      renderTotalMedals();
+      renderLeaderboard();
+      renderRosterGrid();
+    }
+
+    function renderTotalMedals() {
+      document.getElementById('total-medal-count').textContent = getTotalMedals();
+    }
+
+    function renderLeaderboard() {
+      const leaderboard = getLeaderboard();
+
+      // Mobile cards
+      const cardsContainer = document.getElementById('leaderboard-cards');
+      cardsContainer.innerHTML = leaderboard.map((entry, index) => {
+        const rank = index + 1;
+        const { participant, bundle, scores } = entry;
+        const bundleName = bundle ? bundle.name : 'Not drafted';
+
+        return `
+          <div class="leaderboard-card rank-${rank <= 3 ? rank : 'other'}">
+            <div class="rank-badge">
+              <span class="rank-number">${rank}</span>
+            </div>
+            <div class="card-info">
+              <div class="card-team-name">${participant.name}</div>
+              <div class="card-bundle-name">${bundleName}</div>
+            </div>
+            <div class="card-stats">
+              <div class="card-medals">
+                <span class="medal-gold">${scores.gold}</span>
+                <span class="medal-silver">${scores.silver}</span>
+                <span class="medal-bronze">${scores.bronze}</span>
+              </div>
+              <div class="card-points numeric">${scores.total}</div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      // Desktop table
+      const tbody = document.getElementById('leaderboard-tbody');
+      tbody.innerHTML = leaderboard.map((entry, index) => {
+        const rank = index + 1;
+        const { participant, bundle, scores } = entry;
+        const bundleName = bundle ? bundle.name : 'Not drafted';
+
+        return `
+          <tr class="row-rank-${rank <= 3 ? rank : 'other'}">
+            <td class="rank-cell numeric">${rank}</td>
+            <td>${participant.name}</td>
+            <td>${bundleName}</td>
+            <td class="numeric" style="text-align:center"><span class="medal-gold">${scores.gold}</span></td>
+            <td class="numeric" style="text-align:center"><span class="medal-silver">${scores.silver}</span></td>
+            <td class="numeric" style="text-align:center"><span class="medal-bronze">${scores.bronze}</span></td>
+            <td class="points-cell numeric">${scores.total}</td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function renderRosterGrid() {
+      const container = document.getElementById('roster-grid');
+
+      container.innerHTML = PARTICIPANTS.map(p => {
+        const bundleId = appState.config[p.id];
+        const bundle = getBundleById(bundleId);
+
+        if (!bundle) {
+          return `
+            <div class="roster-card">
+              <div class="roster-card-header">
+                <div class="roster-team-name">${p.name}</div>
+                <div class="roster-bundle-name">Not drafted</div>
+              </div>
+              <div class="roster-card-body">
+                <p class="empty-state">No bundle assigned</p>
+              </div>
+            </div>
+          `;
+        }
+
+        const assetsHtml = bundle.assets.map(assetId => {
+          const asset = ASSETS[assetId];
+          const medals = getMedalsForAsset(assetId);
+          const searchUrl = getSearchUrl(asset.name);
+
+          const medalsHtml = medals.length > 0 ? `
+            <div class="asset-medals">
+              ${medals.map(m => `
+                <div class="asset-medal-item">
+                  <span class="medal-emoji">${MEDAL_EMOJI[m.medal]}</span>
+                  <span>${m.eventDescription}</span>
+                </div>
+              `).join('')}
+            </div>
+          ` : '';
+
+          return `
+            <div class="roster-asset">
+              <div class="asset-header">
+                <span class="asset-name">${asset.name}</span>
+                <a href="${searchUrl}" target="_blank" rel="noopener noreferrer" class="asset-link" title="Search results">↗</a>
+              </div>
+              ${medalsHtml}
+            </div>
+          `;
+        }).join('');
+
+        return `
+          <div class="roster-card">
+            <div class="roster-card-header">
+              <div class="roster-team-name">${p.name}</div>
+              <div class="roster-bundle-name">${bundle.name}</div>
+            </div>
+            <div class="roster-card-body">
+              ${assetsHtml}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    /* ========================================
+       6. ADMIN CONSOLE
+       ======================================== */
+
+    function openAdminModal() {
+      const passcode = prompt('Enter admin passcode:');
+      if (passcode !== ADMIN_PASSCODE) {
+        if (passcode !== null) {
+          showToast('Access denied', 'error');
+        }
+        return;
+      }
+
+      document.getElementById('admin-modal').classList.remove('hidden');
+      renderAdminPanel();
+    }
+
+    function closeAdminModal() {
+      document.getElementById('admin-modal').classList.add('hidden');
+      resetAdminForm();
+    }
+
+    function renderAdminPanel() {
+      renderEntitySelect();
+      renderTransactionLog();
+      resetAdminForm();
+    }
+
+    function renderEntitySelect() {
+      const select = document.getElementById('entity-select');
+
+      // Sort assets alphabetically
+      const sortedAssets = Object.entries(ASSETS)
+        .sort((a, b) => a[1].name.localeCompare(b[1].name));
+
+      select.innerHTML = `
+        <option value="">-- Select athlete/team --</option>
+        ${sortedAssets.map(([id, asset]) => `
+          <option value="${id}">${asset.name}</option>
+        `).join('')}
+      `;
+    }
+
+    function renderTransactionLog() {
+      const container = document.getElementById('transaction-log');
+
+      if (appState.medalsLog.length === 0) {
+        container.innerHTML = '<p class="empty-state">No medals recorded yet</p>';
+        return;
+      }
+
+      // Show last 10, most recent first
+      const recentMedals = [...appState.medalsLog].reverse().slice(0, 10);
+
+      container.innerHTML = recentMedals.map(entry => {
+        const asset = ASSETS[entry.entityId];
+        const assetName = asset ? asset.name : 'Unknown';
+
+        return `
+          <div class="transaction-item">
+            <div class="transaction-info">
+              <div class="transaction-main">
+                ${MEDAL_EMOJI[entry.medal]} ${assetName} - ${entry.eventDescription}
+              </div>
+              <div class="transaction-time">${formatTimestamp(entry.timestamp)}</div>
+            </div>
+            <button class="transaction-delete" data-medal-id="${entry.id}" title="Remove medal">&times;</button>
+          </div>
+        `;
+      }).join('');
+
+      // Add delete listeners
+      container.querySelectorAll('.transaction-delete').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const medalId = btn.dataset.medalId;
+          removeMedal(medalId);
+        });
+      });
+    }
+
+    function resetAdminForm() {
+      document.getElementById('entity-select').value = '';
+      document.getElementById('event-input').value = '';
+      selectedMedalType = null;
+
+      document.querySelectorAll('.medal-btn').forEach(btn => {
+        btn.classList.remove('selected');
+      });
+
+      updateAddMedalButton();
+    }
+
+    function updateAddMedalButton() {
+      const entityId = document.getElementById('entity-select').value;
+      const eventDesc = document.getElementById('event-input').value.trim();
+      const btn = document.getElementById('add-medal-btn');
+
+      btn.disabled = !entityId || !eventDesc || !selectedMedalType;
+    }
+
+    function addMedal() {
+      const entityId = document.getElementById('entity-select').value;
+      const eventDesc = document.getElementById('event-input').value.trim();
+
+      if (!entityId || !eventDesc || !selectedMedalType) return;
+
+      const asset = ASSETS[entityId];
+
+      // Confirmation
+      const confirmMsg = `Add ${selectedMedalType.toUpperCase()} medal to ${asset.name} for "${eventDesc}"?`;
+      if (!confirm(confirmMsg)) return;
+
+      const newMedal = {
+        id: generateId(),
+        entityId: entityId,
+        eventDescription: eventDesc,
+        medal: selectedMedalType,
+        timestamp: Date.now()
+      };
+
+      appState.medalsLog.push(newMedal);
+      saveState();
+
+      showToast(`${MEDAL_EMOJI[selectedMedalType]} Medal added!`, 'success');
+      resetAdminForm();
+      renderTransactionLog();
+      renderDashboard();
+    }
+
+    function removeMedal(medalId) {
+      if (!confirm('Remove this medal?')) return;
+
+      appState.medalsLog = appState.medalsLog.filter(m => m.id !== medalId);
+      saveState();
+
+      showToast('Medal removed', 'success');
+      renderTransactionLog();
+      renderDashboard();
+    }
+
+    function exportData() {
+      const json = JSON.stringify(appState, null, 2);
+      navigator.clipboard.writeText(json).then(() => {
+        showToast('Data copied to clipboard!', 'success');
+      }).catch(() => {
+        // Fallback for older browsers
+        const textarea = document.createElement('textarea');
+        textarea.value = json;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        showToast('Data copied to clipboard!', 'success');
+      });
+    }
+
+    function importData() {
+      const json = prompt('Paste JSON data:');
+      if (!json) return;
+
+      try {
+        const data = JSON.parse(json);
+        if (!data.config || !data.medalsLog) {
+          throw new Error('Invalid data structure');
+        }
+        appState = data;
+        saveState();
+        showToast('Data imported successfully!', 'success');
+        closeAdminModal();
+        render();
+      } catch (e) {
+        showToast('Invalid JSON data', 'error');
+      }
+    }
+
+    function editDraft() {
+      if (!confirm('This will allow you to change the draft. Continue?')) return;
+      closeAdminModal();
+      showDraftView();
+    }
+
+    function resetLeague() {
+      if (!confirm('⚠️ This will DELETE ALL DATA including draft and medals. Are you sure?')) return;
+      if (!confirm('This cannot be undone. Type "RESET" to confirm.') || prompt('Type RESET to confirm:') !== 'RESET') {
+        showToast('Reset cancelled', 'error');
+        return;
+      }
+
+      localStorage.removeItem(STORAGE_KEY);
+      appState = { config: {}, medalsLog: [] };
+      showToast('League reset', 'success');
+      closeAdminModal();
+      render();
+    }
+
+    /* ========================================
+       7. TOAST NOTIFICATIONS
+       ======================================== */
+
+    function showToast(message, type = 'success') {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.className = `toast toast-${type}`;
+      toast.classList.remove('hidden');
+
+      setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 3000);
+    }
+
+    /* ========================================
+       8. EVENT LISTENERS
+       ======================================== */
+
+    function initEventListeners() {
+      // Lock Draft button
+      document.getElementById('lock-draft-btn').addEventListener('click', () => {
+        if (!confirm('Lock the draft? You can edit it later in the admin console.')) return;
+        showToast('Draft locked!', 'success');
+        render();
+      });
+
+      // Admin key button
+      document.getElementById('admin-key-btn').addEventListener('click', openAdminModal);
+
+      // Close modal
+      document.getElementById('close-modal-btn').addEventListener('click', closeAdminModal);
+      document.getElementById('modal-backdrop').addEventListener('click', closeAdminModal);
+
+      // Medal type buttons
+      document.querySelectorAll('.medal-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.medal-btn').forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          selectedMedalType = btn.dataset.medal;
+          updateAddMedalButton();
+        });
+      });
+
+      // Add Medal form
+      document.getElementById('entity-select').addEventListener('change', updateAddMedalButton);
+      document.getElementById('event-input').addEventListener('input', updateAddMedalButton);
+      document.getElementById('add-medal-btn').addEventListener('click', addMedal);
+
+      // Data management buttons
+      document.getElementById('export-btn').addEventListener('click', exportData);
+      document.getElementById('import-btn').addEventListener('click', importData);
+      document.getElementById('edit-draft-btn').addEventListener('click', editDraft);
+      document.getElementById('reset-btn').addEventListener('click', resetLeague);
+
+      // Keyboard: Escape to close modal
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          closeAdminModal();
+        }
+      });
+    }
+
+    /* ========================================
+       9. INITIALIZATION
+       ======================================== */
+
+    function init() {
+      loadState();
+      initEventListeners();
+      render();
+    }
+
+    // Start the app
+    document.addEventListener('DOMContentLoaded', init);
+  </script>
+
+</body>
+</html>
