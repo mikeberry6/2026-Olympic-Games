@@ -11,6 +11,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+  <!-- Snowfall Animation Container -->
+  <div class="snowfall" id="snowfall"></div>
 
   <!-- ============================================ -->
   <!-- VIEW A: DRAFT SELECTION                      -->
@@ -18,8 +20,10 @@
   <section id="draft-view" class="view">
     <div class="container">
       <header class="draft-header">
-        <h1 class="logo">MILAN <span class="accent">2026</span></h1>
-        <p class="subtitle">Fantasy League Draft</p>
+        <div class="olympic-rings">●●●●●</div>
+        <h1 class="logo"><span class="city">Milano Cortina</span><span class="year">2026</span></h1>
+        <p class="subtitle">⛷️ Fantasy League Draft 🏂</p>
+        <p class="tagline">Build Your Championship Team</p>
       </header>
 
       <div class="draft-instructions">
@@ -43,17 +47,21 @@
     <div class="container">
       <header class="dashboard-header">
         <div class="header-top">
-          <h1 class="logo">MILAN <span class="accent">2026</span></h1>
+          <div class="header-brand">
+            <div class="olympic-rings small">●●●●●</div>
+            <h1 class="logo"><span class="city">Milano Cortina</span><span class="year">2026</span></h1>
+          </div>
           <div class="total-medals">
+            <div class="medal-trophy">🏆</div>
             <span class="medal-count" id="total-medal-count">0</span>
-            <span class="medal-label">Medals</span>
+            <span class="medal-label">Total Medals</span>
           </div>
         </div>
       </header>
 
       <!-- Leaderboard Section -->
       <section class="leaderboard-section">
-        <h2 class="section-title">Leaderboard</h2>
+        <h2 class="section-title">🏅 Leaderboard</h2>
 
         <!-- Mobile: Card View -->
         <div id="leaderboard-cards" class="leaderboard-cards">
@@ -173,32 +181,48 @@
   <!-- ============================================ -->
   <style>
     /* ========================================
-       1. CSS VARIABLES (Design Tokens)
+       1. CSS VARIABLES - Milano Cortina 2026 Theme
        ======================================== */
     :root {
-      /* Colors */
-      --bg-depth: #050505;
-      --bg-surface: #0F1115;
-      --glass-border: 1px solid rgba(255, 255, 255, 0.08);
-      --glass-bg: rgba(20, 20, 25, 0.6);
-      --accent-primary: #3BF6FF;
-      --accent-primary-dim: rgba(59, 246, 255, 0.15);
-      --text-primary: #FFFFFF;
-      --text-secondary: #CCCCCC;
-      --text-muted: #999999;
+      /* Milano Cortina 2026 Inspired Colors */
+      --bg-depth: #0a0e1a;
+      --bg-surface: #141c2f;
+      --glass-border: 1px solid rgba(255, 255, 255, 0.12);
+      --glass-bg: rgba(20, 28, 47, 0.7);
 
-      /* Medal Colors */
+      /* Italian Flag + Olympic Colors */
+      --italian-green: #008C45;
+      --italian-red: #CD212A;
+      --olympic-blue: #0081C8;
+      --olympic-yellow: #FCB131;
+      --olympic-black: #000000;
+      --olympic-green: #00A651;
+      --olympic-red: #EE334E;
+
+      /* Primary Accent - Ice Blue */
+      --accent-primary: #00D4FF;
+      --accent-secondary: #7B68EE;
+      --accent-tertiary: #FF6B9D;
+
+      --text-primary: #FFFFFF;
+      --text-secondary: #B8C5D6;
+      --text-muted: #7A8BA3;
+
+      /* Enhanced Medal Colors */
       --gold-start: #FFD700;
-      --gold-end: #FDB931;
-      --silver-start: #E0E0E0;
-      --silver-end: #B0B0B0;
+      --gold-mid: #FFEC8B;
+      --gold-end: #DAA520;
+      --silver-start: #E8E8E8;
+      --silver-mid: #FFFFFF;
+      --silver-end: #A8A8A8;
       --bronze-start: #CD7F32;
+      --bronze-mid: #DDA15E;
       --bronze-end: #8B4513;
 
       /* Semantic Colors */
-      --success: #4CAF50;
-      --warning: #FF9800;
-      --danger: #FF4444;
+      --success: #00E676;
+      --warning: #FFAB00;
+      --danger: #FF5252;
 
       /* Typography */
       --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -213,17 +237,19 @@
       --space-2xl: 48px;
 
       /* Border Radius */
-      --radius-sm: 6px;
-      --radius-md: 10px;
-      --radius-lg: 14px;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
 
       /* Transitions */
       --transition-fast: 150ms ease;
-      --transition-normal: 250ms ease;
+      --transition-normal: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-bounce: 500ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
     }
 
     /* ========================================
-       2. RESET & BASE
+       2. RESET & BASE + ANIMATED BACKGROUND
        ======================================== */
     *, *::before, *::after {
       box-sizing: border-box;
@@ -238,41 +264,131 @@
 
     body {
       font-family: var(--font-family);
-      background-color: var(--bg-depth);
+      background: var(--bg-depth);
       color: var(--text-primary);
       line-height: 1.5;
       min-height: 100vh;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      position: relative;
+    }
+
+    /* Animated Gradient Background */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background:
+        radial-gradient(ellipse at 20% 20%, rgba(0, 140, 69, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 20%, rgba(0, 129, 200, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 80%, rgba(205, 33, 42, 0.1) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(252, 177, 49, 0.1) 0%, transparent 50%);
+      animation: gradientShift 20s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes gradientShift {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.8; transform: scale(1.1); }
+    }
+
+    /* Snowfall Effect */
+    .snowfall {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .snowflake {
+      position: absolute;
+      top: -10px;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 1rem;
+      animation: fall linear infinite;
+      text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(100vh) rotate(360deg);
+      }
     }
 
     /* ========================================
-       3. TYPOGRAPHY
+       3. TYPOGRAPHY - Olympic Style
        ======================================== */
     h1, h2, h3, h4, h5, h6 {
       letter-spacing: var(--header-tracking);
-      font-weight: 600;
+      font-weight: 700;
       line-height: 1.2;
     }
 
     .logo {
-      font-size: 1.75rem;
-      font-weight: 700;
+      font-size: 2rem;
+      font-weight: 800;
       letter-spacing: -0.03em;
+      text-transform: uppercase;
+      position: relative;
+      display: inline-block;
     }
 
-    .logo .accent {
-      color: var(--accent-primary);
+    .logo .city {
+      background: linear-gradient(135deg, var(--italian-green), var(--olympic-blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .logo .year {
+      background: linear-gradient(135deg, var(--olympic-yellow), var(--italian-red));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-left: 0.25em;
+    }
+
+    .logo::after {
+      content: '❄';
+      position: absolute;
+      top: -8px;
+      right: -20px;
+      font-size: 0.5em;
+      animation: sparkle 2s ease-in-out infinite;
+    }
+
+    @keyframes sparkle {
+      0%, 100% { opacity: 1; transform: scale(1) rotate(0deg); }
+      50% { opacity: 0.5; transform: scale(1.2) rotate(180deg); }
     }
 
     .section-title {
-      font-size: 0.875rem;
-      font-weight: 600;
+      font-size: 0.8125rem;
+      font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      color: var(--accent-primary);
       margin-bottom: var(--space-md);
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .section-title::before {
+      content: '';
+      width: 4px;
+      height: 1em;
+      background: linear-gradient(180deg, var(--italian-green), var(--italian-red));
+      border-radius: 2px;
     }
 
     /* Tabular numbers for scores */
@@ -281,26 +397,29 @@
       font-variant-numeric: tabular-nums;
     }
 
-    /* Medal gradient text */
+    /* Enhanced Medal gradient text */
     .medal-gold {
-      background: linear-gradient(135deg, var(--gold-start), var(--gold-end));
+      background: linear-gradient(135deg, var(--gold-start), var(--gold-mid), var(--gold-end));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      filter: drop-shadow(0 0 2px rgba(255, 215, 0, 0.5));
     }
 
     .medal-silver {
-      background: linear-gradient(135deg, var(--silver-start), var(--silver-end));
+      background: linear-gradient(135deg, var(--silver-start), var(--silver-mid), var(--silver-end));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.3));
     }
 
     .medal-bronze {
-      background: linear-gradient(135deg, var(--bronze-start), var(--bronze-end));
+      background: linear-gradient(135deg, var(--bronze-start), var(--bronze-mid), var(--bronze-end));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      filter: drop-shadow(0 0 2px rgba(205, 127, 50, 0.5));
     }
 
     /* ========================================
@@ -311,6 +430,48 @@
       max-width: 1200px;
       margin: 0 auto;
       padding: var(--space-md);
+      position: relative;
+      z-index: 2;
+    }
+
+    .view {
+      min-height: 100vh;
+      padding-bottom: 100px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* ========================================
+       5. COMPONENTS - Enhanced Glass Cards
+       ======================================== */
+    .glass-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      position: relative;
+      overflow: hidden;
+      transition: all var(--transition-normal);
+    }
+
+    .glass-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--italian-green), var(--olympic-blue), var(--italian-red));
+      opacity: 0;
+      transition: opacity var(--transition-normal);
+    }
+
+    .glass-card:hover::before {
+      opacity: 1;
     }
 
     .view {
@@ -345,13 +506,30 @@
       padding: var(--space-sm) var(--space-md);
       font-family: inherit;
       font-size: 0.9375rem;
-      font-weight: 500;
+      font-weight: 600;
       border: none;
       border-radius: var(--radius-md);
       cursor: pointer;
-      transition: all var(--transition-fast);
-      min-height: 44px;
+      transition: all var(--transition-normal);
+      min-height: 48px;
       touch-action: manipulation;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .btn:hover::before {
+      left: 100%;
     }
 
     .btn:disabled {
@@ -359,49 +537,58 @@
       cursor: not-allowed;
     }
 
+    .btn:disabled::before {
+      display: none;
+    }
+
     .btn-primary {
-      background: var(--accent-primary);
+      background: linear-gradient(135deg, var(--accent-primary), var(--olympic-blue));
       color: #000;
+      box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
     }
 
     .btn-primary:hover:not(:disabled) {
-      background: #5FFAFF;
-      transform: translateY(-1px);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 212, 255, 0.4);
     }
 
     .btn-secondary {
       background: var(--bg-surface);
       color: var(--text-primary);
-      border: var(--glass-border);
+      border: 1px solid rgba(255, 255, 255, 0.15);
     }
 
     .btn-secondary:hover:not(:disabled) {
       background: rgba(255, 255, 255, 0.1);
+      border-color: var(--accent-primary);
     }
 
     .btn-warning {
-      background: var(--warning);
+      background: linear-gradient(135deg, var(--warning), var(--olympic-yellow));
       color: #000;
     }
 
     .btn-warning:hover:not(:disabled) {
-      background: #FFB033;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 171, 0, 0.3);
     }
 
     .btn-danger {
-      background: var(--danger);
+      background: linear-gradient(135deg, var(--danger), var(--italian-red));
       color: white;
     }
 
     .btn-danger:hover:not(:disabled) {
-      background: #FF6666;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 82, 82, 0.3);
     }
 
     .btn-large {
       width: 100%;
       padding: var(--space-md) var(--space-lg);
-      font-size: 1rem;
-      min-height: 52px;
+      font-size: 1.0625rem;
+      min-height: 56px;
+      border-radius: var(--radius-lg);
     }
 
     /* ========================================
@@ -451,12 +638,36 @@
        ======================================== */
     .draft-header {
       text-align: center;
-      padding: var(--space-xl) 0;
+      padding: var(--space-2xl) 0 var(--space-xl);
+    }
+
+    .olympic-rings {
+      font-size: 1.5rem;
+      letter-spacing: 0.1em;
+      margin-bottom: var(--space-sm);
+      background: linear-gradient(90deg, #0081C8, #000000, #EE334E, #FCB131, #00A651);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .olympic-rings.small {
+      font-size: 0.875rem;
+      margin-bottom: 0;
     }
 
     .draft-header .subtitle {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      margin-top: var(--space-sm);
+    }
+
+    .draft-header .tagline {
+      font-size: 0.875rem;
       color: var(--text-muted);
       margin-top: var(--space-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
     }
 
     .draft-instructions {
@@ -464,6 +675,10 @@
       color: var(--text-secondary);
       margin-bottom: var(--space-lg);
       font-size: 0.9375rem;
+      padding: var(--space-md);
+      background: linear-gradient(135deg, rgba(0, 140, 69, 0.1), rgba(205, 33, 42, 0.1));
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(255, 255, 255, 0.05);
     }
 
     .draft-list {
@@ -475,16 +690,42 @@
 
     .draft-item {
       background: var(--glass-bg);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border: var(--glass-border);
       border-radius: var(--radius-lg);
-      padding: var(--space-md);
+      padding: var(--space-lg);
+      transition: all var(--transition-normal);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .draft-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--italian-green), var(--olympic-blue), var(--italian-red));
+      transform: scaleX(0);
+      transition: transform var(--transition-normal);
+    }
+
+    .draft-item:hover::before {
+      transform: scaleX(1);
+    }
+
+    .draft-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(0, 212, 255, 0.15);
     }
 
     .draft-item-name {
-      font-weight: 600;
+      font-weight: 700;
+      font-size: 1.0625rem;
       margin-bottom: var(--space-sm);
+      color: var(--text-primary);
     }
 
     .draft-item .form-select {
@@ -492,26 +733,63 @@
     }
 
     #lock-draft-btn {
-      margin-top: var(--space-md);
+      margin-top: var(--space-lg);
+      background: linear-gradient(135deg, var(--italian-green), var(--olympic-blue));
+      font-size: 1.0625rem;
+      padding: var(--space-md) var(--space-xl);
+      animation: pulse-glow 2s ease-in-out infinite;
+    }
+
+    #lock-draft-btn:disabled {
+      animation: none;
+      background: var(--bg-surface);
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 20px rgba(0, 212, 255, 0.3); }
+      50% { box-shadow: 0 0 40px rgba(0, 212, 255, 0.5); }
     }
 
     /* ========================================
        9. VIEW B - DASHBOARD
        ======================================== */
     .dashboard-header {
-      padding: var(--space-lg) 0;
+      padding: var(--space-xl) 0 var(--space-lg);
     }
 
     .header-top {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+    }
+
+    .header-brand {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
     }
 
     .total-medals {
       display: flex;
       flex-direction: column;
-      align-items: flex-end;
+      align-items: center;
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 215, 0, 0.05));
+      padding: var(--space-md) var(--space-lg);
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(255, 215, 0, 0.2);
+      min-width: 100px;
+    }
+
+    .medal-trophy {
+      font-size: 1.5rem;
+      animation: bounce 2s ease-in-out infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
     }
 
     .total-medals .medal-count {
@@ -542,48 +820,95 @@
 
     .leaderboard-card {
       background: var(--glass-bg);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border: var(--glass-border);
       border-radius: var(--radius-lg);
       padding: var(--space-md);
       display: flex;
       align-items: center;
       gap: var(--space-md);
+      transition: all var(--transition-normal);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .leaderboard-card:hover {
+      transform: translateX(4px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     }
 
     .leaderboard-card.rank-1 {
-      border-color: rgba(255, 215, 0, 0.3);
-      background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), var(--glass-bg));
+      border-color: rgba(255, 215, 0, 0.4);
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 215, 0, 0.05), var(--glass-bg));
+      animation: gold-shimmer 3s ease-in-out infinite;
+    }
+
+    @keyframes gold-shimmer {
+      0%, 100% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.2); }
+      50% { box-shadow: 0 0 30px rgba(255, 215, 0, 0.4); }
     }
 
     .leaderboard-card.rank-2 {
-      border-color: rgba(192, 192, 192, 0.3);
+      border-color: rgba(192, 192, 192, 0.4);
+      background: linear-gradient(135deg, rgba(192, 192, 192, 0.1), var(--glass-bg));
     }
 
     .leaderboard-card.rank-3 {
-      border-color: rgba(205, 127, 50, 0.3);
+      border-color: rgba(205, 127, 50, 0.4);
+      background: linear-gradient(135deg, rgba(205, 127, 50, 0.1), var(--glass-bg));
     }
 
     .rank-badge {
-      width: 44px;
-      height: 44px;
+      width: 52px;
+      height: 52px;
       display: flex;
       align-items: center;
       justify-content: center;
       border-radius: var(--radius-md);
       background: var(--bg-surface);
       flex-shrink: 0;
+      position: relative;
+    }
+
+    .rank-1 .rank-badge {
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.3), rgba(255, 215, 0, 0.1));
+      border: 2px solid rgba(255, 215, 0, 0.5);
+    }
+
+    .rank-2 .rank-badge {
+      background: linear-gradient(135deg, rgba(192, 192, 192, 0.2), rgba(192, 192, 192, 0.05));
+      border: 2px solid rgba(192, 192, 192, 0.4);
+    }
+
+    .rank-3 .rank-badge {
+      background: linear-gradient(135deg, rgba(205, 127, 50, 0.2), rgba(205, 127, 50, 0.05));
+      border: 2px solid rgba(205, 127, 50, 0.4);
     }
 
     .rank-number {
-      font-size: 1.25rem;
-      font-weight: 700;
+      font-size: 1.5rem;
+      font-weight: 800;
     }
 
-    .rank-1 .rank-number { color: var(--gold-start); }
-    .rank-2 .rank-number { color: var(--silver-start); }
-    .rank-3 .rank-number { color: var(--bronze-start); }
+    .rank-1 .rank-number {
+      background: linear-gradient(135deg, #FFD700, #FFEC8B, #DAA520);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .rank-2 .rank-number {
+      background: linear-gradient(135deg, #E8E8E8, #FFFFFF, #A8A8A8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .rank-3 .rank-number {
+      background: linear-gradient(135deg, #CD7F32, #DDA15E, #8B4513);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
 
     .card-info {
       flex: 1;
@@ -693,28 +1018,58 @@
 
     .roster-card {
       background: var(--glass-bg);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border: var(--glass-border);
       border-radius: var(--radius-lg);
       overflow: hidden;
+      transition: all var(--transition-normal);
+      position: relative;
+    }
+
+    .roster-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg,
+        var(--olympic-blue),
+        var(--olympic-yellow),
+        var(--olympic-black),
+        var(--olympic-green),
+        var(--olympic-red)
+      );
+      opacity: 0.7;
+    }
+
+    .roster-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0, 212, 255, 0.15);
     }
 
     .roster-card-header {
       padding: var(--space-md);
       border-bottom: var(--glass-border);
+      background: linear-gradient(135deg, rgba(0, 129, 200, 0.1), transparent);
     }
 
     .roster-team-name {
-      font-weight: 600;
-      font-size: 1rem;
+      font-weight: 700;
+      font-size: 1.0625rem;
+      margin-bottom: 2px;
     }
 
     .roster-bundle-name {
-      font-size: 0.8125rem;
-      color: var(--accent-primary);
+      font-size: 0.75rem;
+      background: linear-gradient(135deg, var(--italian-green), var(--olympic-blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
       text-transform: uppercase;
-      letter-spacing: 0.03em;
+      letter-spacing: 0.08em;
+      font-weight: 600;
     }
 
     .roster-card-body {
@@ -723,7 +1078,16 @@
 
     .roster-asset {
       padding: var(--space-sm) 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      transition: background var(--transition-fast);
+    }
+
+    .roster-asset:hover {
+      background: rgba(255, 255, 255, 0.03);
+      margin: 0 calc(var(--space-sm) * -1);
+      padding-left: var(--space-sm);
+      padding-right: var(--space-sm);
+      border-radius: var(--radius-sm);
     }
 
     .roster-asset:last-child {
@@ -1974,10 +2338,33 @@
     }
 
     /* ========================================
-       9. INITIALIZATION
+       9. SNOWFALL ANIMATION
+       ======================================== */
+
+    function createSnowfall() {
+      const container = document.getElementById('snowfall');
+      const snowflakes = ['❄', '❅', '❆', '✧', '✦'];
+      const numFlakes = 30;
+
+      for (let i = 0; i < numFlakes; i++) {
+        const flake = document.createElement('span');
+        flake.className = 'snowflake';
+        flake.textContent = snowflakes[Math.floor(Math.random() * snowflakes.length)];
+        flake.style.left = Math.random() * 100 + '%';
+        flake.style.animationDuration = (Math.random() * 10 + 10) + 's';
+        flake.style.animationDelay = Math.random() * 10 + 's';
+        flake.style.fontSize = (Math.random() * 0.8 + 0.5) + 'rem';
+        flake.style.opacity = Math.random() * 0.6 + 0.2;
+        container.appendChild(flake);
+      }
+    }
+
+    /* ========================================
+       10. INITIALIZATION
        ======================================== */
 
     function init() {
+      createSnowfall();
       loadState();
       initEventListeners();
       render();
