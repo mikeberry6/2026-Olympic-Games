@@ -3,45 +3,174 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <meta name="description" content="Milan 2026 Olympic Fantasy League - Track medals and compete with friends">
-  <meta name="theme-color" content="#050505">
-  <title>Milan 2026 Fantasy League</title>
+  <meta name="description" content="Milan 2026 Olympic Fantasy Market - Build your medal portfolio">
+  <meta name="theme-color" content="#0a0e1a">
+  <title>Milan 2026 Fantasy Market</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
   <!-- Snowfall Animation Container -->
   <div class="snowfall" id="snowfall"></div>
 
   <!-- ============================================ -->
-  <!-- VIEW A: DRAFT SELECTION                      -->
+  <!-- VIEW A: WELCOME / INSTRUCTIONS               -->
   <!-- ============================================ -->
-  <section id="draft-view" class="view">
+  <section id="welcome-view" class="view">
     <div class="container">
-      <header class="draft-header">
+      <header class="welcome-header">
         <div class="olympic-rings">●●●●●</div>
         <h1 class="logo"><span class="city">Milano Cortina</span><span class="year">2026</span></h1>
-        <p class="subtitle">⛷️ Fantasy League Draft 🏂</p>
-        <p class="tagline">Build Your Championship Team</p>
+        <p class="welcome-subtitle">🏔️ Fantasy Medal Market 🏔️</p>
       </header>
 
-      <div class="draft-instructions">
-        <p>Assign each team a bundle. Each bundle can only be selected once.</p>
+      <div class="commissioner-card glass-card">
+        <div class="commissioner-badge">📋 COMMISSIONER'S BRIEFING</div>
+        <div class="commissioner-content">
+          <p class="commissioner-date">📅 Today is <strong>Wednesday, February 4, 2026</strong></p>
+          <p class="commissioner-intro">The Opening Ceremony at the San Siro is just <strong>48 hours away</strong>. I am your Commissioner for the Milan-Cortina 2026 Fantasy Market.</p>
+
+          <div class="rules-box">
+            <h3>💰 THE RULES</h3>
+            <ul>
+              <li>You have a strict <strong>$100 budget</strong></li>
+              <li>Buy countries at prices pegged to projected medal counts</li>
+              <li>Your goal: <strong>Maximize your total medal return</strong></li>
+              <li>If you buy Norway for $36, you're betting they win 36+ medals</li>
+              <li>Scoring: 🥇 Gold = 3pts | 🥈 Silver = 2pts | 🥉 Bronze = 1pt</li>
+            </ul>
+          </div>
+
+          <div class="market-preview">
+            <h3>📊 MARKET TIERS</h3>
+            <div class="tier-preview">
+              <span class="tier-badge blue-chip">💎 BLUE CHIPS</span>
+              <span class="tier-desc">$27-36 | Safe, high volume</span>
+            </div>
+            <div class="tier-preview">
+              <span class="tier-badge mid-cap">📈 MID-CAPS</span>
+              <span class="tier-desc">$12-19 | Value plays & host bumps</span>
+            </div>
+            <div class="tier-preview">
+              <span class="tier-badge penny-stock">🎰 PENNY STOCKS</span>
+              <span class="tier-desc">$1-7 | High risk, specific events</span>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div id="draft-list" class="draft-list">
-        <!-- Populated by JS -->
+      <div class="sample-portfolios glass-card">
+        <h3>📝 SAMPLE PORTFOLIOS</h3>
+
+        <div class="portfolio-example">
+          <h4>🦅 "North American & Host" Aggressive ($99)</h4>
+          <p>USA ($32) + Canada ($27) + Italy ($19) + Austria ($18) + New Zealand ($3)</p>
+        </div>
+
+        <div class="portfolio-example">
+          <h4>🏔️ "Euro-Zone" Stability ($100)</h4>
+          <p>Norway ($36) + Germany ($28) + Sweden ($18) + Netherlands ($16) + Poland ($1)</p>
+        </div>
+
+        <div class="portfolio-example">
+          <h4>🎲 "Penny Stock Army" ($100)</h4>
+          <p>Germany ($28) + Italy ($19) + Japan ($16) + France ($15) + China ($12) + South Korea ($7) + New Zealand ($3)</p>
+        </div>
       </div>
 
-      <button id="lock-draft-btn" class="btn btn-primary btn-large" disabled>
-        <span class="lock-icon">🔒</span> Lock Draft
+      <button id="enter-market-btn" class="btn btn-primary btn-large">
+        🏪 Enter the Market
       </button>
     </div>
   </section>
 
   <!-- ============================================ -->
-  <!-- VIEW B: DASHBOARD                            -->
+  <!-- VIEW B: PARTICIPANT SELECTION                -->
+  <!-- ============================================ -->
+  <section id="participant-view" class="view hidden">
+    <div class="container">
+      <header class="view-header">
+        <div class="olympic-rings small">●●●●●</div>
+        <h1 class="logo small"><span class="city">Milano Cortina</span><span class="year">2026</span></h1>
+      </header>
+
+      <h2 class="view-title">👥 Select Your Team</h2>
+      <p class="view-desc">Who's building their portfolio?</p>
+
+      <div id="participant-list" class="participant-list">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- VIEW C: THE MARKET                           -->
+  <!-- ============================================ -->
+  <section id="market-view" class="view hidden">
+    <div class="container">
+      <header class="market-header">
+        <div class="header-left">
+          <div class="olympic-rings small">●●●●●</div>
+          <div class="current-buyer" id="current-buyer">Building for: ---</div>
+        </div>
+        <div class="budget-display">
+          <div class="budget-label">Budget Remaining</div>
+          <div class="budget-amount" id="budget-amount">$100</div>
+          <div class="budget-bar">
+            <div class="budget-fill" id="budget-fill" style="width: 100%"></div>
+          </div>
+        </div>
+      </header>
+
+      <div class="cart-summary glass-card" id="cart-summary">
+        <h3>🛒 Your Portfolio</h3>
+        <div class="cart-items" id="cart-items">
+          <p class="empty-cart">No countries selected yet</p>
+        </div>
+        <div class="cart-total">
+          <span>Total Spent:</span>
+          <span id="cart-total-amount">$0</span>
+        </div>
+      </div>
+
+      <!-- Blue Chips -->
+      <section class="market-tier">
+        <h2 class="tier-title">💎 BLUE CHIPS <span class="tier-subtitle">High floor, reliable volume (25+ medals projected)</span></h2>
+        <div class="country-grid" id="blue-chip-grid">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+
+      <!-- Mid Caps -->
+      <section class="market-tier">
+        <h2 class="tier-title">📈 MID-CAPS <span class="tier-subtitle">Value plays & host bumps (12-19 medals projected)</span></h2>
+        <div class="country-grid" id="mid-cap-grid">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+
+      <!-- Penny Stocks -->
+      <section class="market-tier">
+        <h2 class="tier-title">🎰 PENNY STOCKS <span class="tier-subtitle">High risk, specific events (1-7 medals projected)</span></h2>
+        <div class="country-grid" id="penny-stock-grid">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+
+      <div class="market-actions">
+        <button id="confirm-portfolio-btn" class="btn btn-primary btn-large" disabled>
+          ✅ Confirm Portfolio
+        </button>
+        <button id="clear-cart-btn" class="btn btn-secondary">
+          🗑️ Clear Selection
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- VIEW D: DASHBOARD                            -->
   <!-- ============================================ -->
   <section id="dashboard-view" class="view hidden">
     <div class="container">
@@ -54,7 +183,7 @@
           <div class="total-medals">
             <div class="medal-trophy">🏆</div>
             <span class="medal-count" id="total-medal-count">0</span>
-            <span class="medal-label">Total Medals</span>
+            <span class="medal-label">Total Points</span>
           </div>
         </div>
       </header>
@@ -62,37 +191,15 @@
       <!-- Leaderboard Section -->
       <section class="leaderboard-section">
         <h2 class="section-title">🏅 Leaderboard</h2>
-
-        <!-- Mobile: Card View -->
         <div id="leaderboard-cards" class="leaderboard-cards">
           <!-- Populated by JS -->
         </div>
-
-        <!-- Desktop: Table View -->
-        <div class="table-wrapper">
-          <table id="leaderboard-table" class="leaderboard-table">
-            <thead>
-              <tr>
-                <th class="col-rank">#</th>
-                <th class="col-team">Team</th>
-                <th class="col-bundle">Bundle</th>
-                <th class="col-medal">G</th>
-                <th class="col-medal">S</th>
-                <th class="col-medal">B</th>
-                <th class="col-points">Pts</th>
-              </tr>
-            </thead>
-            <tbody id="leaderboard-tbody">
-              <!-- Populated by JS -->
-            </tbody>
-          </table>
-        </div>
       </section>
 
-      <!-- Team Rosters Section -->
-      <section class="rosters-section">
-        <h2 class="section-title">Team Rosters</h2>
-        <div id="roster-grid" class="roster-grid">
+      <!-- Portfolio Details Section -->
+      <section class="portfolios-section">
+        <h2 class="section-title">📊 Team Portfolios</h2>
+        <div id="portfolio-grid" class="portfolio-grid">
           <!-- Populated by JS -->
         </div>
       </section>
@@ -101,7 +208,7 @@
     <!-- Footer with Admin Access -->
     <footer class="app-footer">
       <div class="footer-info">
-        <span class="version">v2.0</span>
+        <span class="version">v3.0 Market Edition</span>
         <span class="last-updated" id="last-updated"></span>
       </div>
       <button id="admin-key-btn" class="admin-key-btn" aria-label="Admin access">
@@ -111,49 +218,49 @@
   </section>
 
   <!-- ============================================ -->
-  <!-- VIEW C: ADMIN CONSOLE (Modal)               -->
+  <!-- VIEW E: ADMIN CONSOLE (Modal)               -->
   <!-- ============================================ -->
   <div id="admin-modal" class="modal hidden" role="dialog" aria-labelledby="admin-title" aria-modal="true">
     <div class="modal-backdrop" id="modal-backdrop"></div>
     <div class="modal-content">
       <header class="modal-header">
-        <h2 id="admin-title" class="modal-title">Admin Console</h2>
+        <h2 id="admin-title" class="modal-title">🔐 Commissioner Console</h2>
         <button id="close-modal-btn" class="close-btn" aria-label="Close">&times;</button>
       </header>
 
       <div class="modal-body">
         <!-- Add Medal Section -->
         <section class="admin-section">
-          <h3 class="admin-section-title">Add Medal</h3>
+          <h3 class="admin-section-title">🏅 Record Medal</h3>
 
           <div class="form-group">
-            <label for="entity-select">Select Entity</label>
-            <select id="entity-select" class="form-select">
-              <option value="">-- Select athlete/team --</option>
+            <label for="country-select">Select Country</label>
+            <select id="country-select" class="form-select">
+              <option value="">-- Select country --</option>
               <!-- Populated by JS -->
             </select>
           </div>
 
           <div class="form-group">
             <label for="event-input">Event Description</label>
-            <input type="text" id="event-input" class="form-input" placeholder="e.g., Men's 1000m Speed Skating">
+            <input type="text" id="event-input" class="form-input" placeholder="e.g., Men's Downhill Alpine Skiing">
           </div>
 
           <div class="form-group">
             <label>Medal Type</label>
             <div class="medal-buttons">
-              <button type="button" class="medal-btn gold" data-medal="gold">🥇 Gold</button>
-              <button type="button" class="medal-btn silver" data-medal="silver">🥈 Silver</button>
-              <button type="button" class="medal-btn bronze" data-medal="bronze">🥉 Bronze</button>
+              <button type="button" class="medal-btn gold" data-medal="gold">🥇 Gold (+3)</button>
+              <button type="button" class="medal-btn silver" data-medal="silver">🥈 Silver (+2)</button>
+              <button type="button" class="medal-btn bronze" data-medal="bronze">🥉 Bronze (+1)</button>
             </div>
           </div>
 
-          <button id="add-medal-btn" class="btn btn-primary" disabled>Add Medal</button>
+          <button id="add-medal-btn" class="btn btn-primary" disabled>Record Medal</button>
         </section>
 
         <!-- Transaction Log Section -->
         <section class="admin-section">
-          <h3 class="admin-section-title">Recent Transactions</h3>
+          <h3 class="admin-section-title">📜 Medal Log</h3>
           <div id="transaction-log" class="transaction-log">
             <p class="empty-state">No medals recorded yet</p>
           </div>
@@ -161,12 +268,12 @@
 
         <!-- Data Management Section -->
         <section class="admin-section">
-          <h3 class="admin-section-title">Data Management</h3>
+          <h3 class="admin-section-title">⚙️ League Management</h3>
           <div class="data-actions">
-            <button id="export-btn" class="btn btn-secondary">📋 Export JSON</button>
-            <button id="import-btn" class="btn btn-secondary">📥 Import JSON</button>
+            <button id="export-btn" class="btn btn-secondary">📋 Export</button>
+            <button id="import-btn" class="btn btn-secondary">📥 Import</button>
           </div>
-          <button id="edit-draft-btn" class="btn btn-warning">✏️ Edit Draft</button>
+          <button id="reopen-market-btn" class="btn btn-warning">🏪 Reopen Market</button>
           <button id="reset-btn" class="btn btn-danger">🗑️ Reset League</button>
         </section>
       </div>
@@ -187,46 +294,43 @@
       /* Milano Cortina 2026 Inspired Colors */
       --bg-depth: #0a0e1a;
       --bg-surface: #141c2f;
-      --glass-border: 1px solid rgba(255, 255, 255, 0.12);
-      --glass-bg: rgba(20, 28, 47, 0.7);
+      --bg-elevated: #1a2440;
+      --glass-border: 1px solid rgba(255, 255, 255, 0.1);
+      --glass-bg: rgba(20, 28, 47, 0.8);
 
       /* Italian Flag + Olympic Colors */
       --italian-green: #008C45;
       --italian-red: #CD212A;
       --olympic-blue: #0081C8;
       --olympic-yellow: #FCB131;
-      --olympic-black: #000000;
       --olympic-green: #00A651;
       --olympic-red: #EE334E;
 
-      /* Primary Accent - Ice Blue */
+      /* Tier Colors */
+      --blue-chip: #4FC3F7;
+      --mid-cap: #81C784;
+      --penny-stock: #FFB74D;
+
+      /* Primary Accent */
       --accent-primary: #00D4FF;
-      --accent-secondary: #7B68EE;
-      --accent-tertiary: #FF6B9D;
+      --accent-gold: #FFD700;
 
       --text-primary: #FFFFFF;
       --text-secondary: #B8C5D6;
       --text-muted: #7A8BA3;
 
-      /* Enhanced Medal Colors */
-      --gold-start: #FFD700;
-      --gold-mid: #FFEC8B;
-      --gold-end: #DAA520;
-      --silver-start: #E8E8E8;
-      --silver-mid: #FFFFFF;
-      --silver-end: #A8A8A8;
-      --bronze-start: #CD7F32;
-      --bronze-mid: #DDA15E;
-      --bronze-end: #8B4513;
+      /* Medal Colors */
+      --gold: #FFD700;
+      --silver: #C0C0C0;
+      --bronze: #CD7F32;
 
-      /* Semantic Colors */
+      /* Semantic */
       --success: #00E676;
       --warning: #FFAB00;
       --danger: #FF5252;
 
       /* Typography */
       --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      --header-tracking: -0.02em;
 
       /* Spacing */
       --space-xs: 4px;
@@ -245,11 +349,10 @@
       /* Transitions */
       --transition-fast: 150ms ease;
       --transition-normal: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-      --transition-bounce: 500ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
     }
 
     /* ========================================
-       2. RESET & BASE + ANIMATED BACKGROUND
+       2. RESET & BASE
        ======================================== */
     *, *::before, *::after {
       box-sizing: border-box;
@@ -270,40 +373,31 @@
       min-height: 100vh;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      position: relative;
     }
 
-    /* Animated Gradient Background */
+    /* Animated Background */
     body::before {
       content: '';
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
+      inset: 0;
       background:
-        radial-gradient(ellipse at 20% 20%, rgba(0, 140, 69, 0.15) 0%, transparent 50%),
-        radial-gradient(ellipse at 80% 20%, rgba(0, 129, 200, 0.15) 0%, transparent 50%),
-        radial-gradient(ellipse at 50% 80%, rgba(205, 33, 42, 0.1) 0%, transparent 50%),
-        radial-gradient(ellipse at 80% 80%, rgba(252, 177, 49, 0.1) 0%, transparent 50%);
-      animation: gradientShift 20s ease-in-out infinite;
+        radial-gradient(ellipse at 20% 20%, rgba(0, 140, 69, 0.12) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 20%, rgba(0, 129, 200, 0.12) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 80%, rgba(205, 33, 42, 0.08) 0%, transparent 50%);
+      animation: gradientShift 25s ease-in-out infinite;
       pointer-events: none;
       z-index: 0;
     }
 
     @keyframes gradientShift {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.8; transform: scale(1.1); }
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
     }
 
-    /* Snowfall Effect */
+    /* Snowfall */
     .snowfall {
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
+      inset: 0;
       pointer-events: none;
       z-index: 1;
       overflow: hidden;
@@ -311,36 +405,45 @@
 
     .snowflake {
       position: absolute;
-      top: -10px;
-      color: rgba(255, 255, 255, 0.6);
-      font-size: 1rem;
+      top: -20px;
+      color: rgba(255, 255, 255, 0.5);
       animation: fall linear infinite;
-      text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
     }
 
     @keyframes fall {
-      to {
-        transform: translateY(100vh) rotate(360deg);
-      }
+      to { transform: translateY(105vh) rotate(360deg); }
     }
 
     /* ========================================
-       3. TYPOGRAPHY - Olympic Style
+       3. LAYOUT
        ======================================== */
-    h1, h2, h3, h4, h5, h6 {
-      letter-spacing: var(--header-tracking);
-      font-weight: 700;
-      line-height: 1.2;
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: var(--space-md);
+      position: relative;
+      z-index: 2;
     }
 
-    .logo {
-      font-size: 2rem;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      text-transform: uppercase;
-      position: relative;
-      display: inline-block;
+    .view {
+      min-height: 100vh;
+      padding-bottom: 100px;
     }
+
+    .hidden { display: none !important; }
+
+    /* ========================================
+       4. TYPOGRAPHY
+       ======================================== */
+    .logo {
+      font-size: 1.75rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+    }
+
+    .logo.small { font-size: 1.25rem; }
 
     .logo .city {
       background: linear-gradient(135deg, var(--italian-green), var(--olympic-blue));
@@ -357,22 +460,20 @@
       margin-left: 0.25em;
     }
 
-    .logo::after {
-      content: '❄';
-      position: absolute;
-      top: -8px;
-      right: -20px;
-      font-size: 0.5em;
-      animation: sparkle 2s ease-in-out infinite;
+    .olympic-rings {
+      font-size: 1.25rem;
+      letter-spacing: 0.15em;
+      background: linear-gradient(90deg, #0081C8, #000, #EE334E, #FCB131, #00A651);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: var(--space-xs);
     }
 
-    @keyframes sparkle {
-      0%, 100% { opacity: 1; transform: scale(1) rotate(0deg); }
-      50% { opacity: 0.5; transform: scale(1.2) rotate(180deg); }
-    }
+    .olympic-rings.small { font-size: 0.75rem; }
 
     .section-title {
-      font-size: 0.8125rem;
+      font-size: 0.875rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.1em;
@@ -391,60 +492,8 @@
       border-radius: 2px;
     }
 
-    /* Tabular numbers for scores */
-    .numeric, .medal-count, .points, .rank-number {
-      font-feature-settings: "tnum";
-      font-variant-numeric: tabular-nums;
-    }
-
-    /* Enhanced Medal gradient text */
-    .medal-gold {
-      background: linear-gradient(135deg, var(--gold-start), var(--gold-mid), var(--gold-end));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      filter: drop-shadow(0 0 2px rgba(255, 215, 0, 0.5));
-    }
-
-    .medal-silver {
-      background: linear-gradient(135deg, var(--silver-start), var(--silver-mid), var(--silver-end));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.3));
-    }
-
-    .medal-bronze {
-      background: linear-gradient(135deg, var(--bronze-start), var(--bronze-mid), var(--bronze-end));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      filter: drop-shadow(0 0 2px rgba(205, 127, 50, 0.5));
-    }
-
     /* ========================================
-       4. LAYOUT
-       ======================================== */
-    .container {
-      width: 100%;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: var(--space-md);
-      position: relative;
-      z-index: 2;
-    }
-
-    .view {
-      min-height: 100vh;
-      padding-bottom: 100px;
-    }
-
-    .hidden {
-      display: none !important;
-    }
-
-    /* ========================================
-       5. COMPONENTS - Enhanced Glass Cards
+       5. GLASS CARD
        ======================================== */
     .glass-card {
       background: var(--glass-bg);
@@ -453,50 +502,10 @@
       border: var(--glass-border);
       border-radius: var(--radius-lg);
       padding: var(--space-lg);
-      position: relative;
-      overflow: hidden;
-      transition: all var(--transition-normal);
-    }
-
-    .glass-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--italian-green), var(--olympic-blue), var(--italian-red));
-      opacity: 0;
-      transition: opacity var(--transition-normal);
-    }
-
-    .glass-card:hover::before {
-      opacity: 1;
-    }
-
-    .view {
-      min-height: 100vh;
-      padding-bottom: 80px;
-    }
-
-    .hidden {
-      display: none !important;
     }
 
     /* ========================================
-       5. COMPONENTS - Glass Cards
-       ======================================== */
-    .glass-card {
-      background: var(--glass-bg);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: var(--glass-border);
-      border-radius: var(--radius-lg);
-      padding: var(--space-lg);
-    }
-
-    /* ========================================
-       6. COMPONENTS - Buttons
+       6. BUTTONS
        ======================================== */
     .btn {
       display: inline-flex;
@@ -512,55 +521,31 @@
       cursor: pointer;
       transition: all var(--transition-normal);
       min-height: 48px;
-      touch-action: manipulation;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .btn::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-      transition: left 0.5s ease;
-    }
-
-    .btn:hover::before {
-      left: 100%;
     }
 
     .btn:disabled {
-      opacity: 0.5;
+      opacity: 0.4;
       cursor: not-allowed;
-    }
-
-    .btn:disabled::before {
-      display: none;
     }
 
     .btn-primary {
       background: linear-gradient(135deg, var(--accent-primary), var(--olympic-blue));
       color: #000;
-      box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
     }
 
     .btn-primary:hover:not(:disabled) {
       transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(0, 212, 255, 0.4);
+      box-shadow: 0 8px 25px rgba(0, 212, 255, 0.4);
     }
 
     .btn-secondary {
       background: var(--bg-surface);
       color: var(--text-primary);
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      border: var(--glass-border);
     }
 
     .btn-secondary:hover:not(:disabled) {
-      background: rgba(255, 255, 255, 0.1);
-      border-color: var(--accent-primary);
+      background: var(--bg-elevated);
     }
 
     .btn-warning {
@@ -568,19 +553,9 @@
       color: #000;
     }
 
-    .btn-warning:hover:not(:disabled) {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(255, 171, 0, 0.3);
-    }
-
     .btn-danger {
       background: linear-gradient(135deg, var(--danger), var(--italian-red));
-      color: white;
-    }
-
-    .btn-danger:hover:not(:disabled) {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(255, 82, 82, 0.3);
+      color: #fff;
     }
 
     .btn-large {
@@ -592,7 +567,7 @@
     }
 
     /* ========================================
-       7. COMPONENTS - Forms
+       7. FORMS
        ======================================== */
     .form-group {
       margin-bottom: var(--space-md);
@@ -616,7 +591,6 @@
       border: var(--glass-border);
       border-radius: var(--radius-md);
       min-height: 48px;
-      transition: border-color var(--transition-fast);
     }
 
     .form-select:focus, .form-input:focus {
@@ -624,134 +598,429 @@
       border-color: var(--accent-primary);
     }
 
-    .form-select option {
-      background: var(--bg-surface);
-      color: var(--text-primary);
-    }
-
-    .form-select option:disabled {
-      color: var(--text-muted);
-    }
-
     /* ========================================
-       8. VIEW A - DRAFT
+       8. VIEW A - WELCOME
        ======================================== */
-    .draft-header {
+    .welcome-header {
       text-align: center;
       padding: var(--space-2xl) 0 var(--space-xl);
     }
 
-    .olympic-rings {
+    .welcome-subtitle {
       font-size: 1.5rem;
-      letter-spacing: 0.1em;
-      margin-bottom: var(--space-sm);
-      background: linear-gradient(90deg, #0081C8, #000000, #EE334E, #FCB131, #00A651);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .olympic-rings.small {
-      font-size: 0.875rem;
-      margin-bottom: 0;
-    }
-
-    .draft-header .subtitle {
-      font-size: 1.25rem;
       color: var(--text-secondary);
       margin-top: var(--space-sm);
     }
 
-    .draft-header .tagline {
-      font-size: 0.875rem;
-      color: var(--text-muted);
-      margin-top: var(--space-xs);
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-    }
-
-    .draft-instructions {
-      text-align: center;
-      color: var(--text-secondary);
+    .commissioner-card {
       margin-bottom: var(--space-lg);
-      font-size: 0.9375rem;
-      padding: var(--space-md);
-      background: linear-gradient(135deg, rgba(0, 140, 69, 0.1), rgba(205, 33, 42, 0.1));
-      border-radius: var(--radius-md);
-      border: 1px solid rgba(255, 255, 255, 0.05);
     }
 
-    .draft-list {
+    .commissioner-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--accent-gold), #FFA500);
+      color: #000;
+      padding: var(--space-xs) var(--space-md);
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+      font-size: 0.8125rem;
+      margin-bottom: var(--space-md);
+    }
+
+    .commissioner-date {
+      color: var(--accent-primary);
+      margin-bottom: var(--space-sm);
+    }
+
+    .commissioner-intro {
+      font-size: 1.0625rem;
+      line-height: 1.6;
+      margin-bottom: var(--space-lg);
+    }
+
+    .rules-box {
+      background: rgba(0, 212, 255, 0.1);
+      border: 1px solid rgba(0, 212, 255, 0.2);
+      border-radius: var(--radius-md);
+      padding: var(--space-md);
+      margin-bottom: var(--space-lg);
+    }
+
+    .rules-box h3 {
+      color: var(--accent-primary);
+      margin-bottom: var(--space-sm);
+      font-size: 1rem;
+    }
+
+    .rules-box ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .rules-box li {
+      padding: var(--space-xs) 0;
+      padding-left: var(--space-lg);
+      position: relative;
+      color: var(--text-secondary);
+    }
+
+    .rules-box li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--accent-primary);
+    }
+
+    .market-preview h3 {
+      margin-bottom: var(--space-md);
+      font-size: 1rem;
+    }
+
+    .tier-preview {
       display: flex;
-      flex-direction: column;
+      align-items: center;
       gap: var(--space-md);
+      padding: var(--space-sm) 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .tier-preview:last-child { border-bottom: none; }
+
+    .tier-badge {
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--radius-sm);
+      font-size: 0.75rem;
+      font-weight: 700;
+      min-width: 120px;
+      text-align: center;
+    }
+
+    .tier-badge.blue-chip { background: rgba(79, 195, 247, 0.2); color: var(--blue-chip); }
+    .tier-badge.mid-cap { background: rgba(129, 199, 132, 0.2); color: var(--mid-cap); }
+    .tier-badge.penny-stock { background: rgba(255, 183, 77, 0.2); color: var(--penny-stock); }
+
+    .tier-desc {
+      color: var(--text-muted);
+      font-size: 0.875rem;
+    }
+
+    .sample-portfolios {
       margin-bottom: var(--space-xl);
     }
 
-    .draft-item {
-      background: var(--glass-bg);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: var(--glass-border);
-      border-radius: var(--radius-lg);
-      padding: var(--space-lg);
-      transition: all var(--transition-normal);
-      position: relative;
-      overflow: hidden;
+    .sample-portfolios h3 {
+      margin-bottom: var(--space-md);
     }
 
-    .draft-item::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--italian-green), var(--olympic-blue), var(--italian-red));
-      transform: scaleX(0);
-      transition: transform var(--transition-normal);
-    }
-
-    .draft-item:hover::before {
-      transform: scaleX(1);
-    }
-
-    .draft-item:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 32px rgba(0, 212, 255, 0.15);
-    }
-
-    .draft-item-name {
-      font-weight: 700;
-      font-size: 1.0625rem;
+    .portfolio-example {
+      background: var(--bg-surface);
+      border-radius: var(--radius-md);
+      padding: var(--space-md);
       margin-bottom: var(--space-sm);
+    }
+
+    .portfolio-example:last-child { margin-bottom: 0; }
+
+    .portfolio-example h4 {
+      font-size: 0.9375rem;
+      margin-bottom: var(--space-xs);
       color: var(--text-primary);
     }
 
-    .draft-item .form-select {
-      margin: 0;
-    }
-
-    #lock-draft-btn {
-      margin-top: var(--space-lg);
-      background: linear-gradient(135deg, var(--italian-green), var(--olympic-blue));
-      font-size: 1.0625rem;
-      padding: var(--space-md) var(--space-xl);
-      animation: pulse-glow 2s ease-in-out infinite;
-    }
-
-    #lock-draft-btn:disabled {
-      animation: none;
-      background: var(--bg-surface);
-    }
-
-    @keyframes pulse-glow {
-      0%, 100% { box-shadow: 0 0 20px rgba(0, 212, 255, 0.3); }
-      50% { box-shadow: 0 0 40px rgba(0, 212, 255, 0.5); }
+    .portfolio-example p {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
     }
 
     /* ========================================
-       9. VIEW B - DASHBOARD
+       9. VIEW B - PARTICIPANT SELECTION
+       ======================================== */
+    .view-header {
+      text-align: center;
+      padding: var(--space-lg) 0;
+    }
+
+    .view-title {
+      font-size: 1.5rem;
+      margin-bottom: var(--space-xs);
+    }
+
+    .view-desc {
+      color: var(--text-muted);
+      margin-bottom: var(--space-lg);
+    }
+
+    .participant-list {
+      display: grid;
+      gap: var(--space-md);
+    }
+
+    .participant-card {
+      background: var(--glass-bg);
+      border: var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      cursor: pointer;
+      transition: all var(--transition-normal);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .participant-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent-primary);
+      box-shadow: 0 8px 30px rgba(0, 212, 255, 0.15);
+    }
+
+    .participant-card.completed {
+      border-color: var(--success);
+      opacity: 0.7;
+    }
+
+    .participant-card.completed::after {
+      content: '✓ Portfolio Set';
+      font-size: 0.75rem;
+      color: var(--success);
+    }
+
+    .participant-name {
+      font-weight: 600;
+      font-size: 1.0625rem;
+    }
+
+    /* ========================================
+       10. VIEW C - MARKET
+       ======================================== */
+    .market-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+      padding: var(--space-lg) 0;
+      position: sticky;
+      top: 0;
+      background: var(--bg-depth);
+      z-index: 10;
+      margin: 0 calc(var(--space-md) * -1);
+      padding-left: var(--space-md);
+      padding-right: var(--space-md);
+    }
+
+    .header-left {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+
+    .current-buyer {
+      font-size: 0.875rem;
+      color: var(--accent-primary);
+      font-weight: 600;
+    }
+
+    .budget-display {
+      background: var(--glass-bg);
+      border: var(--glass-border);
+      border-radius: var(--radius-md);
+      padding: var(--space-md);
+      min-width: 160px;
+      text-align: center;
+    }
+
+    .budget-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .budget-amount {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--success);
+      font-feature-settings: "tnum";
+    }
+
+    .budget-amount.warning { color: var(--warning); }
+    .budget-amount.danger { color: var(--danger); }
+
+    .budget-bar {
+      height: 4px;
+      background: var(--bg-surface);
+      border-radius: 2px;
+      margin-top: var(--space-xs);
+      overflow: hidden;
+    }
+
+    .budget-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--success), var(--accent-primary));
+      transition: width var(--transition-normal);
+    }
+
+    .cart-summary {
+      margin-bottom: var(--space-lg);
+    }
+
+    .cart-summary h3 {
+      margin-bottom: var(--space-sm);
+      font-size: 1rem;
+    }
+
+    .cart-items {
+      min-height: 40px;
+      margin-bottom: var(--space-sm);
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--space-xs) 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .cart-item:last-child { border-bottom: none; }
+
+    .cart-item-info {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .cart-item-remove {
+      background: none;
+      border: none;
+      color: var(--danger);
+      cursor: pointer;
+      padding: var(--space-xs);
+      font-size: 0.875rem;
+    }
+
+    .cart-total {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 600;
+      padding-top: var(--space-sm);
+      border-top: var(--glass-border);
+    }
+
+    .empty-cart {
+      color: var(--text-muted);
+      font-style: italic;
+      font-size: 0.875rem;
+    }
+
+    /* Market Tiers */
+    .market-tier {
+      margin-bottom: var(--space-xl);
+    }
+
+    .tier-title {
+      font-size: 1.125rem;
+      margin-bottom: var(--space-md);
+      display: flex;
+      align-items: baseline;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+    }
+
+    .tier-subtitle {
+      font-size: 0.8125rem;
+      font-weight: 400;
+      color: var(--text-muted);
+    }
+
+    .country-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: var(--space-md);
+    }
+
+    .country-card {
+      background: var(--glass-bg);
+      border: var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-md);
+      cursor: pointer;
+      transition: all var(--transition-normal);
+      position: relative;
+    }
+
+    .country-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .country-card.selected {
+      border-color: var(--accent-primary);
+      background: rgba(0, 212, 255, 0.1);
+    }
+
+    .country-card.disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    .country-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: var(--space-sm);
+    }
+
+    .country-flag {
+      font-size: 2rem;
+    }
+
+    .country-price {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--accent-gold);
+    }
+
+    .country-name {
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: var(--space-xs);
+    }
+
+    .country-projection {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      margin-bottom: var(--space-sm);
+    }
+
+    .country-desc {
+      font-size: 0.8125rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .country-selected-badge {
+      position: absolute;
+      top: var(--space-sm);
+      right: var(--space-sm);
+      background: var(--accent-primary);
+      color: #000;
+      padding: 2px 8px;
+      border-radius: var(--radius-sm);
+      font-size: 0.6875rem;
+      font-weight: 700;
+    }
+
+    .market-actions {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+      padding: var(--space-lg) 0;
+    }
+
+    /* ========================================
+       11. VIEW D - DASHBOARD
        ======================================== */
     .dashboard-header {
       padding: var(--space-xl) 0 var(--space-lg);
@@ -779,7 +1048,6 @@
       padding: var(--space-md) var(--space-lg);
       border-radius: var(--radius-lg);
       border: 1px solid rgba(255, 215, 0, 0.2);
-      min-width: 100px;
     }
 
     .medal-trophy {
@@ -794,24 +1062,22 @@
 
     .total-medals .medal-count {
       font-size: 2rem;
-      font-weight: 700;
-      color: var(--accent-primary);
-      line-height: 1;
+      font-weight: 800;
+      color: var(--accent-gold);
+      font-feature-settings: "tnum";
     }
 
     .total-medals .medal-label {
       font-size: 0.75rem;
       color: var(--text-muted);
       text-transform: uppercase;
-      letter-spacing: 0.05em;
     }
 
-    /* Leaderboard Section */
+    /* Leaderboard */
     .leaderboard-section {
       margin-bottom: var(--space-xl);
     }
 
-    /* Mobile: Card View */
     .leaderboard-cards {
       display: flex;
       flex-direction: column;
@@ -820,8 +1086,6 @@
 
     .leaderboard-card {
       background: var(--glass-bg);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
       border: var(--glass-border);
       border-radius: var(--radius-lg);
       padding: var(--space-md);
@@ -829,85 +1093,55 @@
       align-items: center;
       gap: var(--space-md);
       transition: all var(--transition-normal);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .leaderboard-card:hover {
-      transform: translateX(4px);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     }
 
     .leaderboard-card.rank-1 {
       border-color: rgba(255, 215, 0, 0.4);
-      background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 215, 0, 0.05), var(--glass-bg));
-      animation: gold-shimmer 3s ease-in-out infinite;
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.12), var(--glass-bg));
+      animation: goldGlow 3s ease-in-out infinite;
     }
 
-    @keyframes gold-shimmer {
-      0%, 100% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.2); }
-      50% { box-shadow: 0 0 30px rgba(255, 215, 0, 0.4); }
+    @keyframes goldGlow {
+      0%, 100% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.15); }
+      50% { box-shadow: 0 0 35px rgba(255, 215, 0, 0.25); }
     }
 
     .leaderboard-card.rank-2 {
-      border-color: rgba(192, 192, 192, 0.4);
-      background: linear-gradient(135deg, rgba(192, 192, 192, 0.1), var(--glass-bg));
+      border-color: rgba(192, 192, 192, 0.3);
+      background: linear-gradient(135deg, rgba(192, 192, 192, 0.08), var(--glass-bg));
     }
 
     .leaderboard-card.rank-3 {
-      border-color: rgba(205, 127, 50, 0.4);
-      background: linear-gradient(135deg, rgba(205, 127, 50, 0.1), var(--glass-bg));
+      border-color: rgba(205, 127, 50, 0.3);
+      background: linear-gradient(135deg, rgba(205, 127, 50, 0.08), var(--glass-bg));
     }
 
     .rank-badge {
-      width: 52px;
-      height: 52px;
+      width: 48px;
+      height: 48px;
       display: flex;
       align-items: center;
       justify-content: center;
       border-radius: var(--radius-md);
       background: var(--bg-surface);
+      font-size: 1.25rem;
+      font-weight: 800;
       flex-shrink: 0;
-      position: relative;
     }
 
     .rank-1 .rank-badge {
       background: linear-gradient(135deg, rgba(255, 215, 0, 0.3), rgba(255, 215, 0, 0.1));
-      border: 2px solid rgba(255, 215, 0, 0.5);
+      color: var(--gold);
     }
 
     .rank-2 .rank-badge {
       background: linear-gradient(135deg, rgba(192, 192, 192, 0.2), rgba(192, 192, 192, 0.05));
-      border: 2px solid rgba(192, 192, 192, 0.4);
+      color: var(--silver);
     }
 
     .rank-3 .rank-badge {
       background: linear-gradient(135deg, rgba(205, 127, 50, 0.2), rgba(205, 127, 50, 0.05));
-      border: 2px solid rgba(205, 127, 50, 0.4);
-    }
-
-    .rank-number {
-      font-size: 1.5rem;
-      font-weight: 800;
-    }
-
-    .rank-1 .rank-number {
-      background: linear-gradient(135deg, #FFD700, #FFEC8B, #DAA520);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .rank-2 .rank-number {
-      background: linear-gradient(135deg, #E8E8E8, #FFFFFF, #A8A8A8);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .rank-3 .rank-number {
-      background: linear-gradient(135deg, #CD7F32, #DDA15E, #8B4513);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--bronze);
     }
 
     .card-info {
@@ -916,16 +1150,16 @@
     }
 
     .card-team-name {
-      font-weight: 600;
+      font-weight: 700;
       font-size: 1rem;
+    }
+
+    .card-portfolio-summary {
+      font-size: 0.75rem;
+      color: var(--text-muted);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-    }
-
-    .card-bundle-name {
-      font-size: 0.8125rem;
-      color: var(--text-muted);
     }
 
     .card-stats {
@@ -941,214 +1175,98 @@
       font-size: 0.8125rem;
     }
 
-    .card-medals span {
-      display: flex;
-      align-items: center;
-      gap: 2px;
-    }
-
     .card-points {
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: var(--accent-primary);
-      min-width: 40px;
-      text-align: right;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--accent-gold);
+      font-feature-settings: "tnum";
     }
 
-    /* Desktop: Table View */
-    .table-wrapper {
-      display: none;
-      overflow-x: auto;
-    }
-
-    .leaderboard-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.9375rem;
-    }
-
-    .leaderboard-table th,
-    .leaderboard-table td {
-      padding: var(--space-sm) var(--space-md);
-      text-align: left;
-      border-bottom: var(--glass-border);
-    }
-
-    .leaderboard-table th {
-      font-weight: 600;
-      color: var(--text-muted);
-      font-size: 0.8125rem;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .leaderboard-table .col-rank { width: 50px; text-align: center; }
-    .leaderboard-table .col-medal { width: 50px; text-align: center; }
-    .leaderboard-table .col-points { width: 70px; text-align: right; font-weight: 600; }
-
-    .leaderboard-table tbody tr:hover {
-      background: rgba(255, 255, 255, 0.03);
-    }
-
-    .leaderboard-table .rank-cell {
-      font-weight: 700;
-      text-align: center;
-    }
-
-    .leaderboard-table .points-cell {
-      color: var(--accent-primary);
-      font-weight: 700;
-      text-align: right;
-    }
-
-    .leaderboard-table tr.row-rank-1 .rank-cell { color: var(--gold-start); }
-    .leaderboard-table tr.row-rank-2 .rank-cell { color: var(--silver-start); }
-    .leaderboard-table tr.row-rank-3 .rank-cell { color: var(--bronze-start); }
-
-    /* Roster Section */
-    .rosters-section {
+    /* Portfolio Grid */
+    .portfolios-section {
       padding-bottom: var(--space-xl);
     }
 
-    .roster-grid {
+    .portfolio-grid {
       display: grid;
       grid-template-columns: 1fr;
       gap: var(--space-md);
     }
 
-    .roster-card {
+    .portfolio-card {
       background: var(--glass-bg);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
       border: var(--glass-border);
       border-radius: var(--radius-lg);
       overflow: hidden;
-      transition: all var(--transition-normal);
-      position: relative;
     }
 
-    .roster-card::before {
+    .portfolio-card::before {
       content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
+      display: block;
       height: 4px;
-      background: linear-gradient(90deg,
-        var(--olympic-blue),
-        var(--olympic-yellow),
-        var(--olympic-black),
-        var(--olympic-green),
-        var(--olympic-red)
-      );
-      opacity: 0.7;
+      background: linear-gradient(90deg, var(--olympic-blue), var(--olympic-yellow), var(--olympic-green), var(--olympic-red));
     }
 
-    .roster-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(0, 212, 255, 0.15);
-    }
-
-    .roster-card-header {
+    .portfolio-card-header {
       padding: var(--space-md);
       border-bottom: var(--glass-border);
-      background: linear-gradient(135deg, rgba(0, 129, 200, 0.1), transparent);
     }
 
-    .roster-team-name {
+    .portfolio-team-name {
       font-weight: 700;
-      font-size: 1.0625rem;
+      font-size: 1rem;
       margin-bottom: 2px;
     }
 
-    .roster-bundle-name {
+    .portfolio-stats {
       font-size: 0.75rem;
-      background: linear-gradient(135deg, var(--italian-green), var(--olympic-blue));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      font-weight: 600;
+      color: var(--text-muted);
     }
 
-    .roster-card-body {
+    .portfolio-card-body {
       padding: var(--space-md);
     }
 
-    .roster-asset {
+    .portfolio-country {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       padding: var(--space-sm) 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-      transition: background var(--transition-fast);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     }
 
-    .roster-asset:hover {
-      background: rgba(255, 255, 255, 0.03);
-      margin: 0 calc(var(--space-sm) * -1);
-      padding-left: var(--space-sm);
-      padding-right: var(--space-sm);
-      border-radius: var(--radius-sm);
-    }
+    .portfolio-country:last-child { border-bottom: none; }
 
-    .roster-asset:last-child {
-      border-bottom: none;
-    }
-
-    .asset-header {
+    .portfolio-country-info {
       display: flex;
       align-items: center;
-      justify-content: space-between;
       gap: var(--space-sm);
     }
 
-    .asset-name {
-      font-size: 0.9375rem;
-      color: var(--text-secondary);
+    .portfolio-country-flag {
+      font-size: 1.25rem;
     }
 
-    .asset-links {
+    .portfolio-country-name {
+      font-size: 0.875rem;
+    }
+
+    .portfolio-country-medals {
       display: flex;
       gap: var(--space-xs);
+      font-size: 0.75rem;
     }
 
-    .asset-link {
-      color: var(--text-muted);
-      text-decoration: none;
-      font-size: 0.8125rem;
-      padding: var(--space-xs);
-      transition: color var(--transition-fast);
-      border-radius: var(--radius-sm);
+    .portfolio-country-points {
+      font-weight: 700;
+      color: var(--accent-gold);
+      min-width: 30px;
+      text-align: right;
     }
 
-    .asset-link:hover {
-      color: var(--accent-primary);
-      background: rgba(255, 255, 255, 0.05);
-    }
-
-    .asset-medals {
-      margin-top: var(--space-xs);
-      padding-left: var(--space-md);
-    }
-
-    .asset-medal-item {
-      font-size: 0.8125rem;
-      color: var(--text-muted);
-      padding: 2px 0;
-    }
-
-    .asset-medal-item .medal-emoji {
-      margin-right: var(--space-xs);
-    }
-
-    /* Empty State */
-    .empty-state {
-      text-align: center;
-      color: var(--text-muted);
-      padding: var(--space-lg);
-      font-style: italic;
-    }
-
-    /* Footer */
+    /* ========================================
+       12. FOOTER
+       ======================================== */
     .app-footer {
       position: fixed;
       bottom: 0;
@@ -1159,6 +1277,7 @@
       justify-content: space-between;
       align-items: center;
       pointer-events: none;
+      z-index: 100;
     }
 
     .footer-info {
@@ -1168,14 +1287,6 @@
       font-size: 0.75rem;
       color: var(--text-muted);
       pointer-events: all;
-    }
-
-    .version {
-      opacity: 0.5;
-    }
-
-    .last-updated {
-      opacity: 0.7;
     }
 
     .admin-key-btn {
@@ -1189,18 +1300,18 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: all var(--transition-fast);
       pointer-events: all;
       opacity: 0.6;
+      transition: all var(--transition-fast);
     }
 
     .admin-key-btn:hover {
       opacity: 1;
-      background: rgba(255, 255, 255, 0.1);
+      background: var(--bg-elevated);
     }
 
     /* ========================================
-       10. VIEW C - ADMIN MODAL
+       13. MODAL
        ======================================== */
     .modal {
       position: fixed;
@@ -1228,18 +1339,6 @@
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      animation: slideUp 0.3s ease;
-    }
-
-    @keyframes slideUp {
-      from {
-        transform: translateY(100%);
-        opacity: 0;
-      }
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
     }
 
     .modal-header {
@@ -1248,12 +1347,11 @@
       align-items: center;
       padding: var(--space-md) var(--space-lg);
       border-bottom: var(--glass-border);
-      flex-shrink: 0;
     }
 
     .modal-title {
       font-size: 1.125rem;
-      font-weight: 600;
+      font-weight: 700;
     }
 
     .close-btn {
@@ -1264,11 +1362,7 @@
       color: var(--text-muted);
       font-size: 1.5rem;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       border-radius: var(--radius-sm);
-      transition: all var(--transition-fast);
     }
 
     .close-btn:hover {
@@ -1286,9 +1380,7 @@
       margin-bottom: var(--space-xl);
     }
 
-    .admin-section:last-child {
-      margin-bottom: 0;
-    }
+    .admin-section:last-child { margin-bottom: 0; }
 
     .admin-section-title {
       font-size: 0.875rem;
@@ -1299,7 +1391,6 @@
       margin-bottom: var(--space-md);
     }
 
-    /* Medal Buttons */
     .medal-buttons {
       display: flex;
       gap: var(--space-sm);
@@ -1307,43 +1398,27 @@
 
     .medal-btn {
       flex: 1;
-      padding: var(--space-sm) var(--space-md);
+      padding: var(--space-sm);
       font-family: inherit;
-      font-size: 0.875rem;
-      font-weight: 500;
+      font-size: 0.8125rem;
+      font-weight: 600;
       border: 2px solid transparent;
       border-radius: var(--radius-md);
       cursor: pointer;
-      transition: all var(--transition-fast);
       background: var(--bg-depth);
       color: var(--text-secondary);
       min-height: 44px;
-    }
-
-    .medal-btn:hover {
-      background: rgba(255, 255, 255, 0.05);
+      transition: all var(--transition-fast);
     }
 
     .medal-btn.selected {
       border-color: currentColor;
     }
 
-    .medal-btn.gold.selected {
-      color: var(--gold-start);
-      background: rgba(255, 215, 0, 0.1);
-    }
+    .medal-btn.gold.selected { color: var(--gold); background: rgba(255, 215, 0, 0.1); }
+    .medal-btn.silver.selected { color: var(--silver); background: rgba(192, 192, 192, 0.1); }
+    .medal-btn.bronze.selected { color: var(--bronze); background: rgba(205, 127, 50, 0.1); }
 
-    .medal-btn.silver.selected {
-      color: var(--silver-start);
-      background: rgba(192, 192, 192, 0.1);
-    }
-
-    .medal-btn.bronze.selected {
-      color: var(--bronze-start);
-      background: rgba(205, 127, 50, 0.1);
-    }
-
-    /* Transaction Log */
     .transaction-log {
       max-height: 200px;
       overflow-y: auto;
@@ -1354,27 +1429,20 @@
 
     .transaction-item {
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
       padding: var(--space-sm);
       border-radius: var(--radius-sm);
-      transition: background var(--transition-fast);
     }
 
     .transaction-item:hover {
       background: rgba(255, 255, 255, 0.05);
     }
 
-    .transaction-info {
-      flex: 1;
-      min-width: 0;
-    }
+    .transaction-info { flex: 1; }
 
     .transaction-main {
       font-size: 0.875rem;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
 
     .transaction-time {
@@ -1390,11 +1458,6 @@
       color: var(--text-muted);
       cursor: pointer;
       border-radius: var(--radius-sm);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all var(--transition-fast);
-      flex-shrink: 0;
     }
 
     .transaction-delete:hover {
@@ -1402,28 +1465,26 @@
       color: var(--danger);
     }
 
-    /* Data Actions */
     .data-actions {
       display: flex;
       gap: var(--space-sm);
       margin-bottom: var(--space-md);
     }
 
-    .data-actions .btn {
-      flex: 1;
-    }
+    .data-actions .btn { flex: 1; }
 
-    #edit-draft-btn {
-      width: 100%;
-      margin-bottom: var(--space-sm);
-    }
+    #reopen-market-btn { width: 100%; margin-bottom: var(--space-sm); }
+    #reset-btn { width: 100%; }
 
-    #reset-btn {
-      width: 100%;
+    .empty-state {
+      color: var(--text-muted);
+      font-style: italic;
+      text-align: center;
+      padding: var(--space-md);
     }
 
     /* ========================================
-       11. TOAST NOTIFICATIONS
+       14. TOAST
        ======================================== */
     .toast {
       position: fixed;
@@ -1435,58 +1496,27 @@
       border-radius: var(--radius-md);
       padding: var(--space-sm) var(--space-lg);
       font-size: 0.875rem;
-      color: var(--text-primary);
       z-index: 1100;
-      animation: toastIn 0.3s ease;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
     }
 
-    .toast.toast-success {
-      border-color: var(--success);
-    }
-
-    .toast.toast-error {
-      border-color: var(--danger);
-    }
-
-    @keyframes toastIn {
-      from {
-        transform: translateX(-50%) translateY(20px);
-        opacity: 0;
-      }
-      to {
-        transform: translateX(-50%) translateY(0);
-        opacity: 1;
-      }
-    }
+    .toast.toast-success { border-color: var(--success); }
+    .toast.toast-error { border-color: var(--danger); }
 
     /* ========================================
-       12. RESPONSIVE - TABLET+
+       15. RESPONSIVE
        ======================================== */
     @media (min-width: 768px) {
-      .container {
-        padding: var(--space-lg);
-      }
+      .container { padding: var(--space-lg); }
 
-      .logo {
-        font-size: 2rem;
-      }
-
-      /* Hide mobile cards, show table */
-      .leaderboard-cards {
-        display: none;
-      }
-
-      .table-wrapper {
-        display: block;
-      }
-
-      /* Roster grid: 2 columns */
-      .roster-grid {
+      .participant-list {
         grid-template-columns: repeat(2, 1fr);
       }
 
-      /* Modal centered */
+      .portfolio-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
       .modal {
         align-items: center;
       }
@@ -1497,25 +1527,9 @@
       }
     }
 
-    /* ========================================
-       13. RESPONSIVE - DESKTOP
-       ======================================== */
     @media (min-width: 1024px) {
-      /* Roster grid: 3 columns */
-      .roster-grid {
+      .portfolio-grid {
         grid-template-columns: repeat(3, 1fr);
-      }
-
-      .draft-list {
-        max-width: 600px;
-        margin-left: auto;
-        margin-right: auto;
-      }
-
-      #lock-draft-btn {
-        max-width: 600px;
-        margin-left: auto;
-        margin-right: auto;
       }
     }
   </style>
@@ -1528,7 +1542,6 @@
        1. CONSTANTS
        ======================================== */
 
-    // Participants (7 couples/teams)
     const PARTICIPANTS = [
       { id: 1, name: 'Mike & Allegra Berry' },
       { id: 2, name: 'Christopher & Rebecca Wray' },
@@ -1539,204 +1552,158 @@
       { id: 7, name: 'Kieran & Zoe Armstrong' }
     ];
 
-    // Bundles (7 balanced fantasy bundles based on 2026 medal projections)
-    const BUNDLES = [
-      {
-        id: 1,
-        name: 'Nordic Lightning',
-        assets: ['norway-xc', 'sweden-general']
+    const COUNTRIES = {
+      // BLUE CHIPS ($27-36)
+      'nor': {
+        id: 'nor', name: 'Norway', flag: '🇳🇴', price: 36, tier: 'blue-chip',
+        projection: '~36 medals, ~14 golds',
+        description: 'The undisputed king of winter. Led by Johannes Høsflot Klæbo in XC and dominant Biathlon squad.',
+        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/nor'
       },
-      {
-        id: 2,
-        name: 'Precision & Power',
-        assets: ['germany-general', 'norway-biathlon']
+      'usa': {
+        id: 'usa', name: 'USA', flag: '🇺🇸', price: 32, tier: 'blue-chip',
+        projection: '~32 medals, ~13 golds',
+        description: 'Bullish. NHL players return, Jordan Stolz dominates speed skating, Shiffrin seeks alpine redemption.',
+        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/usa'
       },
-      {
-        id: 3,
-        name: 'American Dream',
-        assets: ['jordan-stolz', 'chloe-kim', 'usa-general']
+      'ger': {
+        id: 'ger', name: 'Germany', flag: '🇩🇪', price: 28, tier: 'blue-chip',
+        projection: '~28 medals, ~12 golds',
+        description: 'The sliding sports monopoly. The Cortina track is their fortress for Luge and Bobsleigh.',
+        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/ger'
       },
-      {
-        id: 4,
-        name: 'Alpine Royalty',
-        assets: ['switzerland-general', 'austria-general', 'mikaela-shiffrin']
+      'can': {
+        id: 'can', name: 'Canada', flag: '🇨🇦', price: 27, tier: 'blue-chip',
+        projection: '~27 medals, ~10 golds',
+        description: 'Crosby and McDavid finally team up. Men\'s Hockey is a "double gold" swing with the Women.',
+        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/can'
       },
-      {
-        id: 5,
-        name: 'Speed Dynasty',
-        assets: ['netherlands-skating', 'italy-general', 'france-general']
-      },
-      {
-        id: 6,
-        name: 'Eastern Promise',
-        assets: ['eileen-gu', 'japan-general', 'china-general']
-      },
-      {
-        id: 7,
-        name: 'Ice Warriors',
-        assets: ['canada-general', 'finland-general', 'ilia-malinin']
-      }
-    ];
 
-    // Assets (18 trackable entities with Olympics.com links)
-    const ASSETS = {
-      // Bundle 1: Nordic Lightning
-      'norway-xc': {
-        name: 'Norway (Cross-Country Skiing)',
-        bundleId: 1,
-        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/nor',
-        scheduleUrl: 'https://olympics.com/en/milano-cortina-2026/schedule/ccs'
+      // MID-CAPS ($12-19)
+      'ita': {
+        id: 'ita', name: 'Italy', flag: '🇮🇹', price: 19, tier: 'mid-cap',
+        projection: '~19 medals (Host target)',
+        description: 'The Host Bump. Home-field advantage in the Dolomites for Sofia Goggia and Federica Brignone.',
+        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/ita'
       },
-      'sweden-general': {
-        name: 'Sweden (General)',
-        bundleId: 1,
-        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/swe',
-        scheduleUrl: 'https://olympics.com/en/milano-cortina-2026/schedule'
+      'aut': {
+        id: 'aut', name: 'Austria', flag: '🇦🇹', price: 18, tier: 'mid-cap',
+        projection: '~18 medals',
+        description: 'Alpine skiing royalty. If the Bormio slopes are icy and fast, their technical team will feast.',
+        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/aut'
       },
-      // Bundle 2: Precision & Power
-      'germany-general': {
-        name: 'Germany (Sliding/Biathlon)',
-        bundleId: 2,
-        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/ger',
-        scheduleUrl: 'https://olympics.com/en/milano-cortina-2026/schedule/bth'
+      'swe': {
+        id: 'swe', name: 'Sweden', flag: '🇸🇪', price: 18, tier: 'mid-cap',
+        projection: '~18 medals',
+        description: 'The quiet achiever. Biathlon relays, XC sprints, and Sandra Näslund in Ski Cross.',
+        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/swe'
       },
-      'norway-biathlon': {
-        name: 'Norway (Biathlon)',
-        bundleId: 2,
-        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/nor',
-        scheduleUrl: 'https://olympics.com/en/milano-cortina-2026/schedule/bth'
+      'ned': {
+        id: 'ned', name: 'Netherlands', flag: '🇳🇱', price: 16, tier: 'mid-cap',
+        projection: '~16 medals',
+        description: 'Speed Skating pure-play. Volatile: if the Milan oval is fast, they could return 20.',
+        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/ned'
       },
-      // Bundle 3: American Dream
-      'jordan-stolz': {
-        name: 'Jordan Stolz (USA)',
-        bundleId: 3,
-        olympicsUrl: 'https://olympics.com/en/athletes/jordan-stolz',
-        scheduleUrl: 'https://olympics.com/en/milano-cortina-2026/schedule/ssk'
+      'jpn': {
+        id: 'jpn', name: 'Japan', flag: '🇯🇵', price: 16, tier: 'mid-cap',
+        projection: '~16 medals',
+        description: 'Figure skating excellence and Halfpipe specialists. Consistent, technical, high gold-equity.',
+        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/jpn'
       },
-      'chloe-kim': {
-        name: 'Chloe Kim (USA)',
-        bundleId: 3,
-        olympicsUrl: 'https://olympics.com/en/athletes/chloe-kim',
-        scheduleUrl: 'https://olympics.com/en/milano-cortina-2026/schedule/snb'
+      'fra': {
+        id: 'fra', name: 'France', flag: '🇫🇷', price: 15, tier: 'mid-cap',
+        projection: '~15 medals',
+        description: 'Relying heavily on Biathlon squad to replicate 2022 magic. Riskier hold than Sweden.',
+        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/fra'
       },
-      'usa-general': {
-        name: 'Team USA (General)',
-        bundleId: 3,
-        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/usa',
-        scheduleUrl: 'https://olympics.com/en/milano-cortina-2026/schedule'
+      'chn': {
+        id: 'chn', name: 'China', flag: '🇨🇳', price: 12, tier: 'mid-cap',
+        projection: '~12 medals',
+        description: 'Post-host slump from 15 in Beijing, but elite strength in Aerials and Short Track remains.',
+        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/chn'
       },
-      // Bundle 4: Alpine Royalty
-      'switzerland-general': {
-        name: 'Switzerland (General)',
-        bundleId: 4,
-        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/sui',
-        scheduleUrl: 'https://olympics.com/en/milano-cortina-2026/schedule/ask'
+
+      // PENNY STOCKS ($1-7)
+      'kor': {
+        id: 'kor', name: 'South Korea', flag: '🇰🇷', price: 7, tier: 'penny-stock',
+        projection: '~7 medals, ~3 golds',
+        description: 'The Trap. Heavily reliant on Short Track. One crash or DQ wipes out your investment.',
+        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/kor'
       },
-      'austria-general': {
-        name: 'Austria (General)',
-        bundleId: 4,
-        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/aut',
-        scheduleUrl: 'https://olympics.com/en/milano-cortina-2026/schedule/ask'
+      'fin': {
+        id: 'fin', name: 'Finland', flag: '🇫🇮', price: 6, tier: 'penny-stock',
+        projection: '~6 medals',
+        description: 'Men\'s Hockey and Iivo Niskanen in XC skiing. High-floor defensive stock.',
+        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/fin'
       },
-      'mikaela-shiffrin': {
-        name: 'Mikaela Shiffrin (USA)',
-        bundleId: 4,
-        olympicsUrl: 'https://olympics.com/en/athletes/mikaela-shiffrin',
-        scheduleUrl: 'https://olympics.com/en/milano-cortina-2026/schedule/ask'
+      'gbr': {
+        id: 'gbr', name: 'Great Britain', flag: '🇬🇧', price: 5, tier: 'penny-stock',
+        projection: '4-8 medals',
+        description: 'Targeting a record haul. Curling is anchor, Skeleton and Freestyle (Mia Brookes) offer upside.',
+        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/gbr'
       },
-      // Bundle 5: Speed Dynasty
-      'netherlands-skating': {
-        name: 'Netherlands (Speed Skating)',
-        bundleId: 5,
-        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/ned',
-        scheduleUrl: 'https://olympics.com/en/milano-cortina-2026/schedule/ssk'
+      'aus': {
+        id: 'aus', name: 'Australia', flag: '🇦🇺', price: 4, tier: 'penny-stock',
+        projection: '~4 medals',
+        description: 'Efficient. Jakara Anthony (Moguls) and Scotty James (Halfpipe) are near-locks. Best value?',
+        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/aus'
       },
-      'italy-general': {
-        name: 'Italy (Host Nation)',
-        bundleId: 5,
-        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/ita',
-        scheduleUrl: 'https://olympics.com/en/milano-cortina-2026/schedule'
+      'nzl': {
+        id: 'nzl', name: 'New Zealand', flag: '🇳🇿', price: 3, tier: 'penny-stock',
+        projection: '~3 medals',
+        description: 'Snowboard gold hunting with Zoi Sadowski-Synnott. Low volume, high prestige.',
+        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/nzl'
       },
-      'france-general': {
-        name: 'France (General)',
-        bundleId: 5,
-        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/fra',
-        scheduleUrl: 'https://olympics.com/en/milano-cortina-2026/schedule/bth'
+      'sui': {
+        id: 'sui', name: 'Switzerland', flag: '🇨🇭', price: 15, tier: 'mid-cap',
+        projection: '~15 medals',
+        description: 'Marco Odermatt leads alpine dominance. Strong in Ski Cross and Freestyle.',
+        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/sui'
       },
-      // Bundle 6: Eastern Promise
-      'eileen-gu': {
-        name: 'Eileen Gu (China)',
-        bundleId: 6,
-        olympicsUrl: 'https://olympics.com/en/athletes/eileen-gu',
-        scheduleUrl: 'https://olympics.com/en/milano-cortina-2026/schedule/frs'
-      },
-      'japan-general': {
-        name: 'Japan (General)',
-        bundleId: 6,
-        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/jpn',
-        scheduleUrl: 'https://olympics.com/en/milano-cortina-2026/schedule/fsk'
-      },
-      'china-general': {
-        name: 'China (General)',
-        bundleId: 6,
-        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/chn',
-        scheduleUrl: 'https://olympics.com/en/milano-cortina-2026/schedule/sts'
-      },
-      // Bundle 7: Ice Warriors
-      'canada-general': {
-        name: 'Canada (Hockey + General)',
-        bundleId: 7,
-        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/can',
-        scheduleUrl: 'https://olympics.com/en/milano-cortina-2026/schedule/ihk'
-      },
-      'finland-general': {
-        name: 'Finland (General)',
-        bundleId: 7,
-        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/fin',
-        scheduleUrl: 'https://olympics.com/en/milano-cortina-2026/schedule/ihk'
-      },
-      'ilia-malinin': {
-        name: 'Ilia Malinin (USA)',
-        bundleId: 7,
-        olympicsUrl: 'https://olympics.com/en/athletes/ilia-malinin',
-        scheduleUrl: 'https://olympics.com/en/milano-cortina-2026/schedule/fsk'
+      'pol': {
+        id: 'pol', name: 'Poland', flag: '🇵🇱', price: 1, tier: 'penny-stock',
+        projection: '1-3 medals',
+        description: 'Ski Jumping or bust. The ultimate lottery ticket.',
+        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/pol'
       }
     };
 
-    // Scoring
+    const BUDGET = 100;
     const MEDAL_POINTS = { gold: 3, silver: 2, bronze: 1 };
     const MEDAL_EMOJI = { gold: '🥇', silver: '🥈', bronze: '🥉' };
-
-    // Storage key
-    const STORAGE_KEY = 'milan2026_state';
-
-    // Admin passcode
+    const STORAGE_KEY = 'milan2026_market_v3';
     const ADMIN_PASSCODE = 'gold';
 
     /* ========================================
-       2. STATE MANAGEMENT
+       2. STATE
        ======================================== */
 
     let appState = {
-      config: {},      // participantId -> bundleId
-      medalsLog: []    // array of medal entries
+      portfolios: {},    // participantId -> [countryIds]
+      medalsLog: [],     // { id, countryId, eventDescription, medal, timestamp }
+      marketOpen: true
     };
 
-    // Admin UI state (not persisted)
+    let currentParticipantId = null;
+    let currentCart = [];
     let selectedMedalType = null;
+
+    /* ========================================
+       3. STATE MANAGEMENT
+       ======================================== */
 
     function loadState() {
       try {
         const saved = localStorage.getItem(STORAGE_KEY);
         if (saved) {
           appState = JSON.parse(saved);
-          // Ensure arrays exist
+          if (!appState.portfolios) appState.portfolios = {};
           if (!appState.medalsLog) appState.medalsLog = [];
-          if (!appState.config) appState.config = {};
+          if (appState.marketOpen === undefined) appState.marketOpen = true;
         }
       } catch (e) {
         console.error('Failed to load state:', e);
-        appState = { config: {}, medalsLog: [] };
+        appState = { portfolios: {}, medalsLog: [], marketOpen: true };
       }
     }
 
@@ -1748,207 +1715,314 @@
       }
     }
 
-    function updateState(newState) {
-      appState = { ...appState, ...newState };
-      saveState();
-      render();
-    }
-
     /* ========================================
-       3. UTILITY FUNCTIONS
+       4. UTILITIES
        ======================================== */
 
     function generateId() {
       return Date.now().toString(36) + Math.random().toString(36).substr(2, 9);
     }
 
-    function formatTimestamp(timestamp) {
-      const date = new Date(timestamp);
-      return date.toLocaleDateString('en-US', {
-        month: 'short',
-        day: 'numeric',
-        hour: 'numeric',
-        minute: '2-digit'
+    function formatTimestamp(ts) {
+      return new Date(ts).toLocaleDateString('en-US', {
+        month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit'
       });
     }
 
-    function getOlympicsUrl(assetId) {
-      const asset = ASSETS[assetId];
-      return asset ? asset.olympicsUrl : '#';
+    function getParticipantById(id) {
+      return PARTICIPANTS.find(p => p.id === id);
     }
 
-    function getScheduleUrl(assetId) {
-      const asset = ASSETS[assetId];
-      return asset ? asset.scheduleUrl : '#';
+    function getCountryById(id) {
+      return COUNTRIES[id];
     }
 
-    function getBundleById(bundleId) {
-      return BUNDLES.find(b => b.id === bundleId);
+    function isPortfolioComplete(participantId) {
+      return appState.portfolios[participantId] && appState.portfolios[participantId].length > 0;
     }
 
-    function getParticipantById(participantId) {
-      return PARTICIPANTS.find(p => p.id === participantId);
+    function allPortfoliosComplete() {
+      return PARTICIPANTS.every(p => isPortfolioComplete(p.id));
     }
 
-    function getParticipantByBundleId(bundleId) {
-      for (const [pId, bId] of Object.entries(appState.config)) {
-        if (bId === bundleId) {
-          return getParticipantById(parseInt(pId));
-        }
-      }
-      return null;
+    function getCartTotal() {
+      return currentCart.reduce((sum, id) => sum + COUNTRIES[id].price, 0);
     }
 
-    function isDraftComplete() {
-      return Object.keys(appState.config).length === PARTICIPANTS.length;
+    function getRemainingBudget() {
+      return BUDGET - getCartTotal();
     }
 
     /* ========================================
-       4. SCORING CALCULATIONS
+       5. SCORING
        ======================================== */
 
-    function calculateScores() {
-      // Initialize scores for each participant
-      const scores = {};
-      PARTICIPANTS.forEach(p => {
-        scores[p.id] = { gold: 0, silver: 0, bronze: 0, total: 0 };
+    function getMedalsForCountry(countryId) {
+      return appState.medalsLog.filter(m => m.countryId === countryId);
+    }
+
+    function getPointsForCountry(countryId) {
+      const medals = getMedalsForCountry(countryId);
+      return medals.reduce((sum, m) => sum + MEDAL_POINTS[m.medal], 0);
+    }
+
+    function getMedalCountsForCountry(countryId) {
+      const medals = getMedalsForCountry(countryId);
+      return {
+        gold: medals.filter(m => m.medal === 'gold').length,
+        silver: medals.filter(m => m.medal === 'silver').length,
+        bronze: medals.filter(m => m.medal === 'bronze').length
+      };
+    }
+
+    function getScoresForParticipant(participantId) {
+      const portfolio = appState.portfolios[participantId] || [];
+      let total = 0, gold = 0, silver = 0, bronze = 0;
+
+      portfolio.forEach(countryId => {
+        total += getPointsForCountry(countryId);
+        const counts = getMedalCountsForCountry(countryId);
+        gold += counts.gold;
+        silver += counts.silver;
+        bronze += counts.bronze;
       });
 
-      // Process medals log
-      appState.medalsLog.forEach(entry => {
-        const asset = ASSETS[entry.entityId];
-        if (!asset) return;
-
-        const bundleId = asset.bundleId;
-        const participant = getParticipantByBundleId(bundleId);
-        if (!participant) return;
-
-        scores[participant.id][entry.medal]++;
-        scores[participant.id].total += MEDAL_POINTS[entry.medal];
-      });
-
-      return scores;
+      return { total, gold, silver, bronze };
     }
 
     function getLeaderboard() {
-      const scores = calculateScores();
-
-      const leaderboard = PARTICIPANTS.map(p => {
-        const bundleId = appState.config[p.id];
-        const bundle = getBundleById(bundleId);
-        return {
-          participant: p,
-          bundle: bundle,
-          scores: scores[p.id]
-        };
-      });
-
-      // Sort by total points DESC, then gold count DESC
-      leaderboard.sort((a, b) => {
-        if (b.scores.total !== a.scores.total) {
-          return b.scores.total - a.scores.total;
-        }
+      return PARTICIPANTS.map(p => ({
+        participant: p,
+        portfolio: appState.portfolios[p.id] || [],
+        scores: getScoresForParticipant(p.id)
+      })).sort((a, b) => {
+        if (b.scores.total !== a.scores.total) return b.scores.total - a.scores.total;
         return b.scores.gold - a.scores.gold;
       });
-
-      return leaderboard;
     }
 
-    function getTotalMedals() {
-      return appState.medalsLog.length;
-    }
-
-    function getMedalsForAsset(entityId) {
-      return appState.medalsLog.filter(m => m.entityId === entityId);
+    function getTotalLeaguePoints() {
+      return PARTICIPANTS.reduce((sum, p) => sum + getScoresForParticipant(p.id).total, 0);
     }
 
     /* ========================================
-       5. RENDER FUNCTIONS
+       6. VIEWS
        ======================================== */
 
+    function showView(viewId) {
+      document.querySelectorAll('.view').forEach(v => v.classList.add('hidden'));
+      document.getElementById(viewId).classList.remove('hidden');
+    }
+
     function render() {
-      if (!isDraftComplete()) {
-        showDraftView();
+      if (appState.marketOpen && !allPortfoliosComplete()) {
+        showView('welcome-view');
       } else {
-        showDashboardView();
+        showView('dashboard-view');
+        renderDashboard();
       }
     }
 
-    function showDraftView() {
-      document.getElementById('draft-view').classList.remove('hidden');
-      document.getElementById('dashboard-view').classList.add('hidden');
-      renderDraftList();
+    /* ========================================
+       7. WELCOME VIEW
+       ======================================== */
+
+    function enterMarket() {
+      showView('participant-view');
+      renderParticipantList();
     }
 
-    function showDashboardView() {
-      document.getElementById('draft-view').classList.add('hidden');
-      document.getElementById('dashboard-view').classList.remove('hidden');
-      renderDashboard();
-    }
+    /* ========================================
+       8. PARTICIPANT SELECTION
+       ======================================== */
 
-    function renderDraftList() {
-      const container = document.getElementById('draft-list');
-      const selectedBundles = new Set(Object.values(appState.config));
-
+    function renderParticipantList() {
+      const container = document.getElementById('participant-list');
       container.innerHTML = PARTICIPANTS.map(p => {
-        const currentSelection = appState.config[p.id] || '';
-
-        const options = BUNDLES.map(b => {
-          const isSelected = currentSelection === b.id;
-          const isDisabled = !isSelected && selectedBundles.has(b.id);
-          return `<option value="${b.id}" ${isSelected ? 'selected' : ''} ${isDisabled ? 'disabled' : ''}>
-            ${b.name}
-          </option>`;
-        }).join('');
-
+        const complete = isPortfolioComplete(p.id);
         return `
-          <div class="draft-item">
-            <div class="draft-item-name">${p.name}</div>
-            <select class="form-select draft-select" data-participant-id="${p.id}">
-              <option value="">-- Select bundle --</option>
-              ${options}
-            </select>
+          <div class="participant-card ${complete ? 'completed' : ''}" data-id="${p.id}">
+            <span class="participant-name">${p.name}</span>
           </div>
         `;
       }).join('');
 
-      // Add event listeners
-      container.querySelectorAll('.draft-select').forEach(select => {
-        select.addEventListener('change', handleDraftSelection);
+      container.querySelectorAll('.participant-card:not(.completed)').forEach(card => {
+        card.addEventListener('click', () => {
+          currentParticipantId = parseInt(card.dataset.id);
+          currentCart = [];
+          showView('market-view');
+          renderMarket();
+        });
       });
-
-      updateLockButton();
     }
 
-    function handleDraftSelection(e) {
-      const participantId = parseInt(e.target.dataset.participantId);
-      const bundleId = e.target.value ? parseInt(e.target.value) : null;
+    /* ========================================
+       9. MARKET VIEW
+       ======================================== */
 
-      if (bundleId) {
-        appState.config[participantId] = bundleId;
+    function renderMarket() {
+      const participant = getParticipantById(currentParticipantId);
+      document.getElementById('current-buyer').textContent = `Building for: ${participant.name}`;
+
+      renderBudget();
+      renderCart();
+      renderCountryGrids();
+      updateConfirmButton();
+    }
+
+    function renderBudget() {
+      const remaining = getRemainingBudget();
+      const pct = (remaining / BUDGET) * 100;
+      const amountEl = document.getElementById('budget-amount');
+      const fillEl = document.getElementById('budget-fill');
+
+      amountEl.textContent = `$${remaining}`;
+      amountEl.className = 'budget-amount';
+      if (remaining < 20) amountEl.classList.add('danger');
+      else if (remaining < 50) amountEl.classList.add('warning');
+
+      fillEl.style.width = `${pct}%`;
+    }
+
+    function renderCart() {
+      const container = document.getElementById('cart-items');
+      const totalEl = document.getElementById('cart-total-amount');
+
+      if (currentCart.length === 0) {
+        container.innerHTML = '<p class="empty-cart">No countries selected yet</p>';
       } else {
-        delete appState.config[participantId];
+        container.innerHTML = currentCart.map(id => {
+          const c = COUNTRIES[id];
+          return `
+            <div class="cart-item">
+              <div class="cart-item-info">
+                <span>${c.flag}</span>
+                <span>${c.name}</span>
+                <span style="color: var(--accent-gold)">$${c.price}</span>
+              </div>
+              <button class="cart-item-remove" data-id="${id}">✕</button>
+            </div>
+          `;
+        }).join('');
+
+        container.querySelectorAll('.cart-item-remove').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            removeFromCart(btn.dataset.id);
+          });
+        });
       }
 
-      saveState();
-      renderDraftList();
+      totalEl.textContent = `$${getCartTotal()}`;
     }
 
-    function updateLockButton() {
-      const btn = document.getElementById('lock-draft-btn');
-      const allSelected = Object.keys(appState.config).length === PARTICIPANTS.length;
-      btn.disabled = !allSelected;
+    function renderCountryGrids() {
+      const tiers = {
+        'blue-chip': document.getElementById('blue-chip-grid'),
+        'mid-cap': document.getElementById('mid-cap-grid'),
+        'penny-stock': document.getElementById('penny-stock-grid')
+      };
+
+      Object.values(tiers).forEach(el => el.innerHTML = '');
+
+      Object.values(COUNTRIES).forEach(country => {
+        const inCart = currentCart.includes(country.id);
+        const canAfford = getRemainingBudget() >= country.price;
+        const disabled = !inCart && !canAfford;
+
+        const card = document.createElement('div');
+        card.className = `country-card ${inCart ? 'selected' : ''} ${disabled ? 'disabled' : ''}`;
+        card.innerHTML = `
+          ${inCart ? '<div class="country-selected-badge">IN CART</div>' : ''}
+          <div class="country-header">
+            <span class="country-flag">${country.flag}</span>
+            <span class="country-price">$${country.price}</span>
+          </div>
+          <div class="country-name">${country.name}</div>
+          <div class="country-projection">📊 ${country.projection}</div>
+          <div class="country-desc">${country.description}</div>
+        `;
+
+        if (!disabled) {
+          card.addEventListener('click', () => toggleCountry(country.id));
+        }
+
+        tiers[country.tier].appendChild(card);
+      });
     }
+
+    function toggleCountry(countryId) {
+      if (currentCart.includes(countryId)) {
+        removeFromCart(countryId);
+      } else {
+        addToCart(countryId);
+      }
+    }
+
+    function addToCart(countryId) {
+      if (!currentCart.includes(countryId) && getRemainingBudget() >= COUNTRIES[countryId].price) {
+        currentCart.push(countryId);
+        renderMarket();
+      }
+    }
+
+    function removeFromCart(countryId) {
+      currentCart = currentCart.filter(id => id !== countryId);
+      renderMarket();
+    }
+
+    function clearCart() {
+      currentCart = [];
+      renderMarket();
+    }
+
+    function updateConfirmButton() {
+      const btn = document.getElementById('confirm-portfolio-btn');
+      btn.disabled = currentCart.length === 0;
+    }
+
+    function confirmPortfolio() {
+      if (currentCart.length === 0) return;
+
+      const participant = getParticipantById(currentParticipantId);
+      const spent = getCartTotal();
+
+      if (!confirm(`Confirm portfolio for ${participant.name}?\n\nCountries: ${currentCart.map(id => COUNTRIES[id].name).join(', ')}\nTotal: $${spent}`)) {
+        return;
+      }
+
+      appState.portfolios[currentParticipantId] = [...currentCart];
+      saveState();
+
+      showToast(`Portfolio confirmed for ${participant.name}!`, 'success');
+
+      currentParticipantId = null;
+      currentCart = [];
+
+      if (allPortfoliosComplete()) {
+        appState.marketOpen = false;
+        saveState();
+        render();
+      } else {
+        showView('participant-view');
+        renderParticipantList();
+      }
+    }
+
+    /* ========================================
+       10. DASHBOARD
+       ======================================== */
 
     function renderDashboard() {
-      renderTotalMedals();
+      renderTotalPoints();
       renderLastUpdated();
       renderLeaderboard();
-      renderRosterGrid();
+      renderPortfolios();
     }
 
-    function renderTotalMedals() {
-      document.getElementById('total-medal-count').textContent = getTotalMedals();
+    function renderTotalPoints() {
+      document.getElementById('total-medal-count').textContent = getTotalLeaguePoints();
     }
 
     function renderLastUpdated() {
@@ -1957,122 +2031,77 @@
         el.textContent = '';
         return;
       }
-      const lastMedal = appState.medalsLog[appState.medalsLog.length - 1];
-      el.textContent = `Updated ${formatTimestamp(lastMedal.timestamp)}`;
+      const last = appState.medalsLog[appState.medalsLog.length - 1];
+      el.textContent = `Updated ${formatTimestamp(last.timestamp)}`;
     }
 
     function renderLeaderboard() {
       const leaderboard = getLeaderboard();
+      const container = document.getElementById('leaderboard-cards');
 
-      // Mobile cards
-      const cardsContainer = document.getElementById('leaderboard-cards');
-      cardsContainer.innerHTML = leaderboard.map((entry, index) => {
-        const rank = index + 1;
-        const { participant, bundle, scores } = entry;
-        const bundleName = bundle ? bundle.name : 'Not drafted';
+      container.innerHTML = leaderboard.map((entry, idx) => {
+        const rank = idx + 1;
+        const { participant, portfolio, scores } = entry;
+        const countryFlags = portfolio.map(id => COUNTRIES[id].flag).join(' ');
 
         return `
           <div class="leaderboard-card rank-${rank <= 3 ? rank : 'other'}">
-            <div class="rank-badge">
-              <span class="rank-number">${rank}</span>
-            </div>
+            <div class="rank-badge">${rank}</div>
             <div class="card-info">
               <div class="card-team-name">${participant.name}</div>
-              <div class="card-bundle-name">${bundleName}</div>
+              <div class="card-portfolio-summary">${countryFlags || 'No portfolio'}</div>
             </div>
             <div class="card-stats">
               <div class="card-medals">
-                <span class="medal-gold">${scores.gold}</span>
-                <span class="medal-silver">${scores.silver}</span>
-                <span class="medal-bronze">${scores.bronze}</span>
+                <span style="color: var(--gold)">${scores.gold}</span>
+                <span style="color: var(--silver)">${scores.silver}</span>
+                <span style="color: var(--bronze)">${scores.bronze}</span>
               </div>
-              <div class="card-points numeric">${scores.total}</div>
+              <div class="card-points">${scores.total}</div>
             </div>
           </div>
         `;
       }).join('');
-
-      // Desktop table
-      const tbody = document.getElementById('leaderboard-tbody');
-      tbody.innerHTML = leaderboard.map((entry, index) => {
-        const rank = index + 1;
-        const { participant, bundle, scores } = entry;
-        const bundleName = bundle ? bundle.name : 'Not drafted';
-
-        return `
-          <tr class="row-rank-${rank <= 3 ? rank : 'other'}">
-            <td class="rank-cell numeric">${rank}</td>
-            <td>${participant.name}</td>
-            <td>${bundleName}</td>
-            <td class="numeric" style="text-align:center"><span class="medal-gold">${scores.gold}</span></td>
-            <td class="numeric" style="text-align:center"><span class="medal-silver">${scores.silver}</span></td>
-            <td class="numeric" style="text-align:center"><span class="medal-bronze">${scores.bronze}</span></td>
-            <td class="points-cell numeric">${scores.total}</td>
-          </tr>
-        `;
-      }).join('');
     }
 
-    function renderRosterGrid() {
-      const container = document.getElementById('roster-grid');
+    function renderPortfolios() {
+      const container = document.getElementById('portfolio-grid');
 
       container.innerHTML = PARTICIPANTS.map(p => {
-        const bundleId = appState.config[p.id];
-        const bundle = getBundleById(bundleId);
+        const portfolio = appState.portfolios[p.id] || [];
+        const scores = getScoresForParticipant(p.id);
+        const spent = portfolio.reduce((sum, id) => sum + COUNTRIES[id].price, 0);
 
-        if (!bundle) {
-          return `
-            <div class="roster-card">
-              <div class="roster-card-header">
-                <div class="roster-team-name">${p.name}</div>
-                <div class="roster-bundle-name">Not drafted</div>
-              </div>
-              <div class="roster-card-body">
-                <p class="empty-state">No bundle assigned</p>
-              </div>
-            </div>
-          `;
-        }
-
-        const assetsHtml = bundle.assets.map(assetId => {
-          const asset = ASSETS[assetId];
-          const medals = getMedalsForAsset(assetId);
-          const olympicsUrl = getOlympicsUrl(assetId);
-          const scheduleUrl = getScheduleUrl(assetId);
-
-          const medalsHtml = medals.length > 0 ? `
-            <div class="asset-medals">
-              ${medals.map(m => `
-                <div class="asset-medal-item">
-                  <span class="medal-emoji">${MEDAL_EMOJI[m.medal]}</span>
-                  <span>${m.eventDescription}</span>
+        const countriesHtml = portfolio.length === 0
+          ? '<p class="empty-state">No portfolio set</p>'
+          : portfolio.map(id => {
+              const c = COUNTRIES[id];
+              const counts = getMedalCountsForCountry(id);
+              const pts = getPointsForCountry(id);
+              return `
+                <div class="portfolio-country">
+                  <div class="portfolio-country-info">
+                    <span class="portfolio-country-flag">${c.flag}</span>
+                    <span class="portfolio-country-name">${c.name} ($${c.price})</span>
+                  </div>
+                  <div class="portfolio-country-medals">
+                    ${counts.gold ? `<span style="color:var(--gold)">${counts.gold}G</span>` : ''}
+                    ${counts.silver ? `<span style="color:var(--silver)">${counts.silver}S</span>` : ''}
+                    ${counts.bronze ? `<span style="color:var(--bronze)">${counts.bronze}B</span>` : ''}
+                  </div>
+                  <div class="portfolio-country-points">${pts}</div>
                 </div>
-              `).join('')}
-            </div>
-          ` : '';
-
-          return `
-            <div class="roster-asset">
-              <div class="asset-header">
-                <span class="asset-name">${asset.name}</span>
-                <div class="asset-links">
-                  <a href="${olympicsUrl}" target="_blank" rel="noopener noreferrer" class="asset-link" title="Olympics.com Profile">🔗</a>
-                  <a href="${scheduleUrl}" target="_blank" rel="noopener noreferrer" class="asset-link" title="Event Schedule">📅</a>
-                </div>
-              </div>
-              ${medalsHtml}
-            </div>
-          `;
-        }).join('');
+              `;
+            }).join('');
 
         return `
-          <div class="roster-card">
-            <div class="roster-card-header">
-              <div class="roster-team-name">${p.name}</div>
-              <div class="roster-bundle-name">${bundle.name}</div>
+          <div class="portfolio-card">
+            <div class="portfolio-card-header">
+              <div class="portfolio-team-name">${p.name}</div>
+              <div class="portfolio-stats">Spent: $${spent} | Points: ${scores.total}</div>
             </div>
-            <div class="roster-card-body">
-              ${assetsHtml}
+            <div class="portfolio-card-body">
+              ${countriesHtml}
             </div>
           </div>
         `;
@@ -2080,129 +2109,95 @@
     }
 
     /* ========================================
-       6. ADMIN CONSOLE
+       11. ADMIN
        ======================================== */
 
-    function openAdminModal() {
-      const passcode = prompt('Enter admin passcode:');
-      if (passcode !== ADMIN_PASSCODE) {
-        if (passcode !== null) {
-          showToast('Access denied', 'error');
-        }
+    function openAdmin() {
+      const pass = prompt('Enter commissioner passcode:');
+      if (pass !== ADMIN_PASSCODE) {
+        if (pass !== null) showToast('Access denied', 'error');
         return;
       }
-
       document.getElementById('admin-modal').classList.remove('hidden');
       renderAdminPanel();
     }
 
-    function closeAdminModal() {
+    function closeAdmin() {
       document.getElementById('admin-modal').classList.add('hidden');
       resetAdminForm();
     }
 
     function renderAdminPanel() {
-      renderEntitySelect();
+      renderCountrySelect();
       renderTransactionLog();
       resetAdminForm();
     }
 
-    function renderEntitySelect() {
-      const select = document.getElementById('entity-select');
-
-      // Sort assets alphabetically
-      const sortedAssets = Object.entries(ASSETS)
-        .sort((a, b) => a[1].name.localeCompare(b[1].name));
-
-      select.innerHTML = `
-        <option value="">-- Select athlete/team --</option>
-        ${sortedAssets.map(([id, asset]) => `
-          <option value="${id}">${asset.name}</option>
-        `).join('')}
-      `;
+    function renderCountrySelect() {
+      const select = document.getElementById('country-select');
+      const sorted = Object.values(COUNTRIES).sort((a, b) => a.name.localeCompare(b.name));
+      select.innerHTML = `<option value="">-- Select country --</option>` +
+        sorted.map(c => `<option value="${c.id}">${c.flag} ${c.name}</option>`).join('');
     }
 
     function renderTransactionLog() {
       const container = document.getElementById('transaction-log');
-
       if (appState.medalsLog.length === 0) {
         container.innerHTML = '<p class="empty-state">No medals recorded yet</p>';
         return;
       }
 
-      // Show last 10, most recent first
-      const recentMedals = [...appState.medalsLog].reverse().slice(0, 10);
-
-      container.innerHTML = recentMedals.map(entry => {
-        const asset = ASSETS[entry.entityId];
-        const assetName = asset ? asset.name : 'Unknown';
-
+      const recent = [...appState.medalsLog].reverse().slice(0, 15);
+      container.innerHTML = recent.map(entry => {
+        const c = COUNTRIES[entry.countryId];
         return `
           <div class="transaction-item">
             <div class="transaction-info">
-              <div class="transaction-main">
-                ${MEDAL_EMOJI[entry.medal]} ${assetName} - ${entry.eventDescription}
-              </div>
+              <div class="transaction-main">${MEDAL_EMOJI[entry.medal]} ${c.flag} ${c.name} - ${entry.eventDescription}</div>
               <div class="transaction-time">${formatTimestamp(entry.timestamp)}</div>
             </div>
-            <button class="transaction-delete" data-medal-id="${entry.id}" title="Remove medal">&times;</button>
+            <button class="transaction-delete" data-id="${entry.id}">✕</button>
           </div>
         `;
       }).join('');
 
-      // Add delete listeners
       container.querySelectorAll('.transaction-delete').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const medalId = btn.dataset.medalId;
-          removeMedal(medalId);
-        });
+        btn.addEventListener('click', () => removeMedal(btn.dataset.id));
       });
     }
 
     function resetAdminForm() {
-      document.getElementById('entity-select').value = '';
+      document.getElementById('country-select').value = '';
       document.getElementById('event-input').value = '';
       selectedMedalType = null;
-
-      document.querySelectorAll('.medal-btn').forEach(btn => {
-        btn.classList.remove('selected');
-      });
-
+      document.querySelectorAll('.medal-btn').forEach(b => b.classList.remove('selected'));
       updateAddMedalButton();
     }
 
     function updateAddMedalButton() {
-      const entityId = document.getElementById('entity-select').value;
-      const eventDesc = document.getElementById('event-input').value.trim();
-      const btn = document.getElementById('add-medal-btn');
-
-      btn.disabled = !entityId || !eventDesc || !selectedMedalType;
+      const country = document.getElementById('country-select').value;
+      const event = document.getElementById('event-input').value.trim();
+      document.getElementById('add-medal-btn').disabled = !country || !event || !selectedMedalType;
     }
 
     function addMedal() {
-      const entityId = document.getElementById('entity-select').value;
+      const countryId = document.getElementById('country-select').value;
       const eventDesc = document.getElementById('event-input').value.trim();
+      if (!countryId || !eventDesc || !selectedMedalType) return;
 
-      if (!entityId || !eventDesc || !selectedMedalType) return;
+      const c = COUNTRIES[countryId];
+      if (!confirm(`Record ${selectedMedalType.toUpperCase()} for ${c.flag} ${c.name}?\nEvent: ${eventDesc}`)) return;
 
-      const asset = ASSETS[entityId];
-
-      // Confirmation
-      const confirmMsg = `Add ${selectedMedalType.toUpperCase()} medal to ${asset.name} for "${eventDesc}"?`;
-      if (!confirm(confirmMsg)) return;
-
-      const newMedal = {
+      appState.medalsLog.push({
         id: generateId(),
-        entityId: entityId,
+        countryId,
         eventDescription: eventDesc,
         medal: selectedMedalType,
         timestamp: Date.now()
-      };
-
-      appState.medalsLog.push(newMedal);
+      });
       saveState();
 
-      showToast(`${MEDAL_EMOJI[selectedMedalType]} Medal added!`, 'success');
+      showToast(`${MEDAL_EMOJI[selectedMedalType]} Medal recorded!`, 'success');
       resetAdminForm();
       renderTransactionLog();
       renderDashboard();
@@ -2210,105 +2205,98 @@
 
     function removeMedal(medalId) {
       if (!confirm('Remove this medal?')) return;
-
       appState.medalsLog = appState.medalsLog.filter(m => m.id !== medalId);
       saveState();
-
       showToast('Medal removed', 'success');
       renderTransactionLog();
       renderDashboard();
     }
 
+    function reopenMarket() {
+      if (!confirm('Reopen the market? This will allow portfolio changes.')) return;
+      appState.marketOpen = true;
+      saveState();
+      closeAdmin();
+      render();
+    }
+
     function exportData() {
-      const json = JSON.stringify(appState, null, 2);
-      navigator.clipboard.writeText(json).then(() => {
-        showToast('Data copied to clipboard!', 'success');
-      }).catch(() => {
-        // Fallback for older browsers
-        const textarea = document.createElement('textarea');
-        textarea.value = json;
-        document.body.appendChild(textarea);
-        textarea.select();
-        document.execCommand('copy');
-        document.body.removeChild(textarea);
-        showToast('Data copied to clipboard!', 'success');
-      });
+      navigator.clipboard.writeText(JSON.stringify(appState, null, 2));
+      showToast('Data copied!', 'success');
     }
 
     function importData() {
-      const json = prompt('Paste JSON data:');
+      const json = prompt('Paste JSON:');
       if (!json) return;
-
       try {
-        const data = JSON.parse(json);
-        if (!data.config || !data.medalsLog) {
-          throw new Error('Invalid data structure');
-        }
-        appState = data;
+        appState = JSON.parse(json);
         saveState();
-        showToast('Data imported successfully!', 'success');
-        closeAdminModal();
+        showToast('Imported!', 'success');
+        closeAdmin();
         render();
       } catch (e) {
-        showToast('Invalid JSON data', 'error');
+        showToast('Invalid JSON', 'error');
       }
-    }
-
-    function editDraft() {
-      if (!confirm('This will allow you to change the draft. Continue?')) return;
-      closeAdminModal();
-      showDraftView();
     }
 
     function resetLeague() {
-      if (!confirm('⚠️ This will DELETE ALL DATA including draft and medals. Are you sure?')) return;
-      if (!confirm('This cannot be undone. Type "RESET" to confirm.') || prompt('Type RESET to confirm:') !== 'RESET') {
-        showToast('Reset cancelled', 'error');
-        return;
-      }
-
+      if (!confirm('DELETE ALL DATA?')) return;
+      if (prompt('Type RESET:') !== 'RESET') return;
       localStorage.removeItem(STORAGE_KEY);
-      appState = { config: {}, medalsLog: [] };
-      showToast('League reset', 'success');
-      closeAdminModal();
+      appState = { portfolios: {}, medalsLog: [], marketOpen: true };
+      closeAdmin();
       render();
     }
 
     /* ========================================
-       7. TOAST NOTIFICATIONS
+       12. TOAST
        ======================================== */
 
-    function showToast(message, type = 'success') {
+    function showToast(msg, type = 'success') {
       const toast = document.getElementById('toast');
-      toast.textContent = message;
+      toast.textContent = msg;
       toast.className = `toast toast-${type}`;
       toast.classList.remove('hidden');
-
-      setTimeout(() => {
-        toast.classList.add('hidden');
-      }, 3000);
+      setTimeout(() => toast.classList.add('hidden'), 3000);
     }
 
     /* ========================================
-       8. EVENT LISTENERS
+       13. SNOWFALL
+       ======================================== */
+
+    function createSnowfall() {
+      const container = document.getElementById('snowfall');
+      const flakes = ['❄', '❅', '❆', '✦', '✧'];
+      for (let i = 0; i < 25; i++) {
+        const s = document.createElement('span');
+        s.className = 'snowflake';
+        s.textContent = flakes[Math.floor(Math.random() * flakes.length)];
+        s.style.left = Math.random() * 100 + '%';
+        s.style.animationDuration = (Math.random() * 12 + 8) + 's';
+        s.style.animationDelay = Math.random() * 8 + 's';
+        s.style.fontSize = (Math.random() * 0.8 + 0.4) + 'rem';
+        s.style.opacity = Math.random() * 0.5 + 0.2;
+        container.appendChild(s);
+      }
+    }
+
+    /* ========================================
+       14. EVENT LISTENERS
        ======================================== */
 
     function initEventListeners() {
-      // Lock Draft button
-      document.getElementById('lock-draft-btn').addEventListener('click', () => {
-        if (!confirm('Lock the draft? You can edit it later in the admin console.')) return;
-        showToast('Draft locked!', 'success');
-        render();
-      });
+      // Welcome
+      document.getElementById('enter-market-btn').addEventListener('click', enterMarket);
 
-      // Admin key button
-      document.getElementById('admin-key-btn').addEventListener('click', openAdminModal);
+      // Market
+      document.getElementById('confirm-portfolio-btn').addEventListener('click', confirmPortfolio);
+      document.getElementById('clear-cart-btn').addEventListener('click', clearCart);
 
-      // Close modal
-      document.getElementById('close-modal-btn').addEventListener('click', closeAdminModal);
-      document.getElementById('modal-backdrop').addEventListener('click', closeAdminModal);
+      // Admin
+      document.getElementById('admin-key-btn').addEventListener('click', openAdmin);
+      document.getElementById('close-modal-btn').addEventListener('click', closeAdmin);
+      document.getElementById('modal-backdrop').addEventListener('click', closeAdmin);
 
-      // Medal type buttons
       document.querySelectorAll('.medal-btn').forEach(btn => {
         btn.addEventListener('click', () => {
           document.querySelectorAll('.medal-btn').forEach(b => b.classList.remove('selected'));
@@ -2318,49 +2306,22 @@
         });
       });
 
-      // Add Medal form
-      document.getElementById('entity-select').addEventListener('change', updateAddMedalButton);
+      document.getElementById('country-select').addEventListener('change', updateAddMedalButton);
       document.getElementById('event-input').addEventListener('input', updateAddMedalButton);
       document.getElementById('add-medal-btn').addEventListener('click', addMedal);
 
-      // Data management buttons
       document.getElementById('export-btn').addEventListener('click', exportData);
       document.getElementById('import-btn').addEventListener('click', importData);
-      document.getElementById('edit-draft-btn').addEventListener('click', editDraft);
+      document.getElementById('reopen-market-btn').addEventListener('click', reopenMarket);
       document.getElementById('reset-btn').addEventListener('click', resetLeague);
 
-      // Keyboard: Escape to close modal
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-          closeAdminModal();
-        }
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') closeAdmin();
       });
     }
 
     /* ========================================
-       9. SNOWFALL ANIMATION
-       ======================================== */
-
-    function createSnowfall() {
-      const container = document.getElementById('snowfall');
-      const snowflakes = ['❄', '❅', '❆', '✧', '✦'];
-      const numFlakes = 30;
-
-      for (let i = 0; i < numFlakes; i++) {
-        const flake = document.createElement('span');
-        flake.className = 'snowflake';
-        flake.textContent = snowflakes[Math.floor(Math.random() * snowflakes.length)];
-        flake.style.left = Math.random() * 100 + '%';
-        flake.style.animationDuration = (Math.random() * 10 + 10) + 's';
-        flake.style.animationDelay = Math.random() * 10 + 's';
-        flake.style.fontSize = (Math.random() * 0.8 + 0.5) + 'rem';
-        flake.style.opacity = Math.random() * 0.6 + 0.2;
-        container.appendChild(flake);
-      }
-    }
-
-    /* ========================================
-       10. INITIALIZATION
+       15. INIT
        ======================================== */
 
     function init() {
@@ -2370,9 +2331,7 @@
       render();
     }
 
-    // Start the app
     document.addEventListener('DOMContentLoaded', init);
   </script>
-
 </body>
 </html>
