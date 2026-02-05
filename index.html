@@ -22,17 +22,17 @@
       <header class="welcome-header">
         <div class="olympic-rings">●●●●●</div>
         <h1 class="logo"><span class="city">Milano Cortina</span><span class="year">2026</span></h1>
-        <p class="welcome-subtitle">🏔️ Fantasy Medal Market 🏔️</p>
+        <p class="welcome-subtitle">🇮🇹 🏔️ Fantasy Medal Market 🏔️ 🇮🇹</p>
       </header>
 
       <div class="commissioner-card glass-card">
-        <div class="commissioner-badge">📋 COMMISSIONER'S BRIEFING</div>
+        <div class="commissioner-badge">🇮🇹 COMMISSIONER REIF-WRAY'S BRIEFING 🇮🇹</div>
         <div class="commissioner-content">
-          <p class="commissioner-date">📅 Today is <strong>Wednesday, February 4, 2026</strong></p>
-          <p class="commissioner-intro">The Opening Ceremony at the San Siro is just <strong>48 hours away</strong>. I am your Commissioner for the Milan-Cortina 2026 Fantasy Market.</p>
+          <p class="commissioner-date">📅 Today is <strong>Thursday, February 5, 2026</strong></p>
+          <p class="commissioner-intro">Benvenuti, competitors! The Opening Ceremony at the San Siro is just <strong>24 hours away</strong>. I am Commissioner Reif-Wray, your host for the Milan-Cortina 2026 Fantasy Market.</p>
 
           <div class="rules-box">
-            <h3>💰 THE RULES</h3>
+            <h3>💰 LE REGOLE (THE RULES)</h3>
             <ul>
               <li>You have a strict <strong>$100 budget</strong></li>
               <li>Buy countries at prices pegged to projected medal counts</li>
@@ -61,7 +61,7 @@
       </div>
 
       <div class="sample-portfolios glass-card">
-        <h3>📝 SAMPLE PORTFOLIOS</h3>
+        <h3>📝 PORTAFOGLI DI ESEMPIO (SAMPLE PORTFOLIOS)</h3>
 
         <div class="portfolio-example">
           <h4>🦅 "North American & Host" Aggressive ($99)</h4>
@@ -80,7 +80,7 @@
       </div>
 
       <button id="enter-market-btn" class="btn btn-primary btn-large">
-        🏪 Enter the Market
+        🇮🇹 Andiamo! Enter the Market 🇮🇹
       </button>
     </div>
   </section>
@@ -95,8 +95,8 @@
         <h1 class="logo small"><span class="city">Milano Cortina</span><span class="year">2026</span></h1>
       </header>
 
-      <h2 class="view-title">👥 Select Your Team</h2>
-      <p class="view-desc">Who's building their portfolio?</p>
+      <h2 class="view-title">👥 Scegli la Tua Squadra</h2>
+      <p class="view-desc">🇮🇹 Who's building their portfolio? 🇮🇹</p>
 
       <div id="participant-list" class="participant-list">
         <!-- Populated by JS -->
@@ -136,7 +136,7 @@
 
       <!-- Blue Chips -->
       <section class="market-tier">
-        <h2 class="tier-title">💎 BLUE CHIPS <span class="tier-subtitle">High floor, reliable volume (25+ medals projected)</span></h2>
+        <h2 class="tier-title">💎 BLUE CHIPS <span class="tier-subtitle">Le stelle - High floor, reliable volume (25+ medals projected)</span></h2>
         <div class="country-grid" id="blue-chip-grid">
           <!-- Populated by JS -->
         </div>
@@ -160,7 +160,7 @@
 
       <div class="market-actions">
         <button id="confirm-portfolio-btn" class="btn btn-primary btn-large" disabled>
-          ✅ Confirm Portfolio
+          ✅ Conferma! Confirm Portfolio 🇮🇹
         </button>
         <button id="clear-cart-btn" class="btn btn-secondary">
           🗑️ Clear Selection
@@ -190,7 +190,7 @@
 
       <!-- Leaderboard Section -->
       <section class="leaderboard-section">
-        <h2 class="section-title">🏅 Leaderboard</h2>
+        <h2 class="section-title">🏅 La Classifica 🇮🇹</h2>
         <div id="leaderboard-cards" class="leaderboard-cards">
           <!-- Populated by JS -->
         </div>
@@ -198,7 +198,7 @@
 
       <!-- Portfolio Details Section -->
       <section class="portfolios-section">
-        <h2 class="section-title">📊 Team Portfolios</h2>
+        <h2 class="section-title">📊 I Portafogli 🇮🇹</h2>
         <div id="portfolio-grid" class="portfolio-grid">
           <!-- Populated by JS -->
         </div>
@@ -208,7 +208,7 @@
     <!-- Footer with Admin Access -->
     <footer class="app-footer">
       <div class="footer-info">
-        <span class="version">v3.0 Market Edition</span>
+        <span class="version">🇮🇹 v3.0 Milano Edition 🇮🇹</span>
         <span class="last-updated" id="last-updated"></span>
       </div>
       <button id="admin-key-btn" class="admin-key-btn" aria-label="Admin access">
@@ -224,7 +224,7 @@
     <div class="modal-backdrop" id="modal-backdrop"></div>
     <div class="modal-content">
       <header class="modal-header">
-        <h2 id="admin-title" class="modal-title">🔐 Commissioner Console</h2>
+        <h2 id="admin-title" class="modal-title">🔐 Commissioner Reif-Wray's Console</h2>
         <button id="close-modal-btn" class="close-btn" aria-label="Close">&times;</button>
       </header>
 
@@ -529,13 +529,15 @@
     }
 
     .btn-primary {
-      background: linear-gradient(135deg, var(--accent-primary), var(--olympic-blue));
-      color: #000;
+      background: linear-gradient(135deg, var(--italian-green), var(--olympic-blue));
+      color: #fff;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.3);
     }
 
     .btn-primary:hover:not(:disabled) {
       transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(0, 212, 255, 0.4);
+      box-shadow: 0 8px 25px rgba(0, 140, 69, 0.4);
+      background: linear-gradient(135deg, var(--italian-green), var(--italian-red));
     }
 
     .btn-secondary {
@@ -614,17 +616,42 @@
 
     .commissioner-card {
       margin-bottom: var(--space-lg);
+      border-top: 4px solid var(--italian-green);
+      border-bottom: 4px solid var(--italian-red);
+      position: relative;
+    }
+
+    .commissioner-card::before {
+      content: '';
+      position: absolute;
+      top: -4px;
+      left: 33.33%;
+      right: 33.33%;
+      height: 4px;
+      background: white;
+    }
+
+    .commissioner-card::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 33.33%;
+      right: 33.33%;
+      height: 4px;
+      background: white;
     }
 
     .commissioner-badge {
       display: inline-block;
-      background: linear-gradient(135deg, var(--accent-gold), #FFA500);
+      background: linear-gradient(90deg, var(--italian-green) 0%, var(--italian-green) 33%, white 33%, white 66%, var(--italian-red) 66%, var(--italian-red) 100%);
       color: #000;
-      padding: var(--space-xs) var(--space-md);
+      padding: var(--space-sm) var(--space-lg);
       border-radius: var(--radius-sm);
       font-weight: 700;
-      font-size: 0.8125rem;
+      font-size: 0.875rem;
       margin-bottom: var(--space-md);
+      text-shadow: 0 0 2px rgba(255,255,255,0.8);
+      letter-spacing: 0.05em;
     }
 
     .commissioner-date {
@@ -640,10 +667,11 @@
 
     .rules-box {
       background: rgba(0, 212, 255, 0.1);
-      border: 1px solid rgba(0, 212, 255, 0.2);
       border-radius: var(--radius-md);
       padding: var(--space-md);
       margin-bottom: var(--space-lg);
+      border-left: 4px solid var(--italian-green);
+      border-right: 4px solid var(--italian-red);
     }
 
     .rules-box h3 {
@@ -706,6 +734,8 @@
 
     .sample-portfolios {
       margin-bottom: var(--space-xl);
+      border-top: 3px solid;
+      border-image: linear-gradient(90deg, var(--italian-green), white, var(--italian-red)) 1;
     }
 
     .sample-portfolios h3 {
@@ -1038,6 +1068,9 @@
       display: flex;
       flex-direction: column;
       gap: var(--space-xs);
+      padding-left: var(--space-md);
+      border-left: 4px solid;
+      border-image: linear-gradient(180deg, var(--italian-green), white, var(--italian-red)) 1;
     }
 
     .total-medals {
@@ -1093,6 +1126,8 @@
       align-items: center;
       gap: var(--space-md);
       transition: all var(--transition-normal);
+      border-left: 3px solid var(--italian-green);
+      border-right: 3px solid var(--italian-red);
     }
 
     .leaderboard-card.rank-1 {
