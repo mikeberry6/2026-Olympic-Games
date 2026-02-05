@@ -79,6 +79,11 @@
         </div>
       </div>
 
+      <div class="countdown-card glass-card" id="countdown-card">
+        <div class="countdown-label">Opening Ceremony Countdown</div>
+        <div class="countdown-timer" id="countdown-timer"></div>
+      </div>
+
       <button id="enter-market-btn" class="btn btn-primary btn-large">
         🎿 Andiamo! Enter the Market
       </button>
@@ -147,6 +152,7 @@
     <div class="container">
       <header class="market-header">
         <div class="header-left">
+          <button id="back-to-participants-btn" class="btn-back" aria-label="Back to participant selection">&larr; Back</button>
           <div class="olympic-rings small">●●●●●</div>
           <div class="current-buyer" id="current-buyer">Building for: ---</div>
         </div>
@@ -226,7 +232,10 @@
 
       <!-- Leaderboard Section -->
       <section class="leaderboard-section">
-        <h2 class="section-title">🏅 Leaderboard</h2>
+        <div class="section-title-row">
+          <h2 class="section-title">🏅 Leaderboard</h2>
+          <button id="refresh-dashboard-btn" class="btn-refresh" aria-label="Refresh dashboard">↻ Refresh</button>
+        </div>
         <div id="leaderboard-cards" class="leaderboard-cards">
           <!-- Populated by JS -->
         </div>
@@ -244,7 +253,7 @@
     <!-- Footer with Admin Access -->
     <footer class="app-footer">
       <div class="footer-info">
-        <span class="version">v4.0 Milano Edition</span>
+        <span class="version">v5.0 Milano Edition</span>
         <span class="last-updated" id="last-updated"></span>
       </div>
       <button id="admin-key-btn" class="admin-key-btn" aria-label="Admin access">
@@ -279,7 +288,8 @@
 
           <div class="form-group">
             <label for="event-input">Event Description</label>
-            <input type="text" id="event-input" class="form-input" placeholder="e.g., Men's Downhill Alpine Skiing">
+            <input type="text" id="event-input" class="form-input" placeholder="e.g., Men's Downhill Alpine Skiing" list="event-suggestions" autocomplete="off">
+            <datalist id="event-suggestions"></datalist>
           </div>
 
           <div class="form-group">
@@ -1651,8 +1661,187 @@
     .toast.toast-error { border-color: var(--danger); }
 
     /* ========================================
-       15. RESPONSIVE
+       15. BACK BUTTON
        ======================================== */
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      padding: var(--space-xs) var(--space-sm);
+      font-family: inherit;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      background: transparent;
+      border: var(--glass-border);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      margin-bottom: var(--space-xs);
+    }
+
+    .btn-back:hover {
+      color: var(--text-primary);
+      border-color: var(--accent-primary);
+      background: rgba(0, 212, 255, 0.1);
+    }
+
+    /* ========================================
+       16. COUNTDOWN TIMER
+       ======================================== */
+    .countdown-card {
+      text-align: center;
+      margin-bottom: var(--space-lg);
+      padding: var(--space-md) var(--space-lg);
+    }
+
+    .countdown-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: var(--space-sm);
+    }
+
+    .countdown-timer {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-md);
+      flex-wrap: wrap;
+    }
+
+    .countdown-unit {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 60px;
+    }
+
+    .countdown-value {
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: var(--accent-gold);
+      font-feature-settings: "tnum";
+      line-height: 1;
+    }
+
+    .countdown-label-text {
+      font-size: 0.6875rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: var(--space-xs);
+    }
+
+    .countdown-live {
+      color: var(--success);
+      font-weight: 700;
+      font-size: 1.125rem;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; }
+    }
+
+    /* ========================================
+       17. REFRESH BUTTON & SECTION TITLE ROW
+       ======================================== */
+    .section-title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-md);
+    }
+
+    .section-title-row .section-title {
+      margin-bottom: 0;
+    }
+
+    .btn-refresh {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      padding: var(--space-xs) var(--space-md);
+      font-family: inherit;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      background: var(--bg-surface);
+      border: var(--glass-border);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      min-height: 36px;
+    }
+
+    .btn-refresh:hover {
+      color: var(--accent-primary);
+      border-color: var(--accent-primary);
+    }
+
+    .btn-refresh.spinning {
+      animation: spin 0.6s ease;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* ========================================
+       18. COUNTRY LINK IN PORTFOLIO
+       ======================================== */
+    .portfolio-country-link {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      text-decoration: none;
+      color: inherit;
+      transition: color var(--transition-fast);
+    }
+
+    .portfolio-country-link:hover {
+      color: var(--accent-primary);
+    }
+
+    .portfolio-country-link:hover .portfolio-country-name {
+      text-decoration: underline;
+    }
+
+    /* ========================================
+       19. RESPONSIVE
+       ======================================== */
+    @media (max-width: 767px) {
+      .modal-content {
+        max-height: 95vh;
+      }
+
+      .modal-body {
+        padding: var(--space-md);
+      }
+
+      .medal-buttons {
+        flex-direction: column;
+      }
+
+      .medal-btn {
+        min-height: 48px;
+      }
+
+      .card-medals {
+        flex-direction: column;
+        gap: 0;
+        font-size: 0.6875rem;
+        text-align: right;
+      }
+
+      .countdown-value {
+        font-size: 1.25rem;
+      }
+    }
+
     @media (min-width: 768px) {
       .container { padding: var(--space-lg); }
 
@@ -2273,6 +2462,7 @@
         const rank = idx + 1;
         const { participant, portfolio, scores } = entry;
         const countryFlags = portfolio.map(id => COUNTRIES[id].flag).join(' ');
+        const totalMedals = scores.gold + scores.silver + scores.bronze;
 
         return `
           <div class="leaderboard-card rank-${rank <= 3 ? rank : 'other'}">
@@ -2283,9 +2473,10 @@
             </div>
             <div class="card-stats">
               <div class="card-medals">
-                <span style="color: var(--gold)">${scores.gold}</span>
-                <span style="color: var(--silver)">${scores.silver}</span>
-                <span style="color: var(--bronze)">${scores.bronze}</span>
+                <span style="color: var(--gold)">${scores.gold}G</span>
+                <span style="color: var(--silver)">${scores.silver}S</span>
+                <span style="color: var(--bronze)">${scores.bronze}B</span>
+                <span style="color: var(--text-muted); font-size: 0.75rem">(${totalMedals})</span>
               </div>
               <div class="card-points">${scores.total}</div>
             </div>
@@ -2310,10 +2501,10 @@
               const pts = getPointsForCountry(id);
               return `
                 <div class="portfolio-country">
-                  <div class="portfolio-country-info">
+                  <a href="${c.olympicsUrl}" target="_blank" rel="noopener" class="portfolio-country-link" title="View ${c.name} on Olympics.com">
                     <span class="portfolio-country-flag">${c.flag}</span>
                     <span class="portfolio-country-name">${c.name} ($${c.price})</span>
-                  </div>
+                  </a>
                   <div class="portfolio-country-medals">
                     ${counts.gold ? `<span style="color:var(--gold)">${counts.gold}G</span>` : ''}
                     ${counts.silver ? `<span style="color:var(--silver)">${counts.silver}S</span>` : ''}
@@ -2511,7 +2702,195 @@
     }
 
     /* ========================================
-       14. EVENT LISTENERS
+       14. COUNTDOWN TIMER
+       ======================================== */
+
+    const OPENING_CEREMONY = new Date('2026-02-06T20:00:00+01:00'); // Milan time (CET)
+
+    function updateCountdown() {
+      const el = document.getElementById('countdown-timer');
+      const card = document.getElementById('countdown-card');
+      if (!el || !card) return;
+
+      const now = new Date();
+      const diff = OPENING_CEREMONY - now;
+
+      if (diff <= 0) {
+        el.innerHTML = '<span class="countdown-live">The Games Are LIVE!</span>';
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      el.innerHTML = [
+        { value: days, label: 'Days' },
+        { value: hours, label: 'Hours' },
+        { value: minutes, label: 'Min' },
+        { value: seconds, label: 'Sec' }
+      ].map(u => `
+        <div class="countdown-unit">
+          <span class="countdown-value">${String(u.value).padStart(2, '0')}</span>
+          <span class="countdown-label-text">${u.label}</span>
+        </div>
+      `).join('');
+    }
+
+    /* ========================================
+       14B. BACK NAVIGATION
+       ======================================== */
+
+    function goBackToParticipants() {
+      currentParticipantId = null;
+      currentCart = [];
+      showView('participant-view');
+      renderParticipantList();
+    }
+
+    /* ========================================
+       14C. EVENT SUGGESTIONS
+       ======================================== */
+
+    const EVENT_SUGGESTIONS = [
+      "Men's Downhill Alpine Skiing",
+      "Women's Downhill Alpine Skiing",
+      "Men's Super-G Alpine Skiing",
+      "Women's Super-G Alpine Skiing",
+      "Men's Giant Slalom Alpine Skiing",
+      "Women's Giant Slalom Alpine Skiing",
+      "Men's Slalom Alpine Skiing",
+      "Women's Slalom Alpine Skiing",
+      "Men's Combined Alpine Skiing",
+      "Women's Combined Alpine Skiing",
+      "Mixed Team Parallel Alpine Skiing",
+      "Men's 10km Sprint Biathlon",
+      "Women's 7.5km Sprint Biathlon",
+      "Men's 20km Individual Biathlon",
+      "Women's 15km Individual Biathlon",
+      "Men's 12.5km Pursuit Biathlon",
+      "Women's 10km Pursuit Biathlon",
+      "Men's 15km Mass Start Biathlon",
+      "Women's 12.5km Mass Start Biathlon",
+      "Men's 4x7.5km Relay Biathlon",
+      "Women's 4x6km Relay Biathlon",
+      "Mixed Relay Biathlon",
+      "Two-Man Bobsled",
+      "Four-Man Bobsled",
+      "Two-Woman Bobsled",
+      "Women's Monobob",
+      "Men's Sprint Cross-Country Skiing",
+      "Women's Sprint Cross-Country Skiing",
+      "Men's Team Sprint Cross-Country Skiing",
+      "Women's Team Sprint Cross-Country Skiing",
+      "Men's 15km Classic Cross-Country Skiing",
+      "Women's 10km Classic Cross-Country Skiing",
+      "Men's Skiathlon Cross-Country Skiing",
+      "Women's Skiathlon Cross-Country Skiing",
+      "Men's 50km Mass Start Cross-Country Skiing",
+      "Women's 30km Mass Start Cross-Country Skiing",
+      "Men's 4x10km Relay Cross-Country Skiing",
+      "Women's 4x5km Relay Cross-Country Skiing",
+      "Men's Curling",
+      "Women's Curling",
+      "Mixed Doubles Curling",
+      "Men's Singles Figure Skating",
+      "Women's Singles Figure Skating",
+      "Pairs Figure Skating",
+      "Ice Dance Figure Skating",
+      "Team Event Figure Skating",
+      "Men's Moguls Freestyle Skiing",
+      "Women's Moguls Freestyle Skiing",
+      "Men's Aerials Freestyle Skiing",
+      "Women's Aerials Freestyle Skiing",
+      "Mixed Team Aerials Freestyle Skiing",
+      "Men's Halfpipe Freestyle Skiing",
+      "Women's Halfpipe Freestyle Skiing",
+      "Men's Slopestyle Freestyle Skiing",
+      "Women's Slopestyle Freestyle Skiing",
+      "Men's Ski Cross Freestyle Skiing",
+      "Women's Ski Cross Freestyle Skiing",
+      "Men's Ice Hockey",
+      "Women's Ice Hockey",
+      "Men's Singles Luge",
+      "Women's Singles Luge",
+      "Doubles Luge",
+      "Team Relay Luge",
+      "Men's Normal Hill Ski Jumping",
+      "Men's Large Hill Ski Jumping",
+      "Women's Normal Hill Ski Jumping",
+      "Men's Team Large Hill Ski Jumping",
+      "Mixed Team Ski Jumping",
+      "Men's Individual Gundersen NH/10km Nordic Combined",
+      "Men's Individual Gundersen LH/10km Nordic Combined",
+      "Men's Team Gundersen LH/4x5km Nordic Combined",
+      "Men's 500m Short Track Speed Skating",
+      "Women's 500m Short Track Speed Skating",
+      "Men's 1000m Short Track Speed Skating",
+      "Women's 1000m Short Track Speed Skating",
+      "Men's 1500m Short Track Speed Skating",
+      "Women's 1500m Short Track Speed Skating",
+      "Men's 5000m Relay Short Track Speed Skating",
+      "Women's 3000m Relay Short Track Speed Skating",
+      "Mixed Team Relay Short Track Speed Skating",
+      "Men's Skeleton",
+      "Women's Skeleton",
+      "Men's Sprint Ski Mountaineering",
+      "Women's Sprint Ski Mountaineering",
+      "Men's Individual Ski Mountaineering",
+      "Women's Individual Ski Mountaineering",
+      "Mixed Relay Ski Mountaineering",
+      "Men's Big Air Snowboard",
+      "Women's Big Air Snowboard",
+      "Men's Halfpipe Snowboard",
+      "Women's Halfpipe Snowboard",
+      "Men's Slopestyle Snowboard",
+      "Women's Slopestyle Snowboard",
+      "Men's Snowboard Cross",
+      "Women's Snowboard Cross",
+      "Mixed Team Snowboard Cross",
+      "Men's Parallel Giant Slalom Snowboard",
+      "Women's Parallel Giant Slalom Snowboard",
+      "Men's 500m Speed Skating",
+      "Women's 500m Speed Skating",
+      "Men's 1000m Speed Skating",
+      "Women's 1000m Speed Skating",
+      "Men's 1500m Speed Skating",
+      "Women's 1500m Speed Skating",
+      "Men's 5000m Speed Skating",
+      "Women's 3000m Speed Skating",
+      "Men's 10000m Speed Skating",
+      "Women's 5000m Speed Skating",
+      "Men's Mass Start Speed Skating",
+      "Women's Mass Start Speed Skating",
+      "Men's Team Pursuit Speed Skating",
+      "Women's Team Pursuit Speed Skating"
+    ];
+
+    function populateEventSuggestions() {
+      const datalist = document.getElementById('event-suggestions');
+      if (!datalist) return;
+      datalist.innerHTML = EVENT_SUGGESTIONS.map(e => `<option value="${e}">`).join('');
+    }
+
+    /* ========================================
+       14D. REFRESH DASHBOARD
+       ======================================== */
+
+    function refreshDashboard() {
+      const btn = document.getElementById('refresh-dashboard-btn');
+      if (btn) {
+        btn.classList.add('spinning');
+        setTimeout(() => btn.classList.remove('spinning'), 600);
+      }
+      loadState();
+      renderDashboard();
+      showToast('Dashboard refreshed', 'success');
+    }
+
+    /* ========================================
+       15. EVENT LISTENERS
        ======================================== */
 
     function initEventListeners() {
@@ -2523,8 +2902,12 @@
       document.getElementById('skip-video-btn').addEventListener('click', skipVideo);
 
       // Market
+      document.getElementById('back-to-participants-btn').addEventListener('click', goBackToParticipants);
       document.getElementById('confirm-portfolio-btn').addEventListener('click', confirmPortfolio);
       document.getElementById('clear-cart-btn').addEventListener('click', clearCart);
+
+      // Dashboard
+      document.getElementById('refresh-dashboard-btn').addEventListener('click', refreshDashboard);
 
       // Admin
       document.getElementById('admin-key-btn').addEventListener('click', openAdmin);
@@ -2562,6 +2945,9 @@
       createSnowfall();
       loadState();
       initEventListeners();
+      populateEventSuggestions();
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
       render();
     }
 
