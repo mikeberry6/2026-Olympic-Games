@@ -290,6 +290,15 @@
       </header>
 
       <div class="modal-body">
+        <!-- Session Banner -->
+        <div id="session-banner" class="session-banner hidden">
+          <div class="session-banner-info">
+            <span class="session-banner-icon">📝</span>
+            <span class="session-banner-text" id="session-banner-text">0 medals added this session</span>
+          </div>
+          <button id="publish-update-btn" class="btn btn-primary btn-publish">Publish Daily Update</button>
+        </div>
+
         <!-- Add Medal Section -->
         <section class="admin-section">
           <h3 class="admin-section-title">🏅 Record Medal</h3>
@@ -364,7 +373,7 @@
 
   <!-- Breaking News Ticker -->
   <div id="news-ticker" class="news-ticker hidden">
-    <div class="ticker-label">BREAKING</div>
+    <div class="ticker-label">DAILY RECAP</div>
     <div class="ticker-text" id="ticker-text"></div>
   </div>
 
@@ -1853,7 +1862,70 @@
     }
 
     /* ========================================
-       20. MEDAL CELEBRATION OVERLAY
+       20. SESSION BANNER
+       ======================================== */
+    .session-banner {
+      background: linear-gradient(135deg, rgba(0, 212, 255, 0.12), rgba(0, 140, 69, 0.08));
+      border: 1px solid rgba(0, 212, 255, 0.25);
+      border-radius: var(--radius-md);
+      padding: var(--space-md);
+      margin-bottom: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .session-banner.hidden { display: none !important; }
+
+    .session-banner-info {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .session-banner-icon {
+      font-size: 1.25rem;
+    }
+
+    .session-banner-text {
+      font-weight: 700;
+      color: var(--accent-primary);
+      font-size: 0.9375rem;
+    }
+
+    .btn-publish {
+      width: 100%;
+      min-height: 48px;
+      font-size: 1rem;
+      background: linear-gradient(135deg, var(--accent-gold), #FFA500);
+      color: #000;
+    }
+
+    .btn-publish:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+    }
+
+    /* Inline medal confirmation (replaces confirm dialog) */
+    .medal-added-flash {
+      background: rgba(0, 230, 118, 0.15);
+      border: 1px solid rgba(0, 230, 118, 0.3);
+      border-radius: var(--radius-md);
+      padding: var(--space-sm) var(--space-md);
+      margin-bottom: var(--space-md);
+      font-size: 0.875rem;
+      color: var(--success);
+      font-weight: 600;
+      animation: flashIn 0.3s ease;
+    }
+
+    @keyframes flashIn {
+      from { opacity: 0; transform: translateY(-5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ========================================
+       21. MEDAL CELEBRATION OVERLAY
        ======================================== */
     .celebration-overlay {
       position: fixed;
@@ -1953,11 +2025,12 @@
       z-index: 1500;
       display: flex;
       align-items: center;
-      background: linear-gradient(90deg, #B71C1C, #D32F2F);
+      background: linear-gradient(90deg, #0a1628, #141c2f);
       color: #fff;
       font-weight: 700;
       overflow: hidden;
-      height: 40px;
+      height: 44px;
+      border-bottom: 2px solid var(--accent-gold);
       animation: tickerSlideDown 0.4s ease;
     }
 
@@ -1971,33 +2044,27 @@
     }
 
     .ticker-label {
-      background: #fff;
-      color: #B71C1C;
+      background: linear-gradient(135deg, var(--accent-gold), #FFA500);
+      color: #000;
       padding: 0 var(--space-md);
-      font-size: 0.75rem;
+      font-size: 0.6875rem;
       font-weight: 800;
-      letter-spacing: 0.15em;
+      letter-spacing: 0.1em;
       height: 100%;
       display: flex;
       align-items: center;
       flex-shrink: 0;
-      animation: tickerFlash 1s ease infinite;
-    }
-
-    @keyframes tickerFlash {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.7; }
     }
 
     .ticker-text {
       white-space: nowrap;
       padding: 0 var(--space-lg);
       font-size: 0.875rem;
-      animation: tickerScroll 12s linear;
+      animation: tickerScroll 15s linear;
     }
 
     @keyframes tickerScroll {
-      0% { transform: translateX(60vw); }
+      0% { transform: translateX(100vw); }
       100% { transform: translateX(0); }
     }
 
@@ -2428,6 +2495,7 @@
     let currentParticipantId = null;
     let currentCart = [];
     let selectedMedalType = null;
+    let sessionMedals = []; // tracks medals added in current admin session
 
     /* ========================================
        3. STATE MANAGEMENT
@@ -2881,19 +2949,67 @@
         if (pass !== null) showToast('Access denied', 'error');
         return;
       }
+      sessionMedals = [];
       document.getElementById('admin-modal').classList.remove('hidden');
       renderAdminPanel();
+      updateSessionBanner();
     }
 
     function closeAdmin() {
       document.getElementById('admin-modal').classList.add('hidden');
       resetAdminForm();
+
+      // If medals were entered this session, trigger the daily update celebration
+      if (sessionMedals.length > 0) {
+        const medalsThisSession = [...sessionMedals];
+        sessionMedals = [];
+
+        renderDashboard();
+
+        setTimeout(() => {
+          showDailyRecapTicker(medalsThisSession);
+        }, 200);
+
+        setTimeout(() => {
+          launchDailyCelebration(medalsThisSession);
+        }, 800);
+      }
+    }
+
+    function publishDailyUpdate() {
+      // Also save commentary if written
+      const input = document.getElementById('commentary-input');
+      if (input && input.value.trim()) {
+        saveCommentary();
+      }
+      closeAdmin();
+    }
+
+    function updateSessionBanner() {
+      const banner = document.getElementById('session-banner');
+      const text = document.getElementById('session-banner-text');
+      const btn = document.getElementById('publish-update-btn');
+
+      if (sessionMedals.length === 0) {
+        banner.classList.add('hidden');
+      } else {
+        banner.classList.remove('hidden');
+        const golds = sessionMedals.filter(m => m.medal === 'gold').length;
+        const silvers = sessionMedals.filter(m => m.medal === 'silver').length;
+        const bronzes = sessionMedals.filter(m => m.medal === 'bronze').length;
+        const parts = [];
+        if (golds) parts.push(`${golds}G`);
+        if (silvers) parts.push(`${silvers}S`);
+        if (bronzes) parts.push(`${bronzes}B`);
+        text.textContent = `${sessionMedals.length} medal${sessionMedals.length !== 1 ? 's' : ''} added (${parts.join(' ')})`;
+      }
     }
 
     function renderAdminPanel() {
       renderCountrySelect();
       renderTransactionLog();
       resetAdminForm();
+      updateSessionBanner();
     }
 
     function renderCountrySelect() {
@@ -2945,38 +3061,55 @@
 
     function addMedal() {
       const countryId = document.getElementById('country-select').value;
-      const eventDesc = document.getElementById('event-input').value.trim();
+      const eventInput = document.getElementById('event-input');
+      const eventDesc = eventInput.value.trim();
       if (!countryId || !eventDesc || !selectedMedalType) return;
 
       const c = COUNTRIES[countryId];
-      if (!confirm(`Record ${selectedMedalType.toUpperCase()} for ${c.flag} ${c.name}?\nEvent: ${eventDesc}`)) return;
-
       const medalType = selectedMedalType;
 
-      appState.medalsLog.push({
+      const entry = {
         id: generateId(),
         countryId,
         eventDescription: eventDesc,
         medal: medalType,
         timestamp: Date.now()
-      });
+      };
+
+      appState.medalsLog.push(entry);
       saveState();
+      sessionMedals.push(entry);
 
-      resetAdminForm();
+      // Show inline flash confirmation (no confirm dialog for speed)
+      showMedalFlash(medalType, c, eventDesc);
+
+      // Only clear event field and medal selection -- keep country selected for rapid entry
+      eventInput.value = '';
+      selectedMedalType = null;
+      document.querySelectorAll('.medal-btn').forEach(b => b.classList.remove('selected'));
+      updateAddMedalButton();
+
+      // Refresh log and session banner
       renderTransactionLog();
-      renderDashboard();
+      updateSessionBanner();
 
-      // Close admin and launch celebration
-      closeAdmin();
+      // Focus back on event input for next entry
+      eventInput.focus();
+    }
 
-      // Stagger: news ticker first, then celebration
-      setTimeout(() => {
-        showNewsTicker(medalType, c.name, c.flag, eventDesc);
-      }, 200);
+    function showMedalFlash(medalType, country, eventDesc) {
+      // Remove any existing flash
+      const existing = document.querySelector('.medal-added-flash');
+      if (existing) existing.remove();
 
-      setTimeout(() => {
-        launchCelebration(medalType, c.name, c.flag, eventDesc);
-      }, 800);
+      const flash = document.createElement('div');
+      flash.className = 'medal-added-flash';
+      flash.textContent = `${MEDAL_EMOJI[medalType]} ${country.flag} ${country.name} — ${eventDesc}`;
+
+      const addBtn = document.getElementById('add-medal-btn');
+      addBtn.parentNode.insertBefore(flash, addBtn);
+
+      setTimeout(() => flash.remove(), 2500);
     }
 
     function removeMedal(medalId) {
@@ -3254,32 +3387,56 @@
       bronze: ['#CD7F32', '#E8A850', '#B87333', '#D4956A', '#8B4513']
     };
 
-    function launchCelebration(medalType, countryName, countryFlag, eventDesc) {
+    function launchDailyCelebration(medals) {
       const overlay = document.getElementById('celebration-overlay');
       const canvas = document.getElementById('confetti-canvas');
       const medalEl = document.getElementById('celebration-medal');
       const textEl = document.getElementById('celebration-text');
       const eventEl = document.getElementById('celebration-event');
 
+      // Compute summary
+      const golds = medals.filter(m => m.medal === 'gold').length;
+      const silvers = medals.filter(m => m.medal === 'silver').length;
+      const bronzes = medals.filter(m => m.medal === 'bronze').length;
+      const uniqueCountries = [...new Set(medals.map(m => m.countryId))];
+      const flags = uniqueCountries.map(id => COUNTRIES[id].flag).join(' ');
+      const day = getCompetitionDay();
+
+      // Pick the "best" medal color for confetti (gold if any golds, etc.)
+      const topMedal = golds > 0 ? 'gold' : silvers > 0 ? 'silver' : 'bronze';
+
       // Set content
-      medalEl.textContent = MEDAL_EMOJI[medalType];
-      textEl.textContent = `${countryFlag} ${countryName}`;
-      textEl.className = `celebration-text ${medalType}-text`;
-      eventEl.textContent = eventDesc;
+      medalEl.textContent = `🏅 ${medals.length}`;
+      textEl.textContent = day ? `Day ${day} Results` : 'Daily Update';
+      textEl.className = 'celebration-text gold-text';
+
+      const parts = [];
+      if (golds) parts.push(`🥇${golds}`);
+      if (silvers) parts.push(`🥈${silvers}`);
+      if (bronzes) parts.push(`🥉${bronzes}`);
+      eventEl.innerHTML = `${parts.join('  ')} across ${uniqueCountries.length} countries<br><span style="font-size:1.5rem;letter-spacing:0.15em;margin-top:8px;display:inline-block">${flags}</span>`;
 
       // Show overlay
       overlay.classList.remove('hidden');
 
-      // Launch confetti
-      launchConfetti(canvas, MEDAL_COLORS[medalType]);
+      // Launch confetti with mixed colors
+      const allColors = [...MEDAL_COLORS.gold, ...MEDAL_COLORS.silver, ...MEDAL_COLORS.bronze];
+      launchConfetti(canvas, allColors);
 
-      // Auto-dismiss after 3.5s, or click to dismiss
+      // Auto-dismiss after 5s (longer for summary), or click to dismiss
       const dismiss = () => {
         overlay.classList.add('hidden');
         overlay.removeEventListener('click', dismiss);
       };
       overlay.addEventListener('click', dismiss);
-      setTimeout(dismiss, 3500);
+      setTimeout(dismiss, 5000);
+    }
+
+    function getCompetitionDay() {
+      const gameStart = new Date('2026-02-06');
+      const now = new Date();
+      const diffDays = Math.floor((now - gameStart) / (1000 * 60 * 60 * 24)) + 1;
+      return diffDays >= 1 && diffDays <= 17 ? diffDays : 0;
     }
 
     function launchConfetti(canvas, colors) {
@@ -3351,12 +3508,23 @@
        14F. BREAKING NEWS TICKER
        ======================================== */
 
-    function showNewsTicker(medalType, countryName, countryFlag, eventDesc) {
+    function showDailyRecapTicker(medals) {
       const ticker = document.getElementById('news-ticker');
       const text = document.getElementById('ticker-text');
 
-      const medalName = medalType.charAt(0).toUpperCase() + medalType.slice(1);
-      text.textContent = `${MEDAL_EMOJI[medalType]} ${countryFlag} ${countryName} wins ${medalName} in ${eventDesc}!`;
+      const golds = medals.filter(m => m.medal === 'gold').length;
+      const silvers = medals.filter(m => m.medal === 'silver').length;
+      const bronzes = medals.filter(m => m.medal === 'bronze').length;
+      const uniqueCountries = [...new Set(medals.map(m => m.countryId))];
+      const day = getCompetitionDay();
+
+      const parts = [];
+      if (golds) parts.push(`${golds} Gold`);
+      if (silvers) parts.push(`${silvers} Silver`);
+      if (bronzes) parts.push(`${bronzes} Bronze`);
+
+      const dayLabel = day ? `Day ${day}` : 'Today';
+      text.textContent = `${dayLabel}: ${medals.length} medals recorded — ${parts.join(', ')} across ${uniqueCountries.length} countries. Leaderboard updated!`;
 
       ticker.classList.remove('hidden');
 
@@ -3367,7 +3535,7 @@
 
       setTimeout(() => {
         ticker.classList.add('hidden');
-      }, 6000);
+      }, 8000);
     }
 
     /* ========================================
@@ -3403,12 +3571,13 @@
         return;
       }
 
+      const day = getCompetitionDay();
       appState.commentary = text;
       appState.commentaryTimestamp = Date.now();
+      appState.commentaryDay = day || null;
       saveState();
 
       showToast('Commentary published!', 'success');
-      input.value = '';
       renderCommentary();
     }
 
@@ -3417,14 +3586,19 @@
       const input = document.getElementById('commentary-input');
 
       if (appState.commentary) {
+        const dayLabel = appState.commentaryDay ? `Day ${appState.commentaryDay}` : formatTimestamp(appState.commentaryTimestamp);
         card.innerHTML = `
           <div class="commentary-body">"${appState.commentary}"</div>
-          <div class="commentary-sig">— Commissioner Reif-Wray, ${formatTimestamp(appState.commentaryTimestamp)}</div>
+          <div class="commentary-sig">— Commissioner Reif-Wray, ${dayLabel}</div>
         `;
         // Pre-fill admin textarea with current commentary for editing
         if (input) input.value = appState.commentary;
       } else {
         card.innerHTML = '<p class="empty-state">No commentary yet. The Commissioner is sharpening his quill...</p>';
+        if (input) {
+          const day = getCompetitionDay();
+          if (day) input.placeholder = `Day ${day}: The Norwegian Empire marches on! But watch out for the Swiss...`;
+        }
       }
     }
 
@@ -3582,6 +3756,7 @@
       document.getElementById('event-input').addEventListener('input', updateAddMedalButton);
       document.getElementById('add-medal-btn').addEventListener('click', addMedal);
 
+      document.getElementById('publish-update-btn').addEventListener('click', publishDailyUpdate);
       document.getElementById('save-commentary-btn').addEventListener('click', saveCommentary);
       document.getElementById('export-btn').addEventListener('click', exportData);
       document.getElementById('import-btn').addEventListener('click', importData);
