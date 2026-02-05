@@ -92,6 +92,10 @@
 
     <!-- Footer with Admin Access -->
     <footer class="app-footer">
+      <div class="footer-info">
+        <span class="version">v1.0</span>
+        <span class="last-updated" id="last-updated"></span>
+      </div>
       <button id="admin-key-btn" class="admin-key-btn" aria-label="Admin access">
         🔑
       </button>
@@ -781,8 +785,26 @@
       right: 0;
       padding: var(--space-md);
       display: flex;
-      justify-content: flex-end;
+      justify-content: space-between;
+      align-items: center;
       pointer-events: none;
+    }
+
+    .footer-info {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      pointer-events: all;
+    }
+
+    .version {
+      opacity: 0.5;
+    }
+
+    .last-updated {
+      opacity: 0.7;
     }
 
     .admin-key-btn {
@@ -1438,12 +1460,23 @@
 
     function renderDashboard() {
       renderTotalMedals();
+      renderLastUpdated();
       renderLeaderboard();
       renderRosterGrid();
     }
 
     function renderTotalMedals() {
       document.getElementById('total-medal-count').textContent = getTotalMedals();
+    }
+
+    function renderLastUpdated() {
+      const el = document.getElementById('last-updated');
+      if (appState.medalsLog.length === 0) {
+        el.textContent = '';
+        return;
+      }
+      const lastMedal = appState.medalsLog[appState.medalsLog.length - 1];
+      el.textContent = `Updated ${formatTimestamp(lastMedal.timestamp)}`;
     }
 
     function renderLeaderboard() {
