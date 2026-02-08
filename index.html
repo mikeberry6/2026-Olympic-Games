@@ -25,10 +25,22 @@
             <div class="olympic-rings small">●●●●●</div>
             <h1 class="logo"><span class="city">Milano Cortina</span><span class="year">2026</span></h1>
           </div>
-          <div class="total-medals">
-            <div class="medal-trophy">🏆</div>
-            <span class="medal-count" id="total-medal-count">0</span>
-            <span class="medal-label">Total Points</span>
+          <div class="header-medals">
+            <div class="header-medal-box gold-box">
+              <span class="header-medal-emoji">🥇</span>
+              <span class="header-medal-value" id="header-gold-count">0</span>
+              <span class="header-medal-label">Gold</span>
+            </div>
+            <div class="header-medal-box silver-box">
+              <span class="header-medal-emoji">🥈</span>
+              <span class="header-medal-value" id="header-silver-count">0</span>
+              <span class="header-medal-label">Silver</span>
+            </div>
+            <div class="header-medal-box bronze-box">
+              <span class="header-medal-emoji">🥉</span>
+              <span class="header-medal-value" id="header-bronze-count">0</span>
+              <span class="header-medal-label">Bronze</span>
+            </div>
           </div>
         </div>
       </header>
@@ -66,7 +78,7 @@
     <div class="briefing-card">
       <div class="briefing-header">
         <div class="olympic-rings small">●●●●●</div>
-        <h2 class="briefing-title">📋 Commissioner's Briefing</h2>
+        <h2 class="briefing-title">📋 Commissioner Reif-Wray's Briefing</h2>
         <div class="briefing-timestamp" id="briefing-timestamp"></div>
       </div>
       <div class="briefing-body" id="briefing-body">
@@ -384,37 +396,55 @@
       gap: var(--space-xs);
     }
 
-    .total-medals {
+    .header-medals {
+      display: flex;
+      gap: var(--space-sm);
+    }
+
+    .header-medal-box {
       display: flex;
       flex-direction: column;
       align-items: center;
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--radius-md);
+      min-width: 64px;
+    }
+
+    .header-medal-box.gold-box {
       background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 215, 0, 0.05));
-      padding: var(--space-md) var(--space-lg);
-      border-radius: var(--radius-lg);
-      border: 1px solid rgba(255, 215, 0, 0.2);
+      border: 1px solid rgba(255, 215, 0, 0.25);
     }
 
-    .medal-trophy {
+    .header-medal-box.silver-box {
+      background: linear-gradient(135deg, rgba(192, 192, 192, 0.15), rgba(192, 192, 192, 0.05));
+      border: 1px solid rgba(192, 192, 192, 0.25);
+    }
+
+    .header-medal-box.bronze-box {
+      background: linear-gradient(135deg, rgba(205, 127, 50, 0.15), rgba(205, 127, 50, 0.05));
+      border: 1px solid rgba(205, 127, 50, 0.25);
+    }
+
+    .header-medal-emoji {
+      font-size: 1.25rem;
+    }
+
+    .header-medal-value {
       font-size: 1.5rem;
-      animation: bounce 2s ease-in-out infinite;
-    }
-
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-5px); }
-    }
-
-    .total-medals .medal-count {
-      font-size: 2rem;
       font-weight: 800;
-      color: var(--accent-gold);
       font-feature-settings: "tnum";
+      line-height: 1.2;
     }
 
-    .total-medals .medal-label {
-      font-size: 0.75rem;
+    .gold-box .header-medal-value { color: var(--gold); }
+    .silver-box .header-medal-value { color: var(--silver); }
+    .bronze-box .header-medal-value { color: var(--bronze); }
+
+    .header-medal-label {
+      font-size: 0.625rem;
       color: var(--text-muted);
       text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
 
     /* Leaderboard */
@@ -1117,8 +1147,9 @@
        ======================================== */
 
     function formatTimestamp(ts) {
-      return new Date(ts).toLocaleDateString('en-US', {
-        month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit'
+      return new Date(ts).toLocaleString('en-US', {
+        month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit',
+        timeZone: 'America/New_York', timeZoneName: 'short'
       });
     }
 
@@ -1190,7 +1221,12 @@
     }
 
     function renderTotalPoints() {
-      document.getElementById('total-medal-count').textContent = getTotalLeaguePoints();
+      const golds = appState.medalsLog.filter(m => m.medal === 'gold').length;
+      const silvers = appState.medalsLog.filter(m => m.medal === 'silver').length;
+      const bronzes = appState.medalsLog.filter(m => m.medal === 'bronze').length;
+      document.getElementById('header-gold-count').textContent = golds;
+      document.getElementById('header-silver-count').textContent = silvers;
+      document.getElementById('header-bronze-count').textContent = bronzes;
     }
 
     function renderLastUpdated() {
@@ -1315,7 +1351,7 @@
 
     const LAST_PLACE_ROASTS = [
       (name) => `${name} are currently bringing up the rear. Their portfolio is doing about as well as a snowboarder in a swimming pool. Forza, you beautiful disasters.`,
-      (name) => `Commissioner's note: ${name} are mathematically still alive. Spiritually? That's another question entirely.`,
+      (name) => `Commissioner Reif-Wray's note: ${name} are mathematically still alive. Spiritually? That's another question entirely.`,
       (name) => `Last place belongs to ${name}, who appear to have drafted their portfolio blindfolded. Bold strategy. Let's see if it pays off. (It hasn't.)`,
       (name) => `${name} are in the cellar. At this rate, they might want to pivot from "medal hunting" to "enjoying the scenery in Cortina."`,
       (name) => `A moment of silence for ${name}, who are currently proving that $100 can, in fact, buy you nothing of value.`,
@@ -1330,9 +1366,10 @@
 
       // Show current time
       const now = new Date();
-      tsEl.textContent = now.toLocaleDateString('en-US', {
+      tsEl.textContent = now.toLocaleString('en-US', {
         weekday: 'long', month: 'long', day: 'numeric', year: 'numeric',
-        hour: 'numeric', minute: '2-digit'
+        hour: 'numeric', minute: '2-digit',
+        timeZone: 'America/New_York', timeZoneName: 'short'
       });
 
       const day = getCompetitionDay();
@@ -1343,7 +1380,7 @@
           <div class="briefing-no-medals">
             <p>${day ? `Day ${day} of competition.` : 'The Games are underway.'}</p>
             <p>No medals have been recorded yet. The mountain is quiet... but not for long.</p>
-            <p>Check back after the Commissioner logs results.</p>
+            <p>Check back after Commissioner Reif-Wray logs results.</p>
           </div>
         `;
         return;
@@ -1368,8 +1405,8 @@
           return `<li><span>${c.flag} ${c.name}</span><span class="briefing-mover-pts">${pts} pts</span></li>`;
         }).join('');
 
-      // Leaderboard for roast
-      const leaderboard = getLeaderboard();
+      // Leaderboard for roast (exclude Kieran & Zoe Armstrong - id 7)
+      const leaderboard = getLeaderboard().filter(e => e.participant.id !== 7);
       const lastPlace = leaderboard[leaderboard.length - 1];
       const roastFn = LAST_PLACE_ROASTS[Math.floor(Math.random() * LAST_PLACE_ROASTS.length)];
       const roast = roastFn(lastPlace.participant.name);
