@@ -56,9 +56,6 @@
         <span class="version">v6.0 Milano Edition</span>
         <span class="last-updated" id="last-updated"></span>
       </div>
-      <button id="admin-key-btn" class="admin-key-btn" aria-label="Admin access">
-        🔑
-      </button>
     </footer>
   </section>
 
@@ -80,97 +77,6 @@
       </button>
     </div>
   </div>
-
-  <!-- ============================================ -->
-  <!-- VIEW E: ADMIN CONSOLE (Modal)               -->
-  <!-- ============================================ -->
-  <div id="admin-modal" class="modal hidden" role="dialog" aria-labelledby="admin-title" aria-modal="true">
-    <div class="modal-backdrop" id="modal-backdrop"></div>
-    <div class="modal-content">
-      <header class="modal-header">
-        <h2 id="admin-title" class="modal-title">🔐 Commissioner Reif-Wray's Console</h2>
-        <button id="close-modal-btn" class="close-btn" aria-label="Close">&times;</button>
-      </header>
-
-      <div class="modal-body">
-        <!-- Session Banner -->
-        <div id="session-banner" class="session-banner hidden">
-          <div class="session-banner-info">
-            <span class="session-banner-icon">📝</span>
-            <span class="session-banner-text" id="session-banner-text">0 medals added this session</span>
-          </div>
-          <button id="publish-update-btn" class="btn btn-primary btn-publish">Publish Daily Update</button>
-        </div>
-
-        <!-- Add Medal Section -->
-        <section class="admin-section">
-          <h3 class="admin-section-title">🏅 Record Medal</h3>
-
-          <div class="form-group">
-            <label for="country-select">Select Country</label>
-            <select id="country-select" class="form-select">
-              <option value="">-- Select country --</option>
-              <!-- Populated by JS -->
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="event-input">Event Description</label>
-            <input type="text" id="event-input" class="form-input" placeholder="e.g., Men's Downhill Alpine Skiing" list="event-suggestions" autocomplete="off">
-            <datalist id="event-suggestions"></datalist>
-          </div>
-
-          <div class="form-group">
-            <label>Medal Type</label>
-            <div class="medal-buttons">
-              <button type="button" class="medal-btn gold" data-medal="gold">🥇 Gold (+3)</button>
-              <button type="button" class="medal-btn silver" data-medal="silver">🥈 Silver (+2)</button>
-              <button type="button" class="medal-btn bronze" data-medal="bronze">🥉 Bronze (+1)</button>
-            </div>
-          </div>
-
-          <button id="add-medal-btn" class="btn btn-primary" disabled>Record Medal</button>
-        </section>
-
-        <!-- Transaction Log Section -->
-        <section class="admin-section">
-          <h3 class="admin-section-title">📜 Medal Log</h3>
-          <div id="transaction-log" class="transaction-log">
-            <p class="empty-state">No medals recorded yet</p>
-          </div>
-        </section>
-
-        <!-- Data Management Section -->
-        <section class="admin-section">
-          <h3 class="admin-section-title">⚙️ League Management</h3>
-          <div class="data-actions">
-            <button id="export-btn" class="btn btn-secondary">📋 Export</button>
-            <button id="import-btn" class="btn btn-secondary">📥 Import</button>
-          </div>
-          <button id="reset-btn" class="btn btn-danger">🗑️ Reset League</button>
-        </section>
-      </div>
-    </div>
-  </div>
-
-  <!-- Medal Celebration Overlay -->
-  <div id="celebration-overlay" class="celebration-overlay hidden" aria-hidden="true">
-    <canvas id="confetti-canvas"></canvas>
-    <div class="celebration-content">
-      <div class="celebration-medal" id="celebration-medal"></div>
-      <div class="celebration-text" id="celebration-text"></div>
-      <div class="celebration-event" id="celebration-event"></div>
-    </div>
-  </div>
-
-  <!-- Breaking News Ticker -->
-  <div id="news-ticker" class="news-ticker hidden">
-    <div class="ticker-label">DAILY RECAP</div>
-    <div class="ticker-text" id="ticker-text"></div>
-  </div>
-
-  <!-- Toast Notification -->
-  <div id="toast" class="toast hidden" role="alert" aria-live="polite"></div>
 
   <!-- ============================================ -->
   <!-- STYLES                                       -->
@@ -458,39 +364,7 @@
     }
 
     /* ========================================
-       7. FORMS
-       ======================================== */
-    .form-group {
-      margin-bottom: var(--space-md);
-    }
-
-    .form-group label {
-      display: block;
-      font-size: 0.875rem;
-      font-weight: 500;
-      color: var(--text-secondary);
-      margin-bottom: var(--space-xs);
-    }
-
-    .form-select, .form-input {
-      width: 100%;
-      padding: var(--space-sm) var(--space-md);
-      font-family: inherit;
-      font-size: 1rem;
-      color: var(--text-primary);
-      background: var(--bg-surface);
-      border: var(--glass-border);
-      border-radius: var(--radius-md);
-      min-height: 48px;
-    }
-
-    .form-select:focus, .form-input:focus {
-      outline: none;
-      border-color: var(--accent-primary);
-    }
-
-    /* ========================================
-       8. VIEW D - DASHBOARD
+       7. DASHBOARD
        ======================================== */
     .dashboard-header {
       padding: var(--space-xl) 0 var(--space-lg);
@@ -772,223 +646,12 @@
       pointer-events: all;
     }
 
-    .admin-key-btn {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: var(--bg-surface);
-      border: var(--glass-border);
-      cursor: pointer;
-      font-size: 1.125rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      pointer-events: all;
-      opacity: 0.6;
-      transition: all var(--transition-fast);
-    }
-
-    .admin-key-btn:hover {
-      opacity: 1;
-      background: var(--bg-elevated);
-    }
-
-    /* ========================================
-       13. MODAL
-       ======================================== */
-    .modal {
-      position: fixed;
-      inset: 0;
-      z-index: 1000;
-      display: flex;
-      align-items: flex-end;
-      justify-content: center;
-    }
-
-    .modal-backdrop {
-      position: absolute;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.8);
-      backdrop-filter: blur(4px);
-    }
-
-    .modal-content {
-      position: relative;
-      width: 100%;
-      max-width: 500px;
-      max-height: 90vh;
-      background: var(--bg-surface);
-      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: var(--space-md) var(--space-lg);
-      border-bottom: var(--glass-border);
-    }
-
-    .modal-title {
-      font-size: 1.125rem;
-      font-weight: 700;
-    }
-
-    .close-btn {
-      width: 36px;
-      height: 36px;
-      border: none;
-      background: transparent;
-      color: var(--text-muted);
-      font-size: 1.5rem;
-      cursor: pointer;
-      border-radius: var(--radius-sm);
-    }
-
-    .close-btn:hover {
-      background: rgba(255, 255, 255, 0.1);
-      color: var(--text-primary);
-    }
-
-    .modal-body {
-      padding: var(--space-lg);
-      overflow-y: auto;
-      flex: 1;
-    }
-
-    .admin-section {
-      margin-bottom: var(--space-xl);
-    }
-
-    .admin-section:last-child { margin-bottom: 0; }
-
-    .admin-section-title {
-      font-size: 0.875rem;
-      font-weight: 600;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: var(--space-md);
-    }
-
-    .medal-buttons {
-      display: flex;
-      gap: var(--space-sm);
-    }
-
-    .medal-btn {
-      flex: 1;
-      padding: var(--space-sm);
-      font-family: inherit;
-      font-size: 0.8125rem;
-      font-weight: 600;
-      border: 2px solid transparent;
-      border-radius: var(--radius-md);
-      cursor: pointer;
-      background: var(--bg-depth);
-      color: var(--text-secondary);
-      min-height: 44px;
-      transition: all var(--transition-fast);
-    }
-
-    .medal-btn.selected {
-      border-color: currentColor;
-    }
-
-    .medal-btn.gold.selected { color: var(--gold); background: rgba(255, 215, 0, 0.1); }
-    .medal-btn.silver.selected { color: var(--silver); background: rgba(192, 192, 192, 0.1); }
-    .medal-btn.bronze.selected { color: var(--bronze); background: rgba(205, 127, 50, 0.1); }
-
-    .transaction-log {
-      max-height: 200px;
-      overflow-y: auto;
-      background: var(--bg-depth);
-      border-radius: var(--radius-md);
-      padding: var(--space-sm);
-    }
-
-    .transaction-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: var(--space-sm);
-      border-radius: var(--radius-sm);
-    }
-
-    .transaction-item:hover {
-      background: rgba(255, 255, 255, 0.05);
-    }
-
-    .transaction-info { flex: 1; }
-
-    .transaction-main {
-      font-size: 0.875rem;
-    }
-
-    .transaction-time {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-    }
-
-    .transaction-delete {
-      width: 28px;
-      height: 28px;
-      border: none;
-      background: transparent;
-      color: var(--text-muted);
-      cursor: pointer;
-      border-radius: var(--radius-sm);
-    }
-
-    .transaction-delete:hover {
-      background: rgba(255, 68, 68, 0.2);
-      color: var(--danger);
-    }
-
-    .data-actions {
-      display: flex;
-      gap: var(--space-sm);
-      margin-bottom: var(--space-md);
-    }
-
-    .data-actions .btn { flex: 1; }
-
-    #reopen-market-btn { width: 100%; margin-bottom: var(--space-sm); }
-    #reset-btn { width: 100%; }
-
     .empty-state {
       color: var(--text-muted);
       font-style: italic;
       text-align: center;
       padding: var(--space-md);
     }
-
-    /* ========================================
-       14. TOAST
-       ======================================== */
-    .toast {
-      position: fixed;
-      bottom: 80px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--bg-surface);
-      border: var(--glass-border);
-      border-radius: var(--radius-md);
-      padding: var(--space-sm) var(--space-lg);
-      font-size: 0.875rem;
-      z-index: 1100;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-    }
-
-    .toast.toast-success { border-color: var(--success); }
-    .toast.toast-error { border-color: var(--danger); }
-
-    /* ========================================
-       15. REFRESH BUTTON & SECTION TITLE ROW
-       ======================================== */
     /* ========================================
        18. COUNTRY LINK IN PORTFOLIO
        ======================================== */
@@ -1010,214 +673,7 @@
     }
 
     /* ========================================
-       20. SESSION BANNER
-       ======================================== */
-    .session-banner {
-      background: linear-gradient(135deg, rgba(0, 212, 255, 0.12), rgba(0, 140, 69, 0.08));
-      border: 1px solid rgba(0, 212, 255, 0.25);
-      border-radius: var(--radius-md);
-      padding: var(--space-md);
-      margin-bottom: var(--space-lg);
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-sm);
-    }
-
-    .session-banner.hidden { display: none !important; }
-
-    .session-banner-info {
-      display: flex;
-      align-items: center;
-      gap: var(--space-sm);
-    }
-
-    .session-banner-icon {
-      font-size: 1.25rem;
-    }
-
-    .session-banner-text {
-      font-weight: 700;
-      color: var(--accent-primary);
-      font-size: 0.9375rem;
-    }
-
-    .btn-publish {
-      width: 100%;
-      min-height: 48px;
-      font-size: 1rem;
-      background: linear-gradient(135deg, var(--accent-gold), #FFA500);
-      color: #000;
-    }
-
-    .btn-publish:hover:not(:disabled) {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
-    }
-
-    /* Inline medal confirmation (replaces confirm dialog) */
-    .medal-added-flash {
-      background: rgba(0, 230, 118, 0.15);
-      border: 1px solid rgba(0, 230, 118, 0.3);
-      border-radius: var(--radius-md);
-      padding: var(--space-sm) var(--space-md);
-      margin-bottom: var(--space-md);
-      font-size: 0.875rem;
-      color: var(--success);
-      font-weight: 600;
-      animation: flashIn 0.3s ease;
-    }
-
-    @keyframes flashIn {
-      from { opacity: 0; transform: translateY(-5px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ========================================
-       21. MEDAL CELEBRATION OVERLAY
-       ======================================== */
-    .celebration-overlay {
-      position: fixed;
-      inset: 0;
-      z-index: 2000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(0, 0, 0, 0.85);
-      animation: celebrationFadeIn 0.3s ease;
-    }
-
-    .celebration-overlay.hidden {
-      display: none !important;
-    }
-
-    @keyframes celebrationFadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    #confetti-canvas {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-    }
-
-    .celebration-content {
-      position: relative;
-      z-index: 1;
-      text-align: center;
-      animation: celebrationPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-
-    @keyframes celebrationPop {
-      0% { transform: scale(0.3); opacity: 0; }
-      100% { transform: scale(1); opacity: 1; }
-    }
-
-    .celebration-medal {
-      font-size: 6rem;
-      margin-bottom: var(--space-md);
-      animation: celebrationBounce 0.6s ease infinite alternate;
-    }
-
-    @keyframes celebrationBounce {
-      from { transform: translateY(0); }
-      to { transform: translateY(-15px); }
-    }
-
-    .celebration-text {
-      font-size: 1.75rem;
-      font-weight: 800;
-      margin-bottom: var(--space-sm);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .celebration-text.gold-text {
-      background: linear-gradient(135deg, #FFD700, #FFA500, #FFD700);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .celebration-text.silver-text {
-      background: linear-gradient(135deg, #C0C0C0, #E8E8E8, #C0C0C0);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .celebration-text.bronze-text {
-      background: linear-gradient(135deg, #CD7F32, #E8A850, #CD7F32);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .celebration-event {
-      font-size: 1.125rem;
-      color: var(--text-secondary);
-      max-width: 400px;
-      margin: 0 auto;
-    }
-
-    /* ========================================
-       21. BREAKING NEWS TICKER
-       ======================================== */
-    .news-ticker {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 1500;
-      display: flex;
-      align-items: center;
-      background: linear-gradient(90deg, #0a1628, #141c2f);
-      color: #fff;
-      font-weight: 700;
-      overflow: hidden;
-      height: 44px;
-      border-bottom: 2px solid var(--accent-gold);
-      animation: tickerSlideDown 0.4s ease;
-    }
-
-    .news-ticker.hidden {
-      display: none !important;
-    }
-
-    @keyframes tickerSlideDown {
-      from { transform: translateY(-100%); }
-      to { transform: translateY(0); }
-    }
-
-    .ticker-label {
-      background: linear-gradient(135deg, var(--accent-gold), #FFA500);
-      color: #000;
-      padding: 0 var(--space-md);
-      font-size: 0.6875rem;
-      font-weight: 800;
-      letter-spacing: 0.1em;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      flex-shrink: 0;
-    }
-
-    .ticker-text {
-      white-space: nowrap;
-      padding: 0 var(--space-lg);
-      font-size: 0.875rem;
-      animation: tickerScroll 15s linear;
-    }
-
-    @keyframes tickerScroll {
-      0% { transform: translateX(100vw); }
-      100% { transform: translateX(0); }
-    }
-
-    /* ========================================
-       25. BRIEFING POPUP
+       BRIEFING POPUP
        ======================================== */
     .briefing-overlay {
       position: fixed;
@@ -1377,39 +833,11 @@
        26. RESPONSIVE
        ======================================== */
     @media (max-width: 767px) {
-      .modal-content {
-        max-height: 95vh;
-      }
-
-      .modal-body {
-        padding: var(--space-md);
-      }
-
-      .medal-buttons {
-        flex-direction: column;
-      }
-
-      .medal-btn {
-        min-height: 48px;
-      }
-
       .card-medals {
         flex-direction: column;
         gap: 0;
         font-size: 0.6875rem;
         text-align: right;
-      }
-
-      .celebration-medal {
-        font-size: 4rem;
-      }
-
-      .celebration-text {
-        font-size: 1.25rem;
-      }
-
-      .celebration-event {
-        font-size: 0.9375rem;
       }
     }
 
@@ -1418,15 +846,6 @@
 
       .portfolio-grid {
         grid-template-columns: repeat(2, 1fr);
-      }
-
-      .modal {
-        align-items: center;
-      }
-
-      .modal-content {
-        border-radius: var(--radius-lg);
-        max-height: 80vh;
       }
     }
 
@@ -1639,9 +1058,6 @@
 
     const MEDAL_POINTS = { gold: 3, silver: 2, bronze: 1 };
     const MEDAL_EMOJI = { gold: '🥇', silver: '🥈', bronze: '🥉' };
-    const STORAGE_KEY = 'milan2026_market_v3';
-    const ADMIN_PASSCODE = 'gold';
-
     /* ========================================
        2. STATE
        ======================================== */
@@ -1655,62 +1071,55 @@
       6: ['nor', 'can', 'ita', 'chn', 'aus', 'hun', 'bel']            // Jaynen & Britt Rissling
     };
 
+    // Day 1 results — February 7, 2026
+    const DEFAULT_MEDALS = [
+      // Men's Downhill Alpine Skiing
+      { id: 'd1_alp_m_dh_g', countryId: 'sui', eventDescription: "Men's Downhill Alpine Skiing", medal: 'gold', timestamp: 1738926000000 },
+      { id: 'd1_alp_m_dh_s', countryId: 'ita', eventDescription: "Men's Downhill Alpine Skiing", medal: 'silver', timestamp: 1738926000000 },
+      { id: 'd1_alp_m_dh_b', countryId: 'ita', eventDescription: "Men's Downhill Alpine Skiing", medal: 'bronze', timestamp: 1738926000000 },
+      // Women's Cross-Country Skiathlon
+      { id: 'd1_ccs_w_sk_g', countryId: 'swe', eventDescription: "Women's Skiathlon Cross-Country Skiing", medal: 'gold', timestamp: 1738930000000 },
+      { id: 'd1_ccs_w_sk_s', countryId: 'swe', eventDescription: "Women's Skiathlon Cross-Country Skiing", medal: 'silver', timestamp: 1738930000000 },
+      { id: 'd1_ccs_w_sk_b', countryId: 'nor', eventDescription: "Women's Skiathlon Cross-Country Skiing", medal: 'bronze', timestamp: 1738930000000 },
+      // Women's Ski Jumping Normal Hill
+      { id: 'd1_sjp_w_nh_g', countryId: 'nor', eventDescription: "Women's Normal Hill Ski Jumping", medal: 'gold', timestamp: 1738936000000 },
+      { id: 'd1_sjp_w_nh_s', countryId: 'svn', eventDescription: "Women's Normal Hill Ski Jumping", medal: 'silver', timestamp: 1738936000000 },
+      { id: 'd1_sjp_w_nh_b', countryId: 'jpn', eventDescription: "Women's Normal Hill Ski Jumping", medal: 'bronze', timestamp: 1738936000000 },
+      // Men's Snowboard Big Air
+      { id: 'd1_sbd_m_ba_g', countryId: 'jpn', eventDescription: "Men's Big Air Snowboard", medal: 'gold', timestamp: 1738940000000 },
+      { id: 'd1_sbd_m_ba_s', countryId: 'jpn', eventDescription: "Men's Big Air Snowboard", medal: 'silver', timestamp: 1738940000000 },
+      { id: 'd1_sbd_m_ba_b', countryId: 'chn', eventDescription: "Men's Big Air Snowboard", medal: 'bronze', timestamp: 1738940000000 },
+      // Women's Speed Skating 3000m
+      { id: 'd1_ssk_w_3k_g', countryId: 'ita', eventDescription: "Women's 3000m Speed Skating", medal: 'gold', timestamp: 1738944000000 },
+      { id: 'd1_ssk_w_3k_s', countryId: 'nor', eventDescription: "Women's 3000m Speed Skating", medal: 'silver', timestamp: 1738944000000 },
+      { id: 'd1_ssk_w_3k_b', countryId: 'can', eventDescription: "Women's 3000m Speed Skating", medal: 'bronze', timestamp: 1738944000000 }
+    ];
+
     let appState = {
       portfolios: { ...DEFAULT_PORTFOLIOS },
-      medalsLog: [],     // { id, countryId, eventDescription, medal, timestamp }
+      medalsLog: [...DEFAULT_MEDALS],
       marketOpen: false
     };
-
-    let selectedMedalType = null;
-    let sessionMedals = []; // tracks medals added in current admin session
 
     /* ========================================
        3. STATE MANAGEMENT
        ======================================== */
 
     function loadState() {
-      try {
-        const saved = localStorage.getItem(STORAGE_KEY);
-        if (saved) {
-          const parsed = JSON.parse(saved);
-          appState.medalsLog = parsed.medalsLog || [];
-          appState.commentary = parsed.commentary || '';
-          appState.commentaryTimestamp = parsed.commentaryTimestamp;
-          appState.commentaryDay = parsed.commentaryDay;
-          // Always use hard-coded portfolios
-          appState.portfolios = { ...DEFAULT_PORTFOLIOS };
-          appState.marketOpen = false;
-        }
-      } catch (e) {
-        console.error('Failed to load state:', e);
-        appState = { portfolios: { ...DEFAULT_PORTFOLIOS }, medalsLog: [], marketOpen: false, commentary: '' };
-      }
-    }
-
-    function saveState() {
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
-      } catch (e) {
-        console.error('Failed to save state:', e);
-      }
+      // Medals and portfolios are hard-coded — always use defaults
+      appState.portfolios = { ...DEFAULT_PORTFOLIOS };
+      appState.medalsLog = [...DEFAULT_MEDALS];
+      appState.marketOpen = false;
     }
 
     /* ========================================
        4. UTILITIES
        ======================================== */
 
-    function generateId() {
-      return Date.now().toString(36) + Math.random().toString(36).substr(2, 9);
-    }
-
     function formatTimestamp(ts) {
       return new Date(ts).toLocaleDateString('en-US', {
         month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit'
       });
-    }
-
-    function getParticipantById(id) {
-      return PARTICIPANTS.find(p => p.id === id);
     }
 
     /* ========================================
@@ -1870,224 +1279,7 @@
     }
 
     /* ========================================
-       11. ADMIN
-       ======================================== */
-
-    function openAdmin() {
-      const pass = prompt('Enter commissioner passcode:');
-      if (pass !== ADMIN_PASSCODE) {
-        if (pass !== null) showToast('Access denied', 'error');
-        return;
-      }
-      sessionMedals = [];
-      document.getElementById('admin-modal').classList.remove('hidden');
-      renderAdminPanel();
-      updateSessionBanner();
-    }
-
-    function closeAdmin() {
-      document.getElementById('admin-modal').classList.add('hidden');
-      resetAdminForm();
-
-      // If medals were entered this session, trigger the daily update celebration
-      if (sessionMedals.length > 0) {
-        const medalsThisSession = [...sessionMedals];
-        sessionMedals = [];
-
-        renderDashboard();
-
-        setTimeout(() => {
-          showDailyRecapTicker(medalsThisSession);
-        }, 200);
-
-        setTimeout(() => {
-          launchDailyCelebration(medalsThisSession);
-        }, 800);
-      }
-    }
-
-    function publishDailyUpdate() {
-      closeAdmin();
-    }
-
-    function updateSessionBanner() {
-      const banner = document.getElementById('session-banner');
-      const text = document.getElementById('session-banner-text');
-      const btn = document.getElementById('publish-update-btn');
-
-      if (sessionMedals.length === 0) {
-        banner.classList.add('hidden');
-      } else {
-        banner.classList.remove('hidden');
-        const golds = sessionMedals.filter(m => m.medal === 'gold').length;
-        const silvers = sessionMedals.filter(m => m.medal === 'silver').length;
-        const bronzes = sessionMedals.filter(m => m.medal === 'bronze').length;
-        const parts = [];
-        if (golds) parts.push(`${golds}G`);
-        if (silvers) parts.push(`${silvers}S`);
-        if (bronzes) parts.push(`${bronzes}B`);
-        text.textContent = `${sessionMedals.length} medal${sessionMedals.length !== 1 ? 's' : ''} added (${parts.join(' ')})`;
-      }
-    }
-
-    function renderAdminPanel() {
-      renderCountrySelect();
-      renderTransactionLog();
-      resetAdminForm();
-      updateSessionBanner();
-    }
-
-    function renderCountrySelect() {
-      const select = document.getElementById('country-select');
-      const sorted = Object.values(COUNTRIES).sort((a, b) => a.name.localeCompare(b.name));
-      select.innerHTML = `<option value="">-- Select country --</option>` +
-        sorted.map(c => `<option value="${c.id}">${c.flag} ${c.name}</option>`).join('');
-    }
-
-    function renderTransactionLog() {
-      const container = document.getElementById('transaction-log');
-      if (appState.medalsLog.length === 0) {
-        container.innerHTML = '<p class="empty-state">No medals recorded yet</p>';
-        return;
-      }
-
-      const recent = [...appState.medalsLog].reverse().slice(0, 15);
-      container.innerHTML = recent.map(entry => {
-        const c = COUNTRIES[entry.countryId];
-        return `
-          <div class="transaction-item">
-            <div class="transaction-info">
-              <div class="transaction-main">${MEDAL_EMOJI[entry.medal]} ${c.flag} ${c.name} - ${entry.eventDescription}</div>
-              <div class="transaction-time">${formatTimestamp(entry.timestamp)}</div>
-            </div>
-            <button class="transaction-delete" data-id="${entry.id}">✕</button>
-          </div>
-        `;
-      }).join('');
-
-      container.querySelectorAll('.transaction-delete').forEach(btn => {
-        btn.addEventListener('click', () => removeMedal(btn.dataset.id));
-      });
-    }
-
-    function resetAdminForm() {
-      document.getElementById('country-select').value = '';
-      document.getElementById('event-input').value = '';
-      selectedMedalType = null;
-      document.querySelectorAll('.medal-btn').forEach(b => b.classList.remove('selected'));
-      updateAddMedalButton();
-    }
-
-    function updateAddMedalButton() {
-      const country = document.getElementById('country-select').value;
-      const event = document.getElementById('event-input').value.trim();
-      document.getElementById('add-medal-btn').disabled = !country || !event || !selectedMedalType;
-    }
-
-    function addMedal() {
-      const countryId = document.getElementById('country-select').value;
-      const eventInput = document.getElementById('event-input');
-      const eventDesc = eventInput.value.trim();
-      if (!countryId || !eventDesc || !selectedMedalType) return;
-
-      const c = COUNTRIES[countryId];
-      const medalType = selectedMedalType;
-
-      const entry = {
-        id: generateId(),
-        countryId,
-        eventDescription: eventDesc,
-        medal: medalType,
-        timestamp: Date.now()
-      };
-
-      appState.medalsLog.push(entry);
-      saveState();
-      sessionMedals.push(entry);
-
-      // Show inline flash confirmation (no confirm dialog for speed)
-      showMedalFlash(medalType, c, eventDesc);
-
-      // Only clear event field and medal selection -- keep country selected for rapid entry
-      eventInput.value = '';
-      selectedMedalType = null;
-      document.querySelectorAll('.medal-btn').forEach(b => b.classList.remove('selected'));
-      updateAddMedalButton();
-
-      // Refresh log and session banner
-      renderTransactionLog();
-      updateSessionBanner();
-
-      // Focus back on event input for next entry
-      eventInput.focus();
-    }
-
-    function showMedalFlash(medalType, country, eventDesc) {
-      // Remove any existing flash
-      const existing = document.querySelector('.medal-added-flash');
-      if (existing) existing.remove();
-
-      const flash = document.createElement('div');
-      flash.className = 'medal-added-flash';
-      flash.textContent = `${MEDAL_EMOJI[medalType]} ${country.flag} ${country.name} — ${eventDesc}`;
-
-      const addBtn = document.getElementById('add-medal-btn');
-      addBtn.parentNode.insertBefore(flash, addBtn);
-
-      setTimeout(() => flash.remove(), 2500);
-    }
-
-    function removeMedal(medalId) {
-      if (!confirm('Remove this medal?')) return;
-      appState.medalsLog = appState.medalsLog.filter(m => m.id !== medalId);
-      saveState();
-      showToast('Medal removed', 'success');
-      renderTransactionLog();
-      renderDashboard();
-    }
-
-    function exportData() {
-      navigator.clipboard.writeText(JSON.stringify(appState, null, 2));
-      showToast('Data copied!', 'success');
-    }
-
-    function importData() {
-      const json = prompt('Paste JSON:');
-      if (!json) return;
-      try {
-        appState = JSON.parse(json);
-        saveState();
-        showToast('Imported!', 'success');
-        closeAdmin();
-        render();
-      } catch (e) {
-        showToast('Invalid JSON', 'error');
-      }
-    }
-
-    function resetLeague() {
-      if (!confirm('DELETE ALL DATA?')) return;
-      if (prompt('Type RESET:') !== 'RESET') return;
-      localStorage.removeItem(STORAGE_KEY);
-      appState = { portfolios: { ...DEFAULT_PORTFOLIOS }, medalsLog: [], marketOpen: false, commentary: '' };
-      closeAdmin();
-      render();
-    }
-
-    /* ========================================
-       12. TOAST
-       ======================================== */
-
-    function showToast(msg, type = 'success') {
-      const toast = document.getElementById('toast');
-      toast.textContent = msg;
-      toast.className = `toast toast-${type}`;
-      toast.classList.remove('hidden');
-      setTimeout(() => toast.classList.add('hidden'), 3000);
-    }
-
-    /* ========================================
-       13. SNOWFALL
+       11. SNOWFALL
        ======================================== */
 
     function createSnowfall() {
@@ -2107,184 +1299,8 @@
     }
 
     /* ========================================
-       14C. EVENT SUGGESTIONS
+       12. UTILITIES
        ======================================== */
-
-    const EVENT_SUGGESTIONS = [
-      "Men's Downhill Alpine Skiing",
-      "Women's Downhill Alpine Skiing",
-      "Men's Super-G Alpine Skiing",
-      "Women's Super-G Alpine Skiing",
-      "Men's Giant Slalom Alpine Skiing",
-      "Women's Giant Slalom Alpine Skiing",
-      "Men's Slalom Alpine Skiing",
-      "Women's Slalom Alpine Skiing",
-      "Men's Combined Alpine Skiing",
-      "Women's Combined Alpine Skiing",
-      "Mixed Team Parallel Alpine Skiing",
-      "Men's 10km Sprint Biathlon",
-      "Women's 7.5km Sprint Biathlon",
-      "Men's 20km Individual Biathlon",
-      "Women's 15km Individual Biathlon",
-      "Men's 12.5km Pursuit Biathlon",
-      "Women's 10km Pursuit Biathlon",
-      "Men's 15km Mass Start Biathlon",
-      "Women's 12.5km Mass Start Biathlon",
-      "Men's 4x7.5km Relay Biathlon",
-      "Women's 4x6km Relay Biathlon",
-      "Mixed Relay Biathlon",
-      "Two-Man Bobsled",
-      "Four-Man Bobsled",
-      "Two-Woman Bobsled",
-      "Women's Monobob",
-      "Men's Sprint Cross-Country Skiing",
-      "Women's Sprint Cross-Country Skiing",
-      "Men's Team Sprint Cross-Country Skiing",
-      "Women's Team Sprint Cross-Country Skiing",
-      "Men's 15km Classic Cross-Country Skiing",
-      "Women's 10km Classic Cross-Country Skiing",
-      "Men's Skiathlon Cross-Country Skiing",
-      "Women's Skiathlon Cross-Country Skiing",
-      "Men's 50km Mass Start Cross-Country Skiing",
-      "Women's 30km Mass Start Cross-Country Skiing",
-      "Men's 4x10km Relay Cross-Country Skiing",
-      "Women's 4x5km Relay Cross-Country Skiing",
-      "Men's Curling",
-      "Women's Curling",
-      "Mixed Doubles Curling",
-      "Men's Singles Figure Skating",
-      "Women's Singles Figure Skating",
-      "Pairs Figure Skating",
-      "Ice Dance Figure Skating",
-      "Team Event Figure Skating",
-      "Men's Moguls Freestyle Skiing",
-      "Women's Moguls Freestyle Skiing",
-      "Men's Aerials Freestyle Skiing",
-      "Women's Aerials Freestyle Skiing",
-      "Mixed Team Aerials Freestyle Skiing",
-      "Men's Halfpipe Freestyle Skiing",
-      "Women's Halfpipe Freestyle Skiing",
-      "Men's Slopestyle Freestyle Skiing",
-      "Women's Slopestyle Freestyle Skiing",
-      "Men's Ski Cross Freestyle Skiing",
-      "Women's Ski Cross Freestyle Skiing",
-      "Men's Ice Hockey",
-      "Women's Ice Hockey",
-      "Men's Singles Luge",
-      "Women's Singles Luge",
-      "Doubles Luge",
-      "Team Relay Luge",
-      "Men's Normal Hill Ski Jumping",
-      "Men's Large Hill Ski Jumping",
-      "Women's Normal Hill Ski Jumping",
-      "Men's Team Large Hill Ski Jumping",
-      "Mixed Team Ski Jumping",
-      "Men's Individual Gundersen NH/10km Nordic Combined",
-      "Men's Individual Gundersen LH/10km Nordic Combined",
-      "Men's Team Gundersen LH/4x5km Nordic Combined",
-      "Men's 500m Short Track Speed Skating",
-      "Women's 500m Short Track Speed Skating",
-      "Men's 1000m Short Track Speed Skating",
-      "Women's 1000m Short Track Speed Skating",
-      "Men's 1500m Short Track Speed Skating",
-      "Women's 1500m Short Track Speed Skating",
-      "Men's 5000m Relay Short Track Speed Skating",
-      "Women's 3000m Relay Short Track Speed Skating",
-      "Mixed Team Relay Short Track Speed Skating",
-      "Men's Skeleton",
-      "Women's Skeleton",
-      "Men's Sprint Ski Mountaineering",
-      "Women's Sprint Ski Mountaineering",
-      "Men's Individual Ski Mountaineering",
-      "Women's Individual Ski Mountaineering",
-      "Mixed Relay Ski Mountaineering",
-      "Men's Big Air Snowboard",
-      "Women's Big Air Snowboard",
-      "Men's Halfpipe Snowboard",
-      "Women's Halfpipe Snowboard",
-      "Men's Slopestyle Snowboard",
-      "Women's Slopestyle Snowboard",
-      "Men's Snowboard Cross",
-      "Women's Snowboard Cross",
-      "Mixed Team Snowboard Cross",
-      "Men's Parallel Giant Slalom Snowboard",
-      "Women's Parallel Giant Slalom Snowboard",
-      "Men's 500m Speed Skating",
-      "Women's 500m Speed Skating",
-      "Men's 1000m Speed Skating",
-      "Women's 1000m Speed Skating",
-      "Men's 1500m Speed Skating",
-      "Women's 1500m Speed Skating",
-      "Men's 5000m Speed Skating",
-      "Women's 3000m Speed Skating",
-      "Men's 10000m Speed Skating",
-      "Women's 5000m Speed Skating",
-      "Men's Mass Start Speed Skating",
-      "Women's Mass Start Speed Skating",
-      "Men's Team Pursuit Speed Skating",
-      "Women's Team Pursuit Speed Skating"
-    ];
-
-    function populateEventSuggestions() {
-      const datalist = document.getElementById('event-suggestions');
-      if (!datalist) return;
-      datalist.innerHTML = EVENT_SUGGESTIONS.map(e => `<option value="${e}">`).join('');
-    }
-
-    /* ========================================
-       14E. MEDAL CELEBRATION & CONFETTI
-       ======================================== */
-
-    const MEDAL_COLORS = {
-      gold: ['#FFD700', '#FFA500', '#FFE066', '#FFCC00', '#FFF8DC'],
-      silver: ['#C0C0C0', '#E8E8E8', '#A9A9A9', '#D3D3D3', '#FFFFFF'],
-      bronze: ['#CD7F32', '#E8A850', '#B87333', '#D4956A', '#8B4513']
-    };
-
-    function launchDailyCelebration(medals) {
-      const overlay = document.getElementById('celebration-overlay');
-      const canvas = document.getElementById('confetti-canvas');
-      const medalEl = document.getElementById('celebration-medal');
-      const textEl = document.getElementById('celebration-text');
-      const eventEl = document.getElementById('celebration-event');
-
-      // Compute summary
-      const golds = medals.filter(m => m.medal === 'gold').length;
-      const silvers = medals.filter(m => m.medal === 'silver').length;
-      const bronzes = medals.filter(m => m.medal === 'bronze').length;
-      const uniqueCountries = [...new Set(medals.map(m => m.countryId))];
-      const flags = uniqueCountries.map(id => COUNTRIES[id].flag).join(' ');
-      const day = getCompetitionDay();
-
-      // Pick the "best" medal color for confetti (gold if any golds, etc.)
-      const topMedal = golds > 0 ? 'gold' : silvers > 0 ? 'silver' : 'bronze';
-
-      // Set content
-      medalEl.textContent = `🏅 ${medals.length}`;
-      textEl.textContent = day ? `Day ${day} Results` : 'Daily Update';
-      textEl.className = 'celebration-text gold-text';
-
-      const parts = [];
-      if (golds) parts.push(`🥇${golds}`);
-      if (silvers) parts.push(`🥈${silvers}`);
-      if (bronzes) parts.push(`🥉${bronzes}`);
-      eventEl.innerHTML = `${parts.join('  ')} across ${uniqueCountries.length} countries<br><span style="font-size:1.5rem;letter-spacing:0.15em;margin-top:8px;display:inline-block">${flags}</span>`;
-
-      // Show overlay
-      overlay.classList.remove('hidden');
-
-      // Launch confetti with mixed colors
-      const allColors = [...MEDAL_COLORS.gold, ...MEDAL_COLORS.silver, ...MEDAL_COLORS.bronze];
-      launchConfetti(canvas, allColors);
-
-      // Auto-dismiss after 5s (longer for summary), or click to dismiss
-      const dismiss = () => {
-        overlay.classList.add('hidden');
-        overlay.removeEventListener('click', dismiss);
-      };
-      overlay.addEventListener('click', dismiss);
-      setTimeout(dismiss, 5000);
-    }
 
     function getCompetitionDay() {
       const gameStart = new Date('2026-02-06');
@@ -2293,107 +1309,8 @@
       return diffDays >= 1 && diffDays <= 17 ? diffDays : 0;
     }
 
-    function launchConfetti(canvas, colors) {
-      const ctx = canvas.getContext('2d');
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-
-      const particles = [];
-      const PARTICLE_COUNT = 150;
-
-      for (let i = 0; i < PARTICLE_COUNT; i++) {
-        particles.push({
-          x: canvas.width / 2 + (Math.random() - 0.5) * 200,
-          y: canvas.height / 2,
-          vx: (Math.random() - 0.5) * 20,
-          vy: (Math.random() - 1) * 18 - 5,
-          color: colors[Math.floor(Math.random() * colors.length)],
-          size: Math.random() * 8 + 4,
-          rotation: Math.random() * 360,
-          rotationSpeed: (Math.random() - 0.5) * 15,
-          gravity: 0.25 + Math.random() * 0.15,
-          opacity: 1,
-          shape: Math.random() > 0.5 ? 'rect' : 'circle'
-        });
-      }
-
-      let frame = 0;
-      const maxFrames = 120;
-
-      function animate() {
-        if (frame >= maxFrames) {
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-          return;
-        }
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        particles.forEach(p => {
-          p.x += p.vx;
-          p.vy += p.gravity;
-          p.y += p.vy;
-          p.vx *= 0.98;
-          p.rotation += p.rotationSpeed;
-          p.opacity = Math.max(0, 1 - (frame / maxFrames));
-
-          ctx.save();
-          ctx.translate(p.x, p.y);
-          ctx.rotate((p.rotation * Math.PI) / 180);
-          ctx.globalAlpha = p.opacity;
-          ctx.fillStyle = p.color;
-
-          if (p.shape === 'rect') {
-            ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.6);
-          } else {
-            ctx.beginPath();
-            ctx.arc(0, 0, p.size / 2, 0, Math.PI * 2);
-            ctx.fill();
-          }
-          ctx.restore();
-        });
-
-        frame++;
-        requestAnimationFrame(animate);
-      }
-
-      animate();
-    }
-
     /* ========================================
-       14F. BREAKING NEWS TICKER
-       ======================================== */
-
-    function showDailyRecapTicker(medals) {
-      const ticker = document.getElementById('news-ticker');
-      const text = document.getElementById('ticker-text');
-
-      const golds = medals.filter(m => m.medal === 'gold').length;
-      const silvers = medals.filter(m => m.medal === 'silver').length;
-      const bronzes = medals.filter(m => m.medal === 'bronze').length;
-      const uniqueCountries = [...new Set(medals.map(m => m.countryId))];
-      const day = getCompetitionDay();
-
-      const parts = [];
-      if (golds) parts.push(`${golds} Gold`);
-      if (silvers) parts.push(`${silvers} Silver`);
-      if (bronzes) parts.push(`${bronzes} Bronze`);
-
-      const dayLabel = day ? `Day ${day}` : 'Today';
-      text.textContent = `${dayLabel}: ${medals.length} medals recorded — ${parts.join(', ')} across ${uniqueCountries.length} countries. Leaderboard updated!`;
-
-      ticker.classList.remove('hidden');
-
-      // Reset animation
-      text.style.animation = 'none';
-      text.offsetHeight; // force reflow
-      text.style.animation = '';
-
-      setTimeout(() => {
-        ticker.classList.add('hidden');
-      }, 8000);
-    }
-
-    /* ========================================
-       14J. BRIEFING POPUP
+       BRIEFING POPUP
        ======================================== */
 
     const LAST_PLACE_ROASTS = [
@@ -2506,33 +1423,6 @@
     function initEventListeners() {
       // Briefing
       document.getElementById('briefing-dismiss-btn').addEventListener('click', dismissBriefing);
-
-      // Admin
-      document.getElementById('admin-key-btn').addEventListener('click', openAdmin);
-      document.getElementById('close-modal-btn').addEventListener('click', closeAdmin);
-      document.getElementById('modal-backdrop').addEventListener('click', closeAdmin);
-
-      document.querySelectorAll('.medal-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          document.querySelectorAll('.medal-btn').forEach(b => b.classList.remove('selected'));
-          btn.classList.add('selected');
-          selectedMedalType = btn.dataset.medal;
-          updateAddMedalButton();
-        });
-      });
-
-      document.getElementById('country-select').addEventListener('change', updateAddMedalButton);
-      document.getElementById('event-input').addEventListener('input', updateAddMedalButton);
-      document.getElementById('add-medal-btn').addEventListener('click', addMedal);
-
-      document.getElementById('publish-update-btn').addEventListener('click', publishDailyUpdate);
-      document.getElementById('export-btn').addEventListener('click', exportData);
-      document.getElementById('import-btn').addEventListener('click', importData);
-      document.getElementById('reset-btn').addEventListener('click', resetLeague);
-
-      document.addEventListener('keydown', e => {
-        if (e.key === 'Escape') closeAdmin();
-      });
     }
 
     /* ========================================
@@ -2543,7 +1433,6 @@
       createSnowfall();
       loadState();
       initEventListeners();
-      populateEventSuggestions();
       render();
       generateBriefing();
     }
