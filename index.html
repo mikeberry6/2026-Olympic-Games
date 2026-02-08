@@ -41,14 +41,6 @@
         </div>
       </section>
 
-      <!-- Commissioner Commentary -->
-      <section class="commentary-section" id="commentary-section">
-        <h2 class="section-title">📰 Commissioner's Commentary</h2>
-        <div id="commentary-card" class="commentary-card glass-card">
-          <p class="empty-state" id="commentary-text">No commentary yet. The Commissioner is sharpening his quill...</p>
-        </div>
-      </section>
-
       <!-- Portfolio Details Section -->
       <section class="portfolios-section">
         <h2 class="section-title">📊 Team Portfolios</h2>
@@ -69,6 +61,25 @@
       </button>
     </footer>
   </section>
+
+  <!-- ============================================ -->
+  <!-- BRIEFING POPUP                               -->
+  <!-- ============================================ -->
+  <div id="briefing-overlay" class="briefing-overlay" role="dialog" aria-modal="true">
+    <div class="briefing-card">
+      <div class="briefing-header">
+        <div class="olympic-rings small">●●●●●</div>
+        <h2 class="briefing-title">📋 Commissioner's Briefing</h2>
+        <div class="briefing-timestamp" id="briefing-timestamp"></div>
+      </div>
+      <div class="briefing-body" id="briefing-body">
+        <!-- Populated by JS -->
+      </div>
+      <button id="briefing-dismiss-btn" class="btn btn-primary btn-large">
+        🏔️ Enter the Leaderboard
+      </button>
+    </div>
+  </div>
 
   <!-- ============================================ -->
   <!-- VIEW E: ADMIN CONSOLE (Modal)               -->
@@ -127,16 +138,6 @@
           <div id="transaction-log" class="transaction-log">
             <p class="empty-state">No medals recorded yet</p>
           </div>
-        </section>
-
-        <!-- Commissioner Commentary Section -->
-        <section class="admin-section">
-          <h3 class="admin-section-title">📰 Commissioner's Commentary</h3>
-          <div class="form-group">
-            <label for="commentary-input">Write your daily dispatch</label>
-            <textarea id="commentary-input" class="form-input commentary-textarea" rows="3" placeholder="e.g., The Norwegian Empire marches on! But watch out for the Swiss..."></textarea>
-          </div>
-          <button id="save-commentary-btn" class="btn btn-primary">Publish Commentary</button>
         </section>
 
         <!-- Data Management Section -->
@@ -1216,50 +1217,164 @@
     }
 
     /* ========================================
-       23. COMMISSIONER COMMENTARY
+       25. BRIEFING POPUP
        ======================================== */
-    .commentary-section {
-      margin-bottom: var(--space-xl);
+    .briefing-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(8px);
+      padding: var(--space-md);
+      animation: fadeIn 0.4s ease;
     }
 
-    .commentary-card {
+    .briefing-overlay.hidden { display: none; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .briefing-card {
+      background: var(--bg-surface);
+      border: 1px solid rgba(255, 215, 0, 0.25);
+      border-radius: var(--radius-xl);
+      max-width: 560px;
+      width: 100%;
+      max-height: 85vh;
+      overflow-y: auto;
+      padding: var(--space-xl);
       position: relative;
-      overflow: hidden;
+      animation: slideUp 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    .commentary-card::before {
+    .briefing-card::before {
       content: '';
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--accent-gold), var(--olympic-yellow));
+      height: 4px;
+      background: linear-gradient(90deg, var(--italian-green), white, var(--italian-red));
+      border-radius: var(--radius-xl) var(--radius-xl) 0 0;
     }
 
-    .commentary-card .commentary-body {
-      font-size: 1.0625rem;
-      line-height: 1.7;
-      color: var(--text-secondary);
-      font-style: italic;
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    .commentary-card .commentary-sig {
-      margin-top: var(--space-md);
-      font-size: 0.8125rem;
+    .briefing-header {
+      text-align: center;
+      margin-bottom: var(--space-lg);
+    }
+
+    .briefing-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      margin: var(--space-sm) 0;
+      background: linear-gradient(135deg, var(--accent-gold), #FFA500);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .briefing-timestamp {
+      font-size: 0.75rem;
       color: var(--text-muted);
-      font-style: normal;
-      text-align: right;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
 
-    .commentary-textarea {
-      resize: vertical;
-      min-height: 80px;
-      line-height: 1.5;
+    .briefing-body {
+      margin-bottom: var(--space-lg);
+    }
+
+    .briefing-section {
+      margin-bottom: var(--space-md);
+    }
+
+    .briefing-section-title {
+      font-size: 0.8125rem;
+      font-weight: 700;
+      color: var(--accent-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: var(--space-sm);
+    }
+
+    .briefing-stats {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-lg);
+      padding: var(--space-md);
+      background: var(--bg-elevated);
+      border-radius: var(--radius-md);
+      margin-bottom: var(--space-md);
+    }
+
+    .briefing-stat {
+      text-align: center;
+    }
+
+    .briefing-stat-value {
+      font-size: 1.5rem;
+      font-weight: 800;
+      display: block;
+    }
+
+    .briefing-stat-label {
+      font-size: 0.6875rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .briefing-movers {
+      list-style: none;
+      padding: 0;
+    }
+
+    .briefing-movers li {
+      padding: var(--space-xs) 0;
+      font-size: 0.9375rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .briefing-movers li:last-child { border-bottom: none; }
+
+    .briefing-mover-pts {
+      font-weight: 700;
+      color: var(--accent-gold);
+      font-size: 0.8125rem;
+    }
+
+    .briefing-roast {
+      background: linear-gradient(135deg, rgba(255, 82, 82, 0.1), rgba(255, 82, 82, 0.05));
+      border: 1px solid rgba(255, 82, 82, 0.2);
+      border-radius: var(--radius-md);
+      padding: var(--space-md);
+      font-size: 0.9375rem;
+      line-height: 1.6;
+      color: var(--text-secondary);
+    }
+
+    .briefing-no-medals {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9375rem;
+      padding: var(--space-lg) 0;
+      line-height: 1.6;
     }
 
     /* ========================================
-       25. RESPONSIVE
+       26. RESPONSIVE
        ======================================== */
     @media (max-width: 767px) {
       .modal-content {
@@ -1662,7 +1777,6 @@
       renderTotalPoints();
       renderLastUpdated();
       renderLeaderboard();
-      renderCommentary();
       renderPortfolios();
     }
 
@@ -1793,11 +1907,6 @@
     }
 
     function publishDailyUpdate() {
-      // Also save commentary if written
-      const input = document.getElementById('commentary-input');
-      if (input && input.value.trim()) {
-        saveCommentary();
-      }
       closeAdmin();
     }
 
@@ -2284,46 +2393,110 @@
     }
 
     /* ========================================
-       14H. COMMISSIONER COMMENTARY
+       14J. BRIEFING POPUP
        ======================================== */
 
-    function saveCommentary() {
-      const input = document.getElementById('commentary-input');
-      const text = input.value.trim();
-      if (!text) {
-        showToast('Write something first!', 'error');
+    const LAST_PLACE_ROASTS = [
+      (name) => `${name} are currently bringing up the rear. Their portfolio is doing about as well as a snowboarder in a swimming pool. Forza, you beautiful disasters.`,
+      (name) => `Commissioner's note: ${name} are mathematically still alive. Spiritually? That's another question entirely.`,
+      (name) => `Last place belongs to ${name}, who appear to have drafted their portfolio blindfolded. Bold strategy. Let's see if it pays off. (It hasn't.)`,
+      (name) => `${name} are in the cellar. At this rate, they might want to pivot from "medal hunting" to "enjoying the scenery in Cortina."`,
+      (name) => `A moment of silence for ${name}, who are currently proving that $100 can, in fact, buy you nothing of value.`,
+      (name) => `${name} currently occupy last place. Their countries are out there competing—just not winning. Participation trophies all around.`,
+      (name) => `Dead last: ${name}. The good news? There's nowhere to go but up. The bad news? They said that yesterday too.`
+    ];
+
+    function generateBriefing() {
+      const overlay = document.getElementById('briefing-overlay');
+      const body = document.getElementById('briefing-body');
+      const tsEl = document.getElementById('briefing-timestamp');
+
+      // Show current time
+      const now = new Date();
+      tsEl.textContent = now.toLocaleDateString('en-US', {
+        weekday: 'long', month: 'long', day: 'numeric', year: 'numeric',
+        hour: 'numeric', minute: '2-digit'
+      });
+
+      const day = getCompetitionDay();
+      const totalMedals = appState.medalsLog.length;
+
+      if (totalMedals === 0) {
+        body.innerHTML = `
+          <div class="briefing-no-medals">
+            <p>${day ? `Day ${day} of competition.` : 'The Games are underway.'}</p>
+            <p>No medals have been recorded yet. The mountain is quiet... but not for long.</p>
+            <p>Check back after the Commissioner logs results.</p>
+          </div>
+        `;
         return;
       }
 
-      const day = getCompetitionDay();
-      appState.commentary = text;
-      appState.commentaryTimestamp = Date.now();
-      appState.commentaryDay = day || null;
-      saveState();
+      // Medal totals
+      const golds = appState.medalsLog.filter(m => m.medal === 'gold').length;
+      const silvers = appState.medalsLog.filter(m => m.medal === 'silver').length;
+      const bronzes = appState.medalsLog.filter(m => m.medal === 'bronze').length;
 
-      showToast('Commentary published!', 'success');
-      renderCommentary();
+      // Top countries by points
+      const countryPoints = {};
+      appState.medalsLog.forEach(m => {
+        if (!countryPoints[m.countryId]) countryPoints[m.countryId] = 0;
+        countryPoints[m.countryId] += MEDAL_POINTS[m.medal];
+      });
+      const topCountries = Object.entries(countryPoints)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 5)
+        .map(([id, pts]) => {
+          const c = COUNTRIES[id];
+          return `<li><span>${c.flag} ${c.name}</span><span class="briefing-mover-pts">${pts} pts</span></li>`;
+        }).join('');
+
+      // Leaderboard for roast
+      const leaderboard = getLeaderboard();
+      const lastPlace = leaderboard[leaderboard.length - 1];
+      const roastFn = LAST_PLACE_ROASTS[Math.floor(Math.random() * LAST_PLACE_ROASTS.length)];
+      const roast = roastFn(lastPlace.participant.name);
+
+      const dayLabel = day ? `Day ${day}` : 'Competition Update';
+
+      body.innerHTML = `
+        <div class="briefing-section">
+          <div class="briefing-section-title">${dayLabel} — Medal Count</div>
+          <div class="briefing-stats">
+            <div class="briefing-stat">
+              <span class="briefing-stat-value" style="color:var(--gold)">🥇 ${golds}</span>
+              <span class="briefing-stat-label">Gold</span>
+            </div>
+            <div class="briefing-stat">
+              <span class="briefing-stat-value" style="color:var(--silver)">🥈 ${silvers}</span>
+              <span class="briefing-stat-label">Silver</span>
+            </div>
+            <div class="briefing-stat">
+              <span class="briefing-stat-value" style="color:var(--bronze)">🥉 ${bronzes}</span>
+              <span class="briefing-stat-label">Bronze</span>
+            </div>
+            <div class="briefing-stat">
+              <span class="briefing-stat-value" style="color:var(--text-primary)">${totalMedals}</span>
+              <span class="briefing-stat-label">Total</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="briefing-section">
+          <div class="briefing-section-title">🔥 Biggest Movers — Countries</div>
+          <ul class="briefing-movers">${topCountries}</ul>
+        </div>
+
+        <div class="briefing-section">
+          <div class="briefing-section-title">🪑 The Hot Seat</div>
+          <div class="briefing-roast">${roast}</div>
+        </div>
+      `;
     }
 
-    function renderCommentary() {
-      const card = document.getElementById('commentary-card');
-      const input = document.getElementById('commentary-input');
-
-      if (appState.commentary) {
-        const dayLabel = appState.commentaryDay ? `Day ${appState.commentaryDay}` : formatTimestamp(appState.commentaryTimestamp);
-        card.innerHTML = `
-          <div class="commentary-body">"${appState.commentary}"</div>
-          <div class="commentary-sig">— Commissioner Reif-Wray, ${dayLabel}</div>
-        `;
-        // Pre-fill admin textarea with current commentary for editing
-        if (input) input.value = appState.commentary;
-      } else {
-        card.innerHTML = '<p class="empty-state">No commentary yet. The Commissioner is sharpening his quill...</p>';
-        if (input) {
-          const day = getCompetitionDay();
-          if (day) input.placeholder = `Day ${day}: The Norwegian Empire marches on! But watch out for the Swiss...`;
-        }
-      }
+    function dismissBriefing() {
+      const overlay = document.getElementById('briefing-overlay');
+      overlay.classList.add('hidden');
     }
 
     /* ========================================
@@ -2331,6 +2504,9 @@
        ======================================== */
 
     function initEventListeners() {
+      // Briefing
+      document.getElementById('briefing-dismiss-btn').addEventListener('click', dismissBriefing);
+
       // Admin
       document.getElementById('admin-key-btn').addEventListener('click', openAdmin);
       document.getElementById('close-modal-btn').addEventListener('click', closeAdmin);
@@ -2350,7 +2526,6 @@
       document.getElementById('add-medal-btn').addEventListener('click', addMedal);
 
       document.getElementById('publish-update-btn').addEventListener('click', publishDailyUpdate);
-      document.getElementById('save-commentary-btn').addEventListener('click', saveCommentary);
       document.getElementById('export-btn').addEventListener('click', exportData);
       document.getElementById('import-btn').addEventListener('click', importData);
       document.getElementById('reset-btn').addEventListener('click', resetLeague);
@@ -2370,6 +2545,7 @@
       initEventListeners();
       populateEventSuggestions();
       render();
+      generateBriefing();
     }
 
     document.addEventListener('DOMContentLoaded', init);
