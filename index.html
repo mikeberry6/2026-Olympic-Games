@@ -35,10 +35,7 @@
 
       <!-- Leaderboard Section -->
       <section class="leaderboard-section">
-        <div class="section-title-row">
-          <h2 class="section-title">🏅 Leaderboard</h2>
-          <button id="refresh-dashboard-btn" class="btn-refresh" aria-label="Refresh dashboard">↻ Refresh</button>
-        </div>
+        <h2 class="section-title">🏅 Leaderboard</h2>
         <div id="leaderboard-cards" class="leaderboard-cards">
           <!-- Populated by JS -->
         </div>
@@ -999,48 +996,6 @@
     /* ========================================
        15. REFRESH BUTTON & SECTION TITLE ROW
        ======================================== */
-    .section-title-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: var(--space-md);
-    }
-
-    .section-title-row .section-title {
-      margin-bottom: 0;
-    }
-
-    .btn-refresh {
-      display: inline-flex;
-      align-items: center;
-      gap: var(--space-xs);
-      padding: var(--space-xs) var(--space-md);
-      font-family: inherit;
-      font-size: 0.8125rem;
-      font-weight: 600;
-      color: var(--text-secondary);
-      background: var(--bg-surface);
-      border: var(--glass-border);
-      border-radius: var(--radius-sm);
-      cursor: pointer;
-      transition: all var(--transition-fast);
-      min-height: 36px;
-    }
-
-    .btn-refresh:hover {
-      color: var(--accent-primary);
-      border-color: var(--accent-primary);
-    }
-
-    .btn-refresh.spinning {
-      animation: spin 0.6s ease;
-    }
-
-    @keyframes spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-
     /* ========================================
        18. COUNTRY LINK IN PORTFOLIO
        ======================================== */
@@ -2252,21 +2207,6 @@
     }
 
     /* ========================================
-       14D. REFRESH DASHBOARD
-       ======================================== */
-
-    function refreshDashboard() {
-      const btn = document.getElementById('refresh-dashboard-btn');
-      if (btn) {
-        btn.classList.add('spinning');
-        setTimeout(() => btn.classList.remove('spinning'), 600);
-      }
-      loadState();
-      renderDashboard();
-      showToast('Dashboard refreshed', 'success');
-    }
-
-    /* ========================================
        14E. MEDAL CELEBRATION & CONFETTI
        ======================================== */
 
@@ -2591,9 +2531,6 @@
        ======================================== */
 
     function initEventListeners() {
-      // Dashboard
-      document.getElementById('refresh-dashboard-btn').addEventListener('click', refreshDashboard);
-
       // Admin
       document.getElementById('admin-key-btn').addEventListener('click', openAdmin);
       document.getElementById('close-modal-btn').addEventListener('click', closeAdmin);
