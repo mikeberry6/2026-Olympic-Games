@@ -15,206 +15,9 @@
   <div class="snowfall" id="snowfall"></div>
 
   <!-- ============================================ -->
-  <!-- VIEW A: WELCOME / INSTRUCTIONS               -->
+  <!-- DASHBOARD                                     -->
   <!-- ============================================ -->
-  <section id="welcome-view" class="view">
-    <div class="container">
-      <header class="welcome-header">
-        <div class="olympic-rings">●●●●●</div>
-        <h1 class="logo"><span class="city">Milano Cortina</span><span class="year">2026</span></h1>
-        <p class="welcome-subtitle">🏔️ Fantasy Medal Market 🏔️</p>
-      </header>
-
-      <div class="commissioner-card glass-card">
-        <div class="commissioner-badge">📋 COMMISSIONER REIF-WRAY'S BRIEFING</div>
-        <div class="commissioner-content">
-          <p class="commissioner-date">📅 Today is <strong>Thursday, February 5, 2026</strong></p>
-          <p class="commissioner-intro">Benvenuti, competitors! The Opening Ceremony at the San Siro is just <strong>24 hours away</strong>. I am Commissioner Reif-Wray, your host for the Milan-Cortina 2026 Fantasy Market.</p>
-
-          <div class="rules-box">
-            <h3>💰 The Rules</h3>
-            <ul>
-              <li>You have a strict <strong>$100 budget</strong></li>
-              <li>Buy countries at prices pegged to projected medal counts</li>
-              <li>Your goal: <strong>Maximize your total medal return</strong></li>
-              <li>If you buy Norway for $40, you're betting they win 40+ medals</li>
-              <li>Scoring: 🥇 Gold = 3pts | 🥈 Silver = 2pts | 🥉 Bronze = 1pt</li>
-            </ul>
-          </div>
-
-          <div class="market-preview">
-            <h3>📊 MARKET TIERS</h3>
-            <div class="tier-preview">
-              <span class="tier-badge blue-chip">💎 BLUE CHIPS</span>
-              <span class="tier-desc">$26-40 | Safe, high volume</span>
-            </div>
-            <div class="tier-preview">
-              <span class="tier-badge mid-cap">📈 MID-CAPS</span>
-              <span class="tier-desc">$9-20 | Value plays & host bumps</span>
-            </div>
-            <div class="tier-preview">
-              <span class="tier-badge penny-stock">🎰 PENNY STOCKS</span>
-              <span class="tier-desc">$1-7 | High risk, specific events</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="sample-portfolios glass-card">
-        <h3>📝 Sample Portfolios</h3>
-
-        <div class="portfolio-example">
-          <h4>🦅 "Norwegian Empire" ($99)</h4>
-          <p>Norway ($40) + Austria ($20) + Netherlands ($15) + Japan ($14) + South Korea ($10)</p>
-        </div>
-
-        <div class="portfolio-example">
-          <h4>🏔️ "North American Power" ($100)</h4>
-          <p>USA ($32) + Canada ($26) + Switzerland ($17) + Japan ($14) + Czech Republic ($7) + Australia ($4)</p>
-        </div>
-
-        <div class="portfolio-example">
-          <h4>🎲 "Mid-Cap Spread" ($100)</h4>
-          <p>Italy ($18) + Sweden ($19) + France ($16) + Netherlands ($15) + South Korea ($10) + China ($9) + Finland ($9) + Australia ($4)</p>
-        </div>
-      </div>
-
-      <div class="countdown-card glass-card" id="countdown-card">
-        <div class="countdown-label">Opening Ceremony Countdown</div>
-        <div class="countdown-timer" id="countdown-timer"></div>
-      </div>
-
-      <button id="enter-market-btn" class="btn btn-primary btn-large">
-        🎿 Andiamo! Enter the Market
-      </button>
-    </div>
-  </section>
-
-  <!-- ============================================ -->
-  <!-- VIEW A2: VIDEO INTERSTITIAL                  -->
-  <!-- ============================================ -->
-  <section id="video-view" class="view hidden">
-    <div class="container video-container">
-      <header class="video-header">
-        <div class="olympic-rings">●●●●●</div>
-        <h2 class="video-title">🇮🇹 Milano Cortina 2026 🇮🇹</h2>
-        <p class="video-subtitle">The Winter Games Await</p>
-      </header>
-
-      <div class="video-wrapper glass-card">
-        <div class="video-responsive">
-          <iframe
-            id="intro-video"
-            src=""
-            title="Milano Cortina 2026 Preview"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allowfullscreen>
-          </iframe>
-        </div>
-      </div>
-
-      <div class="video-actions">
-        <button id="continue-to-draft-btn" class="btn btn-primary btn-large">
-          🏔️ Continue to Draft 🏔️
-        </button>
-        <button id="skip-video-btn" class="btn btn-secondary">
-          Skip Video
-        </button>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================ -->
-  <!-- VIEW B: PARTICIPANT SELECTION                -->
-  <!-- ============================================ -->
-  <section id="participant-view" class="view hidden">
-    <div class="container">
-      <header class="view-header">
-        <div class="olympic-rings small">●●●●●</div>
-        <h1 class="logo small"><span class="city">Milano Cortina</span><span class="year">2026</span></h1>
-      </header>
-
-      <h2 class="view-title">👥 Select Your Team</h2>
-      <p class="view-desc">Who's building their portfolio?</p>
-
-      <div id="participant-list" class="participant-list">
-        <!-- Populated by JS -->
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================ -->
-  <!-- VIEW C: THE MARKET                           -->
-  <!-- ============================================ -->
-  <section id="market-view" class="view hidden">
-    <div class="container">
-      <header class="market-header">
-        <div class="header-left">
-          <button id="back-to-participants-btn" class="btn-back" aria-label="Back to participant selection">&larr; Back</button>
-          <div class="olympic-rings small">●●●●●</div>
-          <div class="current-buyer" id="current-buyer">Building for: ---</div>
-        </div>
-        <div class="budget-display">
-          <div class="budget-label">Budget Remaining</div>
-          <div class="budget-amount" id="budget-amount">$100</div>
-          <div class="budget-bar">
-            <div class="budget-fill" id="budget-fill" style="width: 100%"></div>
-          </div>
-        </div>
-      </header>
-
-      <div class="cart-summary glass-card" id="cart-summary">
-        <h3>🛒 Your Portfolio</h3>
-        <div class="cart-items" id="cart-items">
-          <p class="empty-cart">No countries selected yet</p>
-        </div>
-        <div class="cart-total">
-          <span>Total Spent:</span>
-          <span id="cart-total-amount">$0</span>
-        </div>
-      </div>
-
-      <!-- Blue Chips -->
-      <section class="market-tier">
-        <h2 class="tier-title">💎 BLUE CHIPS <span class="tier-subtitle">High floor, reliable volume (26+ medals projected)</span></h2>
-        <div class="country-grid" id="blue-chip-grid">
-          <!-- Populated by JS -->
-        </div>
-      </section>
-
-      <!-- Mid Caps -->
-      <section class="market-tier">
-        <h2 class="tier-title">📈 MID-CAPS <span class="tier-subtitle">Value plays & host bumps (9-20 medals projected)</span></h2>
-        <div class="country-grid" id="mid-cap-grid">
-          <!-- Populated by JS -->
-        </div>
-      </section>
-
-      <!-- Penny Stocks -->
-      <section class="market-tier">
-        <h2 class="tier-title">🎰 PENNY STOCKS <span class="tier-subtitle">High risk, specific events (1-7 medals projected)</span></h2>
-        <div class="country-grid" id="penny-stock-grid">
-          <!-- Populated by JS -->
-        </div>
-      </section>
-
-      <div class="market-actions">
-        <button id="confirm-portfolio-btn" class="btn btn-primary btn-large" disabled>
-          ✅ Confirm Portfolio
-        </button>
-        <button id="clear-cart-btn" class="btn btn-secondary">
-          🗑️ Clear Selection
-        </button>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================ -->
-  <!-- VIEW D: DASHBOARD                            -->
-  <!-- ============================================ -->
-  <section id="dashboard-view" class="view hidden">
+  <section id="dashboard-view" class="view">
     <div class="container">
       <header class="dashboard-header">
         <div class="header-top">
@@ -354,7 +157,6 @@
             <button id="export-btn" class="btn btn-secondary">📋 Export</button>
             <button id="import-btn" class="btn btn-secondary">📥 Import</button>
           </div>
-          <button id="reopen-market-btn" class="btn btn-warning">🏪 Reopen Market</button>
           <button id="reset-btn" class="btn btn-danger">🗑️ Reset League</button>
         </section>
       </div>
@@ -698,524 +500,7 @@
     }
 
     /* ========================================
-       8. VIEW A - WELCOME
-       ======================================== */
-    .welcome-header {
-      text-align: center;
-      padding: var(--space-2xl) 0 var(--space-xl);
-    }
-
-    .welcome-subtitle {
-      font-size: 1.5rem;
-      color: var(--text-secondary);
-      margin-top: var(--space-sm);
-    }
-
-    .commissioner-card {
-      margin-bottom: var(--space-lg);
-      border: none;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .commissioner-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: linear-gradient(90deg, var(--italian-green), white, var(--italian-red));
-    }
-
-    .commissioner-badge {
-      display: inline-block;
-      background: linear-gradient(135deg, var(--accent-gold), #FFA500);
-      color: #000;
-      padding: var(--space-sm) var(--space-lg);
-      border-radius: var(--radius-sm);
-      font-weight: 700;
-      font-size: 0.875rem;
-      margin-bottom: var(--space-md);
-      letter-spacing: 0.02em;
-      box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
-    }
-
-    .commissioner-date {
-      color: var(--accent-primary);
-      margin-bottom: var(--space-sm);
-    }
-
-    .commissioner-intro {
-      font-size: 1.0625rem;
-      line-height: 1.6;
-      margin-bottom: var(--space-lg);
-    }
-
-    .rules-box {
-      background: rgba(0, 212, 255, 0.08);
-      border-radius: var(--radius-md);
-      padding: var(--space-md);
-      margin-bottom: var(--space-lg);
-      border: 1px solid rgba(0, 212, 255, 0.2);
-      border-top: 3px solid var(--accent-primary);
-    }
-
-    .rules-box h3 {
-      color: var(--accent-primary);
-      margin-bottom: var(--space-sm);
-      font-size: 1rem;
-    }
-
-    .rules-box ul {
-      list-style: none;
-      padding-left: 0;
-    }
-
-    .rules-box li {
-      padding: var(--space-xs) 0;
-      padding-left: var(--space-lg);
-      position: relative;
-      color: var(--text-secondary);
-    }
-
-    .rules-box li::before {
-      content: '▸';
-      position: absolute;
-      left: 0;
-      color: var(--accent-primary);
-    }
-
-    .market-preview h3 {
-      margin-bottom: var(--space-md);
-      font-size: 1rem;
-    }
-
-    .tier-preview {
-      display: flex;
-      align-items: center;
-      gap: var(--space-md);
-      padding: var(--space-sm) 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .tier-preview:last-child { border-bottom: none; }
-
-    .tier-badge {
-      padding: var(--space-xs) var(--space-sm);
-      border-radius: var(--radius-sm);
-      font-size: 0.75rem;
-      font-weight: 700;
-      min-width: 120px;
-      text-align: center;
-    }
-
-    .tier-badge.blue-chip { background: rgba(79, 195, 247, 0.2); color: var(--blue-chip); }
-    .tier-badge.mid-cap { background: rgba(129, 199, 132, 0.2); color: var(--mid-cap); }
-    .tier-badge.penny-stock { background: rgba(255, 183, 77, 0.2); color: var(--penny-stock); }
-
-    .tier-desc {
-      color: var(--text-muted);
-      font-size: 0.875rem;
-    }
-
-    .sample-portfolios {
-      margin-bottom: var(--space-xl);
-    }
-
-    .sample-portfolios::before {
-      content: '';
-      display: block;
-      height: 3px;
-      margin: calc(var(--space-lg) * -1);
-      margin-bottom: var(--space-lg);
-      background: linear-gradient(90deg, var(--italian-green), white, var(--italian-red));
-      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-    }
-
-    .sample-portfolios h3 {
-      margin-bottom: var(--space-md);
-    }
-
-    .portfolio-example {
-      background: var(--bg-surface);
-      border-radius: var(--radius-md);
-      padding: var(--space-md);
-      margin-bottom: var(--space-sm);
-    }
-
-    .portfolio-example:last-child { margin-bottom: 0; }
-
-    .portfolio-example h4 {
-      font-size: 0.9375rem;
-      margin-bottom: var(--space-xs);
-      color: var(--text-primary);
-    }
-
-    .portfolio-example p {
-      font-size: 0.8125rem;
-      color: var(--text-muted);
-    }
-
-    /* ========================================
-       8B. VIDEO INTERSTITIAL
-       ======================================== */
-    .video-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      padding: var(--space-lg);
-    }
-
-    .video-header {
-      text-align: center;
-      margin-bottom: var(--space-lg);
-    }
-
-    .video-title {
-      font-size: 1.5rem;
-      font-weight: 800;
-      margin-bottom: var(--space-xs);
-      background: linear-gradient(135deg, var(--italian-green), var(--accent-gold), var(--italian-red));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .video-subtitle {
-      color: var(--text-secondary);
-      font-size: 1rem;
-    }
-
-    .video-wrapper {
-      width: 100%;
-      max-width: 800px;
-      padding: var(--space-sm);
-      margin-bottom: var(--space-lg);
-    }
-
-    .video-responsive {
-      position: relative;
-      padding-bottom: 56.25%; /* 16:9 */
-      height: 0;
-      overflow: hidden;
-      border-radius: var(--radius-md);
-    }
-
-    .video-responsive iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border-radius: var(--radius-md);
-    }
-
-    .video-actions {
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-sm);
-      width: 100%;
-      max-width: 400px;
-    }
-
-    #skip-video-btn {
-      font-size: 0.875rem;
-      min-height: 40px;
-      opacity: 0.7;
-    }
-
-    /* ========================================
-       9. VIEW B - PARTICIPANT SELECTION
-       ======================================== */
-    .view-header {
-      text-align: center;
-      padding: var(--space-lg) 0;
-    }
-
-    .view-title {
-      font-size: 1.5rem;
-      margin-bottom: var(--space-xs);
-    }
-
-    .view-desc {
-      color: var(--text-muted);
-      margin-bottom: var(--space-lg);
-    }
-
-    .participant-list {
-      display: grid;
-      gap: var(--space-md);
-    }
-
-    .participant-card {
-      background: var(--glass-bg);
-      border: var(--glass-border);
-      border-radius: var(--radius-lg);
-      padding: var(--space-lg);
-      cursor: pointer;
-      transition: all var(--transition-normal);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .participant-card:hover {
-      transform: translateY(-2px);
-      border-color: var(--accent-primary);
-      box-shadow: 0 8px 30px rgba(0, 212, 255, 0.15);
-    }
-
-    .participant-card.completed {
-      border-color: var(--success);
-      opacity: 0.7;
-    }
-
-    .participant-card.completed::after {
-      content: '✓ Portfolio Set';
-      font-size: 0.75rem;
-      color: var(--success);
-    }
-
-    .participant-name {
-      font-weight: 600;
-      font-size: 1.0625rem;
-    }
-
-    /* ========================================
-       10. VIEW C - MARKET
-       ======================================== */
-    .market-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      flex-wrap: wrap;
-      gap: var(--space-md);
-      padding: var(--space-lg) 0;
-      position: sticky;
-      top: 0;
-      background: var(--bg-depth);
-      z-index: 10;
-      margin: 0 calc(var(--space-md) * -1);
-      padding-left: var(--space-md);
-      padding-right: var(--space-md);
-    }
-
-    .header-left {
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-xs);
-    }
-
-    .current-buyer {
-      font-size: 0.875rem;
-      color: var(--accent-primary);
-      font-weight: 600;
-    }
-
-    .budget-display {
-      background: var(--glass-bg);
-      border: var(--glass-border);
-      border-radius: var(--radius-md);
-      padding: var(--space-md);
-      min-width: 160px;
-      text-align: center;
-    }
-
-    .budget-label {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .budget-amount {
-      font-size: 2rem;
-      font-weight: 800;
-      color: var(--success);
-      font-feature-settings: "tnum";
-    }
-
-    .budget-amount.warning { color: var(--warning); }
-    .budget-amount.danger { color: var(--danger); }
-
-    .budget-bar {
-      height: 4px;
-      background: var(--bg-surface);
-      border-radius: 2px;
-      margin-top: var(--space-xs);
-      overflow: hidden;
-    }
-
-    .budget-fill {
-      height: 100%;
-      background: linear-gradient(90deg, var(--success), var(--accent-primary));
-      transition: width var(--transition-normal);
-    }
-
-    .cart-summary {
-      margin-bottom: var(--space-lg);
-    }
-
-    .cart-summary h3 {
-      margin-bottom: var(--space-sm);
-      font-size: 1rem;
-    }
-
-    .cart-items {
-      min-height: 40px;
-      margin-bottom: var(--space-sm);
-    }
-
-    .cart-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: var(--space-xs) 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .cart-item:last-child { border-bottom: none; }
-
-    .cart-item-info {
-      display: flex;
-      align-items: center;
-      gap: var(--space-sm);
-    }
-
-    .cart-item-remove {
-      background: none;
-      border: none;
-      color: var(--danger);
-      cursor: pointer;
-      padding: var(--space-xs);
-      font-size: 0.875rem;
-    }
-
-    .cart-total {
-      display: flex;
-      justify-content: space-between;
-      font-weight: 600;
-      padding-top: var(--space-sm);
-      border-top: var(--glass-border);
-    }
-
-    .empty-cart {
-      color: var(--text-muted);
-      font-style: italic;
-      font-size: 0.875rem;
-    }
-
-    /* Market Tiers */
-    .market-tier {
-      margin-bottom: var(--space-xl);
-    }
-
-    .tier-title {
-      font-size: 1.125rem;
-      margin-bottom: var(--space-md);
-      display: flex;
-      align-items: baseline;
-      gap: var(--space-sm);
-      flex-wrap: wrap;
-    }
-
-    .tier-subtitle {
-      font-size: 0.8125rem;
-      font-weight: 400;
-      color: var(--text-muted);
-    }
-
-    .country-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: var(--space-md);
-    }
-
-    .country-card {
-      background: var(--glass-bg);
-      border: var(--glass-border);
-      border-radius: var(--radius-lg);
-      padding: var(--space-md);
-      cursor: pointer;
-      transition: all var(--transition-normal);
-      position: relative;
-    }
-
-    .country-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
-    }
-
-    .country-card.selected {
-      border-color: var(--accent-primary);
-      background: rgba(0, 212, 255, 0.1);
-    }
-
-    .country-card.disabled {
-      opacity: 0.4;
-      cursor: not-allowed;
-      pointer-events: none;
-    }
-
-    .country-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: var(--space-sm);
-    }
-
-    .country-flag {
-      font-size: 2rem;
-    }
-
-    .country-price {
-      font-size: 1.5rem;
-      font-weight: 800;
-      color: var(--accent-gold);
-    }
-
-    .country-name {
-      font-weight: 700;
-      font-size: 1rem;
-      margin-bottom: var(--space-xs);
-    }
-
-    .country-projection {
-      font-size: 0.8125rem;
-      color: var(--text-muted);
-      margin-bottom: var(--space-sm);
-    }
-
-    .country-desc {
-      font-size: 0.8125rem;
-      color: var(--text-secondary);
-      line-height: 1.5;
-    }
-
-    .country-selected-badge {
-      position: absolute;
-      top: var(--space-sm);
-      right: var(--space-sm);
-      background: var(--accent-primary);
-      color: #000;
-      padding: 2px 8px;
-      border-radius: var(--radius-sm);
-      font-size: 0.6875rem;
-      font-weight: 700;
-    }
-
-    .market-actions {
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-sm);
-      padding: var(--space-lg) 0;
-    }
-
-    /* ========================================
-       11. VIEW D - DASHBOARD
+       8. VIEW D - DASHBOARD
        ======================================== */
     .dashboard-header {
       padding: var(--space-xl) 0 var(--space-lg);
@@ -1712,92 +997,7 @@
     .toast.toast-error { border-color: var(--danger); }
 
     /* ========================================
-       15. BACK BUTTON
-       ======================================== */
-    .btn-back {
-      display: inline-flex;
-      align-items: center;
-      gap: var(--space-xs);
-      padding: var(--space-xs) var(--space-sm);
-      font-family: inherit;
-      font-size: 0.8125rem;
-      font-weight: 600;
-      color: var(--text-secondary);
-      background: transparent;
-      border: var(--glass-border);
-      border-radius: var(--radius-sm);
-      cursor: pointer;
-      transition: all var(--transition-fast);
-      margin-bottom: var(--space-xs);
-    }
-
-    .btn-back:hover {
-      color: var(--text-primary);
-      border-color: var(--accent-primary);
-      background: rgba(0, 212, 255, 0.1);
-    }
-
-    /* ========================================
-       16. COUNTDOWN TIMER
-       ======================================== */
-    .countdown-card {
-      text-align: center;
-      margin-bottom: var(--space-lg);
-      padding: var(--space-md) var(--space-lg);
-    }
-
-    .countdown-label {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--text-muted);
-      margin-bottom: var(--space-sm);
-    }
-
-    .countdown-timer {
-      display: flex;
-      justify-content: center;
-      gap: var(--space-md);
-      flex-wrap: wrap;
-    }
-
-    .countdown-unit {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-width: 60px;
-    }
-
-    .countdown-value {
-      font-size: 1.75rem;
-      font-weight: 800;
-      color: var(--accent-gold);
-      font-feature-settings: "tnum";
-      line-height: 1;
-    }
-
-    .countdown-label-text {
-      font-size: 0.6875rem;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-top: var(--space-xs);
-    }
-
-    .countdown-live {
-      color: var(--success);
-      font-weight: 700;
-      font-size: 1.125rem;
-      animation: pulse 2s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.6; }
-    }
-
-    /* ========================================
-       17. REFRESH BUTTON & SECTION TITLE ROW
+       15. REFRESH BUTTON & SECTION TITLE ROW
        ======================================== */
     .section-title-row {
       display: flex;
@@ -2069,24 +1269,6 @@
     }
 
     /* ========================================
-       22. VIEW TRANSITIONS
-       ======================================== */
-    .view-enter {
-      animation: viewFadeSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) both;
-    }
-
-    @keyframes viewFadeSlideIn {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* ========================================
        23. COMMISSIONER COMMENTARY
        ======================================== */
     .commentary-section {
@@ -2222,10 +1404,6 @@
         text-align: right;
       }
 
-      .countdown-value {
-        font-size: 1.25rem;
-      }
-
       .celebration-medal {
         font-size: 4rem;
       }
@@ -2250,10 +1428,6 @@
 
     @media (min-width: 768px) {
       .container { padding: var(--space-lg); }
-
-      .participant-list {
-        grid-template-columns: repeat(2, 1fr);
-      }
 
       .portfolio-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -2289,7 +1463,7 @@
       { id: 2, name: 'Christopher & Rebecca Wray' },
       { id: 3, name: 'Stephen & Rhandi Zipp' },
       { id: 4, name: 'Ryan & Haley Baskerville' },
-      { id: 5, name: 'Preston & Maddi Amundson' },
+      { id: 5, name: 'Maddi & Preston Lakey' },
       { id: 6, name: 'Jaynen & Britt Rissling' },
       { id: 7, name: 'Kieran & Zoe Armstrong' }
     ];
@@ -2476,7 +1650,6 @@
       }
     };
 
-    const BUDGET = 100;
     const MEDAL_POINTS = { gold: 3, silver: 2, bronze: 1 };
     const MEDAL_EMOJI = { gold: '🥇', silver: '🥈', bronze: '🥉' };
     const STORAGE_KEY = 'milan2026_market_v3';
@@ -2486,14 +1659,21 @@
        2. STATE
        ======================================== */
 
-    let appState = {
-      portfolios: {},    // participantId -> [countryIds]
-      medalsLog: [],     // { id, countryId, eventDescription, medal, timestamp }
-      marketOpen: true
+    const DEFAULT_PORTFOLIOS = {
+      1: ['ger', 'aut', 'swe', 'ned', 'jpn', 'nzl', 'bel'],           // Mike & Allegra Berry
+      2: ['nor', 'can', 'chn', 'swe', 'bel', 'pol', 'nzl', 'lat'],    // Christopher & Rebecca Wray
+      3: ['nor', 'ger', 'ita', 'aus', 'hun', 'pol', 'nzl', 'bel', 'est', 'lat'], // Stephen & Rhandi Zipp
+      4: ['usa', 'ger', 'sui', 'ned', 'cze'],                          // Ryan & Haley Baskerville
+      5: ['nor', 'ger', 'can', 'svn'],                                 // Maddi & Preston Lakey
+      6: ['nor', 'can', 'ita', 'chn', 'aus', 'hun', 'bel']            // Jaynen & Britt Rissling
     };
 
-    let currentParticipantId = null;
-    let currentCart = [];
+    let appState = {
+      portfolios: { ...DEFAULT_PORTFOLIOS },
+      medalsLog: [],     // { id, countryId, eventDescription, medal, timestamp }
+      marketOpen: false
+    };
+
     let selectedMedalType = null;
     let sessionMedals = []; // tracks medals added in current admin session
 
@@ -2505,15 +1685,18 @@
       try {
         const saved = localStorage.getItem(STORAGE_KEY);
         if (saved) {
-          appState = JSON.parse(saved);
-          if (!appState.portfolios) appState.portfolios = {};
-          if (!appState.medalsLog) appState.medalsLog = [];
-          if (appState.marketOpen === undefined) appState.marketOpen = true;
-          if (!appState.commentary) appState.commentary = '';
+          const parsed = JSON.parse(saved);
+          appState.medalsLog = parsed.medalsLog || [];
+          appState.commentary = parsed.commentary || '';
+          appState.commentaryTimestamp = parsed.commentaryTimestamp;
+          appState.commentaryDay = parsed.commentaryDay;
+          // Always use hard-coded portfolios
+          appState.portfolios = { ...DEFAULT_PORTFOLIOS };
+          appState.marketOpen = false;
         }
       } catch (e) {
         console.error('Failed to load state:', e);
-        appState = { portfolios: {}, medalsLog: [], marketOpen: true, commentary: '' };
+        appState = { portfolios: { ...DEFAULT_PORTFOLIOS }, medalsLog: [], marketOpen: false, commentary: '' };
       }
     }
 
@@ -2541,26 +1724,6 @@
 
     function getParticipantById(id) {
       return PARTICIPANTS.find(p => p.id === id);
-    }
-
-    function getCountryById(id) {
-      return COUNTRIES[id];
-    }
-
-    function isPortfolioComplete(participantId) {
-      return appState.portfolios[participantId] && appState.portfolios[participantId].length > 0;
-    }
-
-    function allPortfoliosComplete() {
-      return PARTICIPANTS.every(p => isPortfolioComplete(p.id));
-    }
-
-    function getCartTotal() {
-      return currentCart.reduce((sum, id) => sum + COUNTRIES[id].price, 0);
-    }
-
-    function getRemainingBudget() {
-      return BUDGET - getCartTotal();
     }
 
     /* ========================================
@@ -2616,230 +1779,12 @@
     }
 
     /* ========================================
-       6. VIEWS
+       6. DASHBOARD
        ======================================== */
-
-    function showView(viewId) {
-      document.querySelectorAll('.view').forEach(v => v.classList.add('hidden'));
-      document.getElementById(viewId).classList.remove('hidden');
-    }
 
     function render() {
-      if (appState.marketOpen && !allPortfoliosComplete()) {
-        showView('welcome-view');
-      } else {
-        showView('dashboard-view');
-        renderDashboard();
-      }
+      renderDashboard();
     }
-
-    /* ========================================
-       7. WELCOME VIEW
-       ======================================== */
-
-    const INTRO_VIDEO_ID = 'dcJb-MrHypI';
-
-    function enterMarket() {
-      showView('video-view');
-      // Load video with autoplay
-      const iframe = document.getElementById('intro-video');
-      iframe.src = `https://www.youtube.com/embed/${INTRO_VIDEO_ID}?autoplay=1&rel=0&modestbranding=1`;
-    }
-
-    function skipVideo() {
-      // Stop video
-      const iframe = document.getElementById('intro-video');
-      iframe.src = '';
-      // Go to participant selection
-      showView('participant-view');
-      renderParticipantList();
-    }
-
-    function continueToDraft() {
-      skipVideo(); // Same behavior, just different button
-    }
-
-    /* ========================================
-       8. PARTICIPANT SELECTION
-       ======================================== */
-
-    function renderParticipantList() {
-      const container = document.getElementById('participant-list');
-      container.innerHTML = PARTICIPANTS.map(p => {
-        const complete = isPortfolioComplete(p.id);
-        return `
-          <div class="participant-card ${complete ? 'completed' : ''}" data-id="${p.id}">
-            <span class="participant-name">${p.name}</span>
-          </div>
-        `;
-      }).join('');
-
-      container.querySelectorAll('.participant-card:not(.completed)').forEach(card => {
-        card.addEventListener('click', () => {
-          currentParticipantId = parseInt(card.dataset.id);
-          currentCart = [];
-          showView('market-view');
-          renderMarket();
-        });
-      });
-    }
-
-    /* ========================================
-       9. MARKET VIEW
-       ======================================== */
-
-    function renderMarket() {
-      const participant = getParticipantById(currentParticipantId);
-      document.getElementById('current-buyer').textContent = `Building for: ${participant.name}`;
-
-      renderBudget();
-      renderCart();
-      renderCountryGrids();
-      updateConfirmButton();
-    }
-
-    function renderBudget() {
-      const remaining = getRemainingBudget();
-      const pct = (remaining / BUDGET) * 100;
-      const amountEl = document.getElementById('budget-amount');
-      const fillEl = document.getElementById('budget-fill');
-
-      amountEl.textContent = `$${remaining}`;
-      amountEl.className = 'budget-amount';
-      if (remaining < 20) amountEl.classList.add('danger');
-      else if (remaining < 50) amountEl.classList.add('warning');
-
-      fillEl.style.width = `${pct}%`;
-    }
-
-    function renderCart() {
-      const container = document.getElementById('cart-items');
-      const totalEl = document.getElementById('cart-total-amount');
-
-      if (currentCart.length === 0) {
-        container.innerHTML = '<p class="empty-cart">No countries selected yet</p>';
-      } else {
-        container.innerHTML = currentCart.map(id => {
-          const c = COUNTRIES[id];
-          return `
-            <div class="cart-item">
-              <div class="cart-item-info">
-                <span>${c.flag}</span>
-                <span>${c.name}</span>
-                <span style="color: var(--accent-gold)">$${c.price}</span>
-              </div>
-              <button class="cart-item-remove" data-id="${id}">✕</button>
-            </div>
-          `;
-        }).join('');
-
-        container.querySelectorAll('.cart-item-remove').forEach(btn => {
-          btn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            removeFromCart(btn.dataset.id);
-          });
-        });
-      }
-
-      totalEl.textContent = `$${getCartTotal()}`;
-    }
-
-    function renderCountryGrids() {
-      const tiers = {
-        'blue-chip': document.getElementById('blue-chip-grid'),
-        'mid-cap': document.getElementById('mid-cap-grid'),
-        'penny-stock': document.getElementById('penny-stock-grid')
-      };
-
-      Object.values(tiers).forEach(el => el.innerHTML = '');
-
-      Object.values(COUNTRIES).forEach(country => {
-        const inCart = currentCart.includes(country.id);
-        const canAfford = getRemainingBudget() >= country.price;
-        const disabled = !inCart && !canAfford;
-
-        const card = document.createElement('div');
-        card.className = `country-card ${inCart ? 'selected' : ''} ${disabled ? 'disabled' : ''}`;
-        card.innerHTML = `
-          ${inCart ? '<div class="country-selected-badge">IN CART</div>' : ''}
-          <div class="country-header">
-            <span class="country-flag">${country.flag}</span>
-            <span class="country-price">$${country.price}</span>
-          </div>
-          <div class="country-name">${country.name}</div>
-          <div class="country-projection">📊 ${country.projection}</div>
-          <div class="country-desc">${country.description}</div>
-        `;
-
-        if (!disabled) {
-          card.addEventListener('click', () => toggleCountry(country.id));
-        }
-
-        tiers[country.tier].appendChild(card);
-      });
-    }
-
-    function toggleCountry(countryId) {
-      if (currentCart.includes(countryId)) {
-        removeFromCart(countryId);
-      } else {
-        addToCart(countryId);
-      }
-    }
-
-    function addToCart(countryId) {
-      if (!currentCart.includes(countryId) && getRemainingBudget() >= COUNTRIES[countryId].price) {
-        currentCart.push(countryId);
-        renderMarket();
-      }
-    }
-
-    function removeFromCart(countryId) {
-      currentCart = currentCart.filter(id => id !== countryId);
-      renderMarket();
-    }
-
-    function clearCart() {
-      currentCart = [];
-      renderMarket();
-    }
-
-    function updateConfirmButton() {
-      const btn = document.getElementById('confirm-portfolio-btn');
-      btn.disabled = currentCart.length === 0;
-    }
-
-    function confirmPortfolio() {
-      if (currentCart.length === 0) return;
-
-      const participant = getParticipantById(currentParticipantId);
-      const spent = getCartTotal();
-
-      if (!confirm(`Confirm portfolio for ${participant.name}?\n\nCountries: ${currentCart.map(id => COUNTRIES[id].name).join(', ')}\nTotal: $${spent}`)) {
-        return;
-      }
-
-      appState.portfolios[currentParticipantId] = [...currentCart];
-      saveState();
-
-      showToast(`Portfolio confirmed for ${participant.name}!`, 'success');
-
-      currentParticipantId = null;
-      currentCart = [];
-
-      if (allPortfoliosComplete()) {
-        appState.marketOpen = false;
-        saveState();
-        render();
-      } else {
-        showView('participant-view');
-        renderParticipantList();
-      }
-    }
-
-    /* ========================================
-       10. DASHBOARD
-       ======================================== */
 
     function renderDashboard() {
       renderTotalPoints();
@@ -3121,14 +2066,6 @@
       renderDashboard();
     }
 
-    function reopenMarket() {
-      if (!confirm('Reopen the market? This will allow portfolio changes.')) return;
-      appState.marketOpen = true;
-      saveState();
-      closeAdmin();
-      render();
-    }
-
     function exportData() {
       navigator.clipboard.writeText(JSON.stringify(appState, null, 2));
       showToast('Data copied!', 'success');
@@ -3152,7 +2089,7 @@
       if (!confirm('DELETE ALL DATA?')) return;
       if (prompt('Type RESET:') !== 'RESET') return;
       localStorage.removeItem(STORAGE_KEY);
-      appState = { portfolios: {}, medalsLog: [], marketOpen: true };
+      appState = { portfolios: { ...DEFAULT_PORTFOLIOS }, medalsLog: [], marketOpen: false, commentary: '' };
       closeAdmin();
       render();
     }
@@ -3187,54 +2124,6 @@
         s.style.opacity = Math.random() * 0.5 + 0.2;
         container.appendChild(s);
       }
-    }
-
-    /* ========================================
-       14. COUNTDOWN TIMER
-       ======================================== */
-
-    const OPENING_CEREMONY = new Date('2026-02-06T20:00:00+01:00'); // Milan time (CET)
-
-    function updateCountdown() {
-      const el = document.getElementById('countdown-timer');
-      const card = document.getElementById('countdown-card');
-      if (!el || !card) return;
-
-      const now = new Date();
-      const diff = OPENING_CEREMONY - now;
-
-      if (diff <= 0) {
-        el.innerHTML = '<span class="countdown-live">The Games Are LIVE!</span>';
-        return;
-      }
-
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-      el.innerHTML = [
-        { value: days, label: 'Days' },
-        { value: hours, label: 'Hours' },
-        { value: minutes, label: 'Min' },
-        { value: seconds, label: 'Sec' }
-      ].map(u => `
-        <div class="countdown-unit">
-          <span class="countdown-value">${String(u.value).padStart(2, '0')}</span>
-          <span class="countdown-label-text">${u.label}</span>
-        </div>
-      `).join('');
-    }
-
-    /* ========================================
-       14B. BACK NAVIGATION
-       ======================================== */
-
-    function goBackToParticipants() {
-      currentParticipantId = null;
-      currentCart = [];
-      showView('participant-view');
-      renderParticipantList();
     }
 
     /* ========================================
@@ -3539,27 +2428,6 @@
     }
 
     /* ========================================
-       14G. VIEW TRANSITIONS
-       ======================================== */
-
-    showView = function(viewId) {
-      const nextView = document.getElementById(viewId);
-
-      // Hide all views
-      document.querySelectorAll('.view').forEach(v => {
-        v.classList.add('hidden');
-        v.classList.remove('view-enter');
-      });
-
-      // Show and animate new view
-      nextView.classList.remove('hidden');
-      nextView.classList.add('view-enter');
-
-      // Scroll to top
-      window.scrollTo({ top: 0, behavior: 'instant' });
-    };
-
-    /* ========================================
        14H. COMMISSIONER COMMENTARY
        ======================================== */
 
@@ -3723,18 +2591,6 @@
        ======================================== */
 
     function initEventListeners() {
-      // Welcome
-      document.getElementById('enter-market-btn').addEventListener('click', enterMarket);
-
-      // Video interstitial
-      document.getElementById('continue-to-draft-btn').addEventListener('click', continueToDraft);
-      document.getElementById('skip-video-btn').addEventListener('click', skipVideo);
-
-      // Market
-      document.getElementById('back-to-participants-btn').addEventListener('click', goBackToParticipants);
-      document.getElementById('confirm-portfolio-btn').addEventListener('click', confirmPortfolio);
-      document.getElementById('clear-cart-btn').addEventListener('click', clearCart);
-
       // Dashboard
       document.getElementById('refresh-dashboard-btn').addEventListener('click', refreshDashboard);
 
@@ -3760,7 +2616,6 @@
       document.getElementById('save-commentary-btn').addEventListener('click', saveCommentary);
       document.getElementById('export-btn').addEventListener('click', exportData);
       document.getElementById('import-btn').addEventListener('click', importData);
-      document.getElementById('reopen-market-btn').addEventListener('click', reopenMarket);
       document.getElementById('reset-btn').addEventListener('click', resetLeague);
 
       document.addEventListener('keydown', e => {
@@ -3777,8 +2632,6 @@
       loadState();
       initEventListeners();
       populateEventSuggestions();
-      updateCountdown();
-      setInterval(updateCountdown, 1000);
       render();
     }
 
