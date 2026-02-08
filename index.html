@@ -1476,12 +1476,12 @@
           <div class="briefing-standings">
             <div class="briefing-standing first-place">
               <span class="standing-label">🥇 1st Place</span>
-              <span class="standing-name">${firstPlace.participant.name}</span>
+              <span class="standing-name">${firstPlace.participant.name.split(' ').pop()}</span>
               <span class="standing-pts">${firstPlace.scores.total} pts</span>
             </div>
             <div class="briefing-standing last-place">
               <span class="standing-label">📉 Last Place</span>
-              <span class="standing-name">${lastPlace.participant.name}</span>
+              <span class="standing-name">${lastPlace.participant.name.split(' ').pop()}</span>
               <span class="standing-pts">${lastPlace.scores.total} pts</span>
             </div>
           </div>
