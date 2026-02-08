@@ -841,15 +841,58 @@
       font-size: 0.8125rem;
     }
 
-    .briefing-roast {
-      background: linear-gradient(135deg, rgba(255, 82, 82, 0.1), rgba(255, 82, 82, 0.05));
-      border: 1px solid rgba(255, 82, 82, 0.2);
-      border-radius: var(--radius-md);
-      padding: var(--space-md);
-      font-size: 0.9375rem;
-      line-height: 1.6;
-      color: var(--text-secondary);
+    .briefing-standings {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
     }
+
+    .briefing-standing {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-md);
+      border-radius: var(--radius-md);
+      font-size: 0.9375rem;
+    }
+
+    .briefing-standing.first-place {
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.12), rgba(255, 215, 0, 0.04));
+      border: 1px solid rgba(255, 215, 0, 0.25);
+    }
+
+    .briefing-standing.last-place {
+      background: linear-gradient(135deg, rgba(255, 82, 82, 0.08), rgba(255, 82, 82, 0.03));
+      border: 1px solid rgba(255, 82, 82, 0.2);
+    }
+
+    .standing-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      min-width: 90px;
+    }
+
+    .first-place .standing-label { color: var(--gold); }
+    .last-place .standing-label { color: var(--danger); }
+
+    .standing-name {
+      font-weight: 600;
+      color: var(--text-primary);
+      flex: 1;
+      text-align: center;
+    }
+
+    .standing-pts {
+      font-weight: 800;
+      font-feature-settings: "tnum";
+      min-width: 60px;
+      text-align: right;
+    }
+
+    .first-place .standing-pts { color: var(--gold); }
+    .last-place .standing-pts { color: var(--text-muted); }
 
     .briefing-no-medals {
       text-align: center;
@@ -1229,14 +1272,12 @@
       document.getElementById('header-bronze-count').textContent = bronzes;
     }
 
+    // Last time medal data was updated (set at build time)
+    const LAST_DATA_UPDATE = new Date('2026-02-08T04:30:00-05:00').getTime();
+
     function renderLastUpdated() {
       const el = document.getElementById('last-updated');
-      if (appState.medalsLog.length === 0) {
-        el.textContent = '';
-        return;
-      }
-      const last = appState.medalsLog[appState.medalsLog.length - 1];
-      el.textContent = `Updated ${formatTimestamp(last.timestamp)}`;
+      el.textContent = `Updated ${formatTimestamp(LAST_DATA_UPDATE)}`;
     }
 
     function renderLeaderboard() {
@@ -1349,16 +1390,6 @@
        BRIEFING POPUP
        ======================================== */
 
-    const LAST_PLACE_ROASTS = [
-      (name) => `${name} are currently bringing up the rear. Their portfolio is doing about as well as a snowboarder in a swimming pool. Forza, you beautiful disasters.`,
-      (name) => `Commissioner Reif-Wray's note: ${name} are mathematically still alive. Spiritually? That's another question entirely.`,
-      (name) => `Last place belongs to ${name}, who appear to have drafted their portfolio blindfolded. Bold strategy. Let's see if it pays off. (It hasn't.)`,
-      (name) => `${name} are in the cellar. At this rate, they might want to pivot from "medal hunting" to "enjoying the scenery in Cortina."`,
-      (name) => `A moment of silence for ${name}, who are currently proving that $100 can, in fact, buy you nothing of value.`,
-      (name) => `${name} currently occupy last place. Their countries are out there competing—just not winning. Participation trophies all around.`,
-      (name) => `Dead last: ${name}. The good news? There's nowhere to go but up. The bad news? They said that yesterday too.`
-    ];
-
     function generateBriefing() {
       const overlay = document.getElementById('briefing-overlay');
       const body = document.getElementById('briefing-body');
@@ -1405,11 +1436,10 @@
           return `<li><span>${c.flag} ${c.name}</span><span class="briefing-mover-pts">${pts} pts</span></li>`;
         }).join('');
 
-      // Leaderboard for roast (exclude Kieran & Zoe Armstrong - id 7)
+      // Standings (exclude Kieran & Zoe Armstrong - id 7)
       const leaderboard = getLeaderboard().filter(e => e.participant.id !== 7);
+      const firstPlace = leaderboard[0];
       const lastPlace = leaderboard[leaderboard.length - 1];
-      const roastFn = LAST_PLACE_ROASTS[Math.floor(Math.random() * LAST_PLACE_ROASTS.length)];
-      const roast = roastFn(lastPlace.participant.name);
 
       const dayLabel = day ? `Day ${day}` : 'Competition Update';
 
@@ -1442,8 +1472,19 @@
         </div>
 
         <div class="briefing-section">
-          <div class="briefing-section-title">🪑 The Hot Seat</div>
-          <div class="briefing-roast">${roast}</div>
+          <div class="briefing-section-title">📊 Standings</div>
+          <div class="briefing-standings">
+            <div class="briefing-standing first-place">
+              <span class="standing-label">🥇 1st Place</span>
+              <span class="standing-name">${firstPlace.participant.name}</span>
+              <span class="standing-pts">${firstPlace.scores.total} pts</span>
+            </div>
+            <div class="briefing-standing last-place">
+              <span class="standing-label">📉 Last Place</span>
+              <span class="standing-name">${lastPlace.participant.name}</span>
+              <span class="standing-pts">${lastPlace.scores.total} pts</span>
+            </div>
+          </div>
         </div>
       `;
     }
