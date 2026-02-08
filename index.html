@@ -49,14 +49,6 @@
         </div>
       </section>
 
-      <!-- Achievement Badges -->
-      <section class="achievements-section">
-        <h2 class="section-title">🏆 League Achievements</h2>
-        <div id="achievements-grid" class="achievements-grid">
-          <!-- Populated by JS -->
-        </div>
-      </section>
-
       <!-- Portfolio Details Section -->
       <section class="portfolios-section">
         <h2 class="section-title">📊 Team Portfolios</h2>
@@ -1267,72 +1259,6 @@
     }
 
     /* ========================================
-       24. ACHIEVEMENT BADGES
-       ======================================== */
-    .achievements-section {
-      margin-bottom: var(--space-xl);
-    }
-
-    .achievements-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--space-sm);
-    }
-
-    .achievement-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: var(--space-sm);
-      padding: var(--space-sm) var(--space-md);
-      background: var(--glass-bg);
-      border: var(--glass-border);
-      border-radius: var(--radius-xl);
-      font-size: 0.8125rem;
-      transition: all var(--transition-normal);
-    }
-
-    .achievement-badge.unlocked {
-      border-color: var(--accent-gold);
-      background: linear-gradient(135deg, rgba(255, 215, 0, 0.12), rgba(255, 215, 0, 0.04));
-      animation: badgeUnlock 0.5s ease;
-    }
-
-    .achievement-badge.locked {
-      opacity: 0.35;
-      filter: grayscale(1);
-    }
-
-    @keyframes badgeUnlock {
-      0% { transform: scale(0.8); opacity: 0; }
-      50% { transform: scale(1.1); }
-      100% { transform: scale(1); opacity: 1; }
-    }
-
-    .achievement-icon {
-      font-size: 1.25rem;
-    }
-
-    .achievement-info {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .achievement-name {
-      font-weight: 700;
-      font-size: 0.8125rem;
-      color: var(--text-primary);
-    }
-
-    .achievement-desc {
-      font-size: 0.6875rem;
-      color: var(--text-muted);
-    }
-
-    .achievement-badge.unlocked .achievement-name {
-      color: var(--accent-gold);
-    }
-
-    /* ========================================
        25. RESPONSIVE
        ======================================== */
     @media (max-width: 767px) {
@@ -1369,15 +1295,6 @@
 
       .celebration-event {
         font-size: 0.9375rem;
-      }
-
-      .achievements-grid {
-        gap: var(--space-xs);
-      }
-
-      .achievement-badge {
-        padding: var(--space-xs) var(--space-sm);
-        font-size: 0.75rem;
       }
     }
 
@@ -1746,7 +1663,6 @@
       renderLastUpdated();
       renderLeaderboard();
       renderCommentary();
-      renderAchievements();
       renderPortfolios();
     }
 
@@ -2408,122 +2324,6 @@
           if (day) input.placeholder = `Day ${day}: The Norwegian Empire marches on! But watch out for the Swiss...`;
         }
       }
-    }
-
-    /* ========================================
-       14I. ACHIEVEMENT BADGES
-       ======================================== */
-
-    const ACHIEVEMENTS = [
-      {
-        id: 'first_blood',
-        icon: '⚔️',
-        name: 'First Blood',
-        desc: 'First medal recorded in the league',
-        check: (state) => state.medalsLog.length >= 1
-      },
-      {
-        id: 'gold_rush',
-        icon: '🥇',
-        name: 'Gold Rush',
-        desc: '10 gold medals recorded',
-        check: (state) => state.medalsLog.filter(m => m.medal === 'gold').length >= 10
-      },
-      {
-        id: 'century_club',
-        icon: '💯',
-        name: 'Century Club',
-        desc: 'League reaches 100 total points',
-        check: (state) => {
-          return PARTICIPANTS.reduce((sum, p) => sum + getScoresForParticipant(p.id).total, 0) >= 100;
-        }
-      },
-      {
-        id: 'penny_pays',
-        icon: '🎰',
-        name: 'Penny Pays Off',
-        desc: 'A penny stock country wins a gold medal',
-        check: (state) => {
-          return state.medalsLog.some(m => {
-            const c = COUNTRIES[m.countryId];
-            return c && c.tier === 'penny-stock' && m.medal === 'gold';
-          });
-        }
-      },
-      {
-        id: 'blue_chip_bonanza',
-        icon: '💎',
-        name: 'Blue Chip Bonanza',
-        desc: 'A blue chip country reaches 10+ medals',
-        check: (state) => {
-          return Object.values(COUNTRIES)
-            .filter(c => c.tier === 'blue-chip')
-            .some(c => getMedalsForCountry(c.id).length >= 10);
-        }
-      },
-      {
-        id: 'diversity_wins',
-        icon: '🌍',
-        name: 'Diversity Wins',
-        desc: '15 different countries have won medals',
-        check: (state) => {
-          const countries = new Set(state.medalsLog.map(m => m.countryId));
-          return countries.size >= 15;
-        }
-      },
-      {
-        id: 'medal_marathon',
-        icon: '🏃',
-        name: 'Medal Marathon',
-        desc: '50 total medals recorded',
-        check: (state) => state.medalsLog.length >= 50
-      },
-      {
-        id: 'photo_finish',
-        icon: '📸',
-        name: 'Photo Finish',
-        desc: 'Two teams are tied in points',
-        check: (state) => {
-          const scores = PARTICIPANTS.map(p => getScoresForParticipant(p.id).total).filter(s => s > 0);
-          return scores.length !== new Set(scores).size;
-        }
-      },
-      {
-        id: 'host_hero',
-        icon: '🇮🇹',
-        name: 'Host Hero',
-        desc: 'Italy wins 5+ medals',
-        check: (state) => getMedalsForCountry('ita').length >= 5
-      },
-      {
-        id: 'upset_special',
-        icon: '🤯',
-        name: 'Upset Special',
-        desc: 'A $1 country earns 5+ points',
-        check: (state) => {
-          return Object.values(COUNTRIES)
-            .filter(c => c.price === 1)
-            .some(c => getPointsForCountry(c.id) >= 5);
-        }
-      }
-    ];
-
-    function renderAchievements() {
-      const grid = document.getElementById('achievements-grid');
-      if (!grid) return;
-
-      grid.innerHTML = ACHIEVEMENTS.map(a => {
-        const unlocked = a.check(appState);
-        return `
-          <div class="achievement-badge ${unlocked ? 'unlocked' : 'locked'}">
-            <span class="achievement-icon">${a.icon}</span>
-            <div class="achievement-info">
-              <span class="achievement-name">${a.name}</span>
-              <span class="achievement-desc">${a.desc}</span>
-            </div>
-          </div>
-        `;
-      }).join('');
     }
 
     /* ========================================
