@@ -1126,6 +1126,12 @@
         projection: '~1 medal',
         description: 'Cross-country skiing and Freestyle dark horse. Central Asian wildcard at the minimum price.',
         olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/kaz'
+      },
+      'bul': {
+        id: 'bul', name: 'Bulgaria', flag: '🇧🇬', price: 0, tier: 'penny-stock',
+        projection: '~1 medal',
+        description: 'Snowboard specialist Tervel Zamfirov brought Bulgaria back to the Winter Olympic podium after 20 years.',
+        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/bul'
       }
     };
 
@@ -1145,7 +1151,9 @@
     };
 
     // Day 1 results — February 7, 2026
+    // Day 2 results — February 8, 2026
     const DEFAULT_MEDALS = [
+      // ===== DAY 1 — February 7, 2026 =====
       // Men's Downhill Alpine Skiing
       { id: 'd1_alp_m_dh_g', countryId: 'sui', eventDescription: "Men's Downhill Alpine Skiing", medal: 'gold', timestamp: 1738926000000 },
       { id: 'd1_alp_m_dh_s', countryId: 'ita', eventDescription: "Men's Downhill Alpine Skiing", medal: 'silver', timestamp: 1738926000000 },
@@ -1165,7 +1173,41 @@
       // Women's Speed Skating 3000m
       { id: 'd1_ssk_w_3k_g', countryId: 'ita', eventDescription: "Women's 3000m Speed Skating", medal: 'gold', timestamp: 1738944000000 },
       { id: 'd1_ssk_w_3k_s', countryId: 'nor', eventDescription: "Women's 3000m Speed Skating", medal: 'silver', timestamp: 1738944000000 },
-      { id: 'd1_ssk_w_3k_b', countryId: 'can', eventDescription: "Women's 3000m Speed Skating", medal: 'bronze', timestamp: 1738944000000 }
+      { id: 'd1_ssk_w_3k_b', countryId: 'can', eventDescription: "Women's 3000m Speed Skating", medal: 'bronze', timestamp: 1738944000000 },
+
+      // ===== DAY 2 — February 8, 2026 =====
+      // Women's Downhill Alpine Skiing
+      { id: 'd2_alp_w_dh_g', countryId: 'usa', eventDescription: "Women's Downhill Alpine Skiing", medal: 'gold', timestamp: 1739012400000 },
+      { id: 'd2_alp_w_dh_s', countryId: 'ger', eventDescription: "Women's Downhill Alpine Skiing", medal: 'silver', timestamp: 1739012400000 },
+      { id: 'd2_alp_w_dh_b', countryId: 'ita', eventDescription: "Women's Downhill Alpine Skiing", medal: 'bronze', timestamp: 1739012400000 },
+      // Men's Skiathlon Cross-Country Skiing
+      { id: 'd2_ccs_m_sk_g', countryId: 'nor', eventDescription: "Men's Skiathlon Cross-Country Skiing", medal: 'gold', timestamp: 1739016400000 },
+      { id: 'd2_ccs_m_sk_s', countryId: 'fra', eventDescription: "Men's Skiathlon Cross-Country Skiing", medal: 'silver', timestamp: 1739016400000 },
+      { id: 'd2_ccs_m_sk_b', countryId: 'nor', eventDescription: "Men's Skiathlon Cross-Country Skiing", medal: 'bronze', timestamp: 1739016400000 },
+      // Men's 5000m Speed Skating
+      { id: 'd2_ssk_m_5k_g', countryId: 'nor', eventDescription: "Men's 5000m Speed Skating", medal: 'gold', timestamp: 1739020400000 },
+      { id: 'd2_ssk_m_5k_s', countryId: 'cze', eventDescription: "Men's 5000m Speed Skating", medal: 'silver', timestamp: 1739020400000 },
+      { id: 'd2_ssk_m_5k_b', countryId: 'ita', eventDescription: "Men's 5000m Speed Skating", medal: 'bronze', timestamp: 1739020400000 },
+      // Men's Singles Luge
+      { id: 'd2_lug_m_si_g', countryId: 'ger', eventDescription: "Men's Singles Luge", medal: 'gold', timestamp: 1739024400000 },
+      { id: 'd2_lug_m_si_s', countryId: 'aut', eventDescription: "Men's Singles Luge", medal: 'silver', timestamp: 1739024400000 },
+      { id: 'd2_lug_m_si_b', countryId: 'ita', eventDescription: "Men's Singles Luge", medal: 'bronze', timestamp: 1739024400000 },
+      // Mixed Relay Biathlon
+      { id: 'd2_bth_x_rl_g', countryId: 'fra', eventDescription: "Mixed Relay Biathlon", medal: 'gold', timestamp: 1739028400000 },
+      { id: 'd2_bth_x_rl_s', countryId: 'ita', eventDescription: "Mixed Relay Biathlon", medal: 'silver', timestamp: 1739028400000 },
+      { id: 'd2_bth_x_rl_b', countryId: 'ger', eventDescription: "Mixed Relay Biathlon", medal: 'bronze', timestamp: 1739028400000 },
+      // Men's Parallel Giant Slalom Snowboard
+      { id: 'd2_sbd_m_pgs_g', countryId: 'aut', eventDescription: "Men's Parallel Giant Slalom Snowboard", medal: 'gold', timestamp: 1739032400000 },
+      { id: 'd2_sbd_m_pgs_s', countryId: 'kor', eventDescription: "Men's Parallel Giant Slalom Snowboard", medal: 'silver', timestamp: 1739032400000 },
+      { id: 'd2_sbd_m_pgs_b', countryId: 'bul', eventDescription: "Men's Parallel Giant Slalom Snowboard", medal: 'bronze', timestamp: 1739032400000 },
+      // Women's Parallel Giant Slalom Snowboard
+      { id: 'd2_sbd_w_pgs_g', countryId: 'cze', eventDescription: "Women's Parallel Giant Slalom Snowboard", medal: 'gold', timestamp: 1739036400000 },
+      { id: 'd2_sbd_w_pgs_s', countryId: 'aut', eventDescription: "Women's Parallel Giant Slalom Snowboard", medal: 'silver', timestamp: 1739036400000 },
+      { id: 'd2_sbd_w_pgs_b', countryId: 'ita', eventDescription: "Women's Parallel Giant Slalom Snowboard", medal: 'bronze', timestamp: 1739036400000 },
+      // Figure Skating Team Event
+      { id: 'd2_fsk_x_tm_g', countryId: 'usa', eventDescription: "Figure Skating Team Event", medal: 'gold', timestamp: 1739040400000 },
+      { id: 'd2_fsk_x_tm_s', countryId: 'jpn', eventDescription: "Figure Skating Team Event", medal: 'silver', timestamp: 1739040400000 },
+      { id: 'd2_fsk_x_tm_b', countryId: 'ita', eventDescription: "Figure Skating Team Event", medal: 'bronze', timestamp: 1739040400000 }
     ];
 
     let appState = {
@@ -1273,7 +1315,7 @@
     }
 
     // Last time medal data was updated (set at build time)
-    const LAST_DATA_UPDATE = new Date('2026-02-08T04:30:00-05:00').getTime();
+    const LAST_DATA_UPDATE = new Date('2026-02-09T10:00:00-05:00').getTime();
 
     function renderLastUpdated() {
       const el = document.getElementById('last-updated');
