@@ -1423,7 +1423,7 @@
 
     function getCompetitionDay() {
       const gameStart = new Date('2026-02-06');
-      const now = new Date();
+      const now = new Date(LAST_DATA_UPDATE);
       const diffDays = Math.floor((now - gameStart) / (1000 * 60 * 60 * 24)) + 1;
       return diffDays >= 1 && diffDays <= 17 ? diffDays : 0;
     }
@@ -1437,8 +1437,8 @@
       const body = document.getElementById('briefing-body');
       const tsEl = document.getElementById('briefing-timestamp');
 
-      // Show current time
-      const now = new Date();
+      // Show last data-update time (not the visitor's clock)
+      const now = new Date(LAST_DATA_UPDATE);
       tsEl.textContent = now.toLocaleString('en-US', {
         weekday: 'long', month: 'long', day: 'numeric', year: 'numeric',
         hour: 'numeric', minute: '2-digit',
