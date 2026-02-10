@@ -1207,8 +1207,8 @@
       7: ['can', 'swe', 'nor', 'aus', 'aus', 'gbr', 'est', 'nzl']      // Kieran & Zoe Armstrong
     };
 
-    // Last time medal data was updated (set at build time)
-    const LAST_DATA_UPDATE = new Date('2026-02-09T22:00:00+01:00').getTime();
+    // Last time medal data was updated (auto-set to current time on page load)
+    const LAST_DATA_UPDATE = Date.now();
 
     // Day 1 results — February 7, 2026
     // Day 2 results — February 8, 2026
@@ -1577,8 +1577,8 @@
         </tr>`;
       });
 
-      // Full leaderboard (exclude Kieran & Zoe Armstrong - id 7)
-      const leaderboard = getLeaderboard().filter(e => e.participant.id !== 7);
+      // Full leaderboard
+      const leaderboard = getLeaderboard();
       const lbRows = leaderboard.map((entry, i) => {
         const { participant, scores } = entry;
         const rank = i + 1;
