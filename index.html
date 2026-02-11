@@ -1213,6 +1213,7 @@
     // Day 1 results — February 7, 2026
     // Day 2 results — February 8, 2026
     // Day 3 results — February 9, 2026
+    // Day 4 results — February 10, 2026
     const DEFAULT_MEDALS = [
       // ===== DAY 1 — February 7, 2026 =====
       // Men's Downhill Alpine Skiing
@@ -1291,7 +1292,45 @@
       { id: 'd3_sjp_m_nh_g', countryId: 'ger', eventDescription: "Men's Normal Hill Ski Jumping", medal: 'gold', timestamp: LAST_DATA_UPDATE },
       { id: 'd3_sjp_m_nh_s', countryId: 'pol', eventDescription: "Men's Normal Hill Ski Jumping", medal: 'silver', timestamp: LAST_DATA_UPDATE },
       { id: 'd3_sjp_m_nh_b1', countryId: 'sui', eventDescription: "Men's Normal Hill Ski Jumping", medal: 'bronze', timestamp: LAST_DATA_UPDATE },
-      { id: 'd3_sjp_m_nh_b2', countryId: 'jpn', eventDescription: "Men's Normal Hill Ski Jumping", medal: 'bronze', timestamp: LAST_DATA_UPDATE }
+      { id: 'd3_sjp_m_nh_b2', countryId: 'jpn', eventDescription: "Men's Normal Hill Ski Jumping", medal: 'bronze', timestamp: LAST_DATA_UPDATE },
+
+      // ===== DAY 4 — February 10, 2026 =====
+      // Men's Sprint Classic Cross-Country Skiing
+      { id: 'd4_ccs_m_sp_g', countryId: 'nor', eventDescription: "Men's Sprint Classic Cross-Country Skiing", medal: 'gold', timestamp: LAST_DATA_UPDATE },
+      { id: 'd4_ccs_m_sp_s', countryId: 'usa', eventDescription: "Men's Sprint Classic Cross-Country Skiing", medal: 'silver', timestamp: LAST_DATA_UPDATE },
+      { id: 'd4_ccs_m_sp_b', countryId: 'nor', eventDescription: "Men's Sprint Classic Cross-Country Skiing", medal: 'bronze', timestamp: LAST_DATA_UPDATE },
+      // Women's Sprint Classic Cross-Country Skiing
+      { id: 'd4_ccs_w_sp_g', countryId: 'swe', eventDescription: "Women's Sprint Classic Cross-Country Skiing", medal: 'gold', timestamp: LAST_DATA_UPDATE },
+      { id: 'd4_ccs_w_sp_s', countryId: 'swe', eventDescription: "Women's Sprint Classic Cross-Country Skiing", medal: 'silver', timestamp: LAST_DATA_UPDATE },
+      { id: 'd4_ccs_w_sp_b', countryId: 'swe', eventDescription: "Women's Sprint Classic Cross-Country Skiing", medal: 'bronze', timestamp: LAST_DATA_UPDATE },
+      // Men's 20km Individual Biathlon
+      { id: 'd4_bth_m_20_g', countryId: 'nor', eventDescription: "Men's 20km Individual Biathlon", medal: 'gold', timestamp: LAST_DATA_UPDATE },
+      { id: 'd4_bth_m_20_s', countryId: 'fra', eventDescription: "Men's 20km Individual Biathlon", medal: 'silver', timestamp: LAST_DATA_UPDATE },
+      { id: 'd4_bth_m_20_b', countryId: 'nor', eventDescription: "Men's 20km Individual Biathlon", medal: 'bronze', timestamp: LAST_DATA_UPDATE },
+      // Women's Team Combined Alpine Skiing
+      { id: 'd4_alp_w_tc_g', countryId: 'aut', eventDescription: "Women's Team Combined Alpine Skiing", medal: 'gold', timestamp: LAST_DATA_UPDATE },
+      { id: 'd4_alp_w_tc_s', countryId: 'ger', eventDescription: "Women's Team Combined Alpine Skiing", medal: 'silver', timestamp: LAST_DATA_UPDATE },
+      { id: 'd4_alp_w_tc_b', countryId: 'usa', eventDescription: "Women's Team Combined Alpine Skiing", medal: 'bronze', timestamp: LAST_DATA_UPDATE },
+      // Men's Freeski Slopestyle
+      { id: 'd4_frs_m_ss_g', countryId: 'nor', eventDescription: "Men's Freeski Slopestyle", medal: 'gold', timestamp: LAST_DATA_UPDATE },
+      { id: 'd4_frs_m_ss_s', countryId: 'usa', eventDescription: "Men's Freeski Slopestyle", medal: 'silver', timestamp: LAST_DATA_UPDATE },
+      { id: 'd4_frs_m_ss_b', countryId: 'nzl', eventDescription: "Men's Freeski Slopestyle", medal: 'bronze', timestamp: LAST_DATA_UPDATE },
+      // Mixed Doubles Curling
+      { id: 'd4_cur_x_md_g', countryId: 'swe', eventDescription: "Mixed Doubles Curling", medal: 'gold', timestamp: LAST_DATA_UPDATE },
+      { id: 'd4_cur_x_md_s', countryId: 'usa', eventDescription: "Mixed Doubles Curling", medal: 'silver', timestamp: LAST_DATA_UPDATE },
+      { id: 'd4_cur_x_md_b', countryId: 'ita', eventDescription: "Mixed Doubles Curling", medal: 'bronze', timestamp: LAST_DATA_UPDATE },
+      // Women's Singles Luge
+      { id: 'd4_lug_w_si_g', countryId: 'ger', eventDescription: "Women's Singles Luge", medal: 'gold', timestamp: LAST_DATA_UPDATE },
+      { id: 'd4_lug_w_si_s', countryId: 'lat', eventDescription: "Women's Singles Luge", medal: 'silver', timestamp: LAST_DATA_UPDATE },
+      { id: 'd4_lug_w_si_b', countryId: 'usa', eventDescription: "Women's Singles Luge", medal: 'bronze', timestamp: LAST_DATA_UPDATE },
+      // Short Track Speed Skating Mixed Team Relay
+      { id: 'd4_stk_x_rl_g', countryId: 'ita', eventDescription: "Short Track Speed Skating Mixed Team Relay", medal: 'gold', timestamp: LAST_DATA_UPDATE },
+      { id: 'd4_stk_x_rl_s', countryId: 'can', eventDescription: "Short Track Speed Skating Mixed Team Relay", medal: 'silver', timestamp: LAST_DATA_UPDATE },
+      { id: 'd4_stk_x_rl_b', countryId: 'bel', eventDescription: "Short Track Speed Skating Mixed Team Relay", medal: 'bronze', timestamp: LAST_DATA_UPDATE },
+      // Mixed Team Ski Jumping
+      { id: 'd4_sjp_x_tm_g', countryId: 'svn', eventDescription: "Mixed Team Ski Jumping", medal: 'gold', timestamp: LAST_DATA_UPDATE },
+      { id: 'd4_sjp_x_tm_s', countryId: 'nor', eventDescription: "Mixed Team Ski Jumping", medal: 'silver', timestamp: LAST_DATA_UPDATE },
+      { id: 'd4_sjp_x_tm_b', countryId: 'jpn', eventDescription: "Mixed Team Ski Jumping", medal: 'bronze', timestamp: LAST_DATA_UPDATE }
     ];
 
     let appState = {
