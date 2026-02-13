@@ -1215,6 +1215,7 @@
     // Day 3 results — February 9, 2026
     // Day 4 results — February 10, 2026
     // Day 5 results — February 11, 2026
+    // Day 6 results — February 12, 2026
     const DEFAULT_MEDALS = [
       // ===== DAY 1 — February 7, 2026 =====
       // Men's Downhill Alpine Skiing
@@ -1365,7 +1366,45 @@
       // Men's Doubles Luge
       { id: 'd5_lug_m_do_g', countryId: 'ita', eventDescription: "Men's Doubles Luge", medal: 'gold', timestamp: LAST_DATA_UPDATE },
       { id: 'd5_lug_m_do_s', countryId: 'aut', eventDescription: "Men's Doubles Luge", medal: 'silver', timestamp: LAST_DATA_UPDATE },
-      { id: 'd5_lug_m_do_b', countryId: 'ger', eventDescription: "Men's Doubles Luge", medal: 'bronze', timestamp: LAST_DATA_UPDATE }
+      { id: 'd5_lug_m_do_b', countryId: 'ger', eventDescription: "Men's Doubles Luge", medal: 'bronze', timestamp: LAST_DATA_UPDATE },
+
+      // ===== DAY 6 — February 12, 2026 =====
+      // Women's Super-G Alpine Skiing
+      { id: 'd6_alp_w_sg_g', countryId: 'ita', eventDescription: "Women's Super-G Alpine Skiing", medal: 'gold', timestamp: LAST_DATA_UPDATE },
+      { id: 'd6_alp_w_sg_s', countryId: 'fra', eventDescription: "Women's Super-G Alpine Skiing", medal: 'silver', timestamp: LAST_DATA_UPDATE },
+      { id: 'd6_alp_w_sg_b', countryId: 'aut', eventDescription: "Women's Super-G Alpine Skiing", medal: 'bronze', timestamp: LAST_DATA_UPDATE },
+      // Men's Moguls Freestyle Skiing
+      { id: 'd6_frs_m_mo_g', countryId: 'aus', eventDescription: "Men's Moguls Freestyle Skiing", medal: 'gold', timestamp: LAST_DATA_UPDATE },
+      { id: 'd6_frs_m_mo_s', countryId: 'can', eventDescription: "Men's Moguls Freestyle Skiing", medal: 'silver', timestamp: LAST_DATA_UPDATE },
+      { id: 'd6_frs_m_mo_b', countryId: 'jpn', eventDescription: "Men's Moguls Freestyle Skiing", medal: 'bronze', timestamp: LAST_DATA_UPDATE },
+      // Women's 10km Interval Start Free Cross-Country Skiing
+      { id: 'd6_ccs_w_10_g', countryId: 'swe', eventDescription: "Women's 10km Interval Start Free Cross-Country Skiing", medal: 'gold', timestamp: LAST_DATA_UPDATE },
+      { id: 'd6_ccs_w_10_s', countryId: 'swe', eventDescription: "Women's 10km Interval Start Free Cross-Country Skiing", medal: 'silver', timestamp: LAST_DATA_UPDATE },
+      { id: 'd6_ccs_w_10_b', countryId: 'usa', eventDescription: "Women's 10km Interval Start Free Cross-Country Skiing", medal: 'bronze', timestamp: LAST_DATA_UPDATE },
+      // Men's Snowboard Cross
+      { id: 'd6_sbd_m_sx_g', countryId: 'aut', eventDescription: "Men's Snowboard Cross", medal: 'gold', timestamp: LAST_DATA_UPDATE },
+      { id: 'd6_sbd_m_sx_s', countryId: 'can', eventDescription: "Men's Snowboard Cross", medal: 'silver', timestamp: LAST_DATA_UPDATE },
+      { id: 'd6_sbd_m_sx_b', countryId: 'aut', eventDescription: "Men's Snowboard Cross", medal: 'bronze', timestamp: LAST_DATA_UPDATE },
+      // Women's 5000m Speed Skating
+      { id: 'd6_ssk_w_5k_g', countryId: 'ita', eventDescription: "Women's 5000m Speed Skating", medal: 'gold', timestamp: LAST_DATA_UPDATE },
+      { id: 'd6_ssk_w_5k_s', countryId: 'ned', eventDescription: "Women's 5000m Speed Skating", medal: 'silver', timestamp: LAST_DATA_UPDATE },
+      { id: 'd6_ssk_w_5k_b', countryId: 'nor', eventDescription: "Women's 5000m Speed Skating", medal: 'bronze', timestamp: LAST_DATA_UPDATE },
+      // Luge Team Relay
+      { id: 'd6_lug_x_rl_g', countryId: 'ger', eventDescription: "Luge Team Relay", medal: 'gold', timestamp: LAST_DATA_UPDATE },
+      { id: 'd6_lug_x_rl_s', countryId: 'aut', eventDescription: "Luge Team Relay", medal: 'silver', timestamp: LAST_DATA_UPDATE },
+      { id: 'd6_lug_x_rl_b', countryId: 'ita', eventDescription: "Luge Team Relay", medal: 'bronze', timestamp: LAST_DATA_UPDATE },
+      // Women's Halfpipe Snowboard
+      { id: 'd6_sbd_w_hp_g', countryId: 'kor', eventDescription: "Women's Halfpipe Snowboard", medal: 'gold', timestamp: LAST_DATA_UPDATE },
+      { id: 'd6_sbd_w_hp_s', countryId: 'usa', eventDescription: "Women's Halfpipe Snowboard", medal: 'silver', timestamp: LAST_DATA_UPDATE },
+      { id: 'd6_sbd_w_hp_b', countryId: 'jpn', eventDescription: "Women's Halfpipe Snowboard", medal: 'bronze', timestamp: LAST_DATA_UPDATE },
+      // Women's 500m Short Track Speed Skating
+      { id: 'd6_stk_w_500_g', countryId: 'ned', eventDescription: "Women's 500m Short Track Speed Skating", medal: 'gold', timestamp: LAST_DATA_UPDATE },
+      { id: 'd6_stk_w_500_s', countryId: 'ita', eventDescription: "Women's 500m Short Track Speed Skating", medal: 'silver', timestamp: LAST_DATA_UPDATE },
+      { id: 'd6_stk_w_500_b', countryId: 'can', eventDescription: "Women's 500m Short Track Speed Skating", medal: 'bronze', timestamp: LAST_DATA_UPDATE },
+      // Men's 1000m Short Track Speed Skating
+      { id: 'd6_stk_m_1k_g', countryId: 'ned', eventDescription: "Men's 1000m Short Track Speed Skating", medal: 'gold', timestamp: LAST_DATA_UPDATE },
+      { id: 'd6_stk_m_1k_s', countryId: 'chn', eventDescription: "Men's 1000m Short Track Speed Skating", medal: 'silver', timestamp: LAST_DATA_UPDATE },
+      { id: 'd6_stk_m_1k_b', countryId: 'kor', eventDescription: "Men's 1000m Short Track Speed Skating", medal: 'bronze', timestamp: LAST_DATA_UPDATE }
     ];
 
     let appState = {
