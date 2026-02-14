@@ -6,6 +6,7 @@
   <meta name="description" content="Milan 2026 Olympic Fantasy Market - Build your medal portfolio">
   <meta name="theme-color" content="#0a0e1a">
   <title>Milan 2026 Fantasy Market</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏔️</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -22,7 +23,7 @@
       <header class="dashboard-header">
         <div class="header-top">
           <div class="header-brand">
-            <div class="olympic-rings small">●●●●●</div>
+            <svg class="olympic-rings-svg small" viewBox="0 0 100 40" aria-label="Olympic Rings"><circle cx="16" cy="20" r="10" fill="none" stroke="#0081C8" stroke-width="2.5"/><circle cx="30" cy="20" r="10" fill="none" stroke="#000" stroke-width="2.5"/><circle cx="44" cy="20" r="10" fill="none" stroke="#EE334E" stroke-width="2.5"/><circle cx="23" cy="28" r="10" fill="none" stroke="#FCB131" stroke-width="2.5"/><circle cx="37" cy="28" r="10" fill="none" stroke="#00A651" stroke-width="2.5"/></svg>
             <h1 class="logo"><span class="city">Milano Cortina</span><span class="year">2026</span></h1>
           </div>
           <div class="header-medals">
@@ -62,6 +63,9 @@
       </section>
     </div>
 
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="back-to-top" aria-label="Back to top">↑</button>
+
     <!-- Footer with Admin Access -->
     <footer class="app-footer">
       <div class="footer-info">
@@ -77,7 +81,7 @@
   <div id="briefing-overlay" class="briefing-overlay" role="dialog" aria-modal="true">
     <div class="briefing-card">
       <div class="briefing-header">
-        <div class="olympic-rings small">●●●●●</div>
+        <svg class="olympic-rings-svg small" viewBox="0 0 100 40" aria-label="Olympic Rings"><circle cx="16" cy="20" r="10" fill="none" stroke="#0081C8" stroke-width="2.5"/><circle cx="30" cy="20" r="10" fill="none" stroke="#000" stroke-width="2.5"/><circle cx="44" cy="20" r="10" fill="none" stroke="#EE334E" stroke-width="2.5"/><circle cx="23" cy="28" r="10" fill="none" stroke="#FCB131" stroke-width="2.5"/><circle cx="37" cy="28" r="10" fill="none" stroke="#00A651" stroke-width="2.5"/></svg>
         <h2 class="briefing-title">Commissioner Reif-Wray's Briefing</h2>
         <div class="briefing-timestamp" id="briefing-timestamp"></div>
       </div>
@@ -280,6 +284,16 @@
     }
 
     .olympic-rings.small { font-size: 0.75rem; }
+
+    .olympic-rings-svg {
+      width: 60px;
+      height: 24px;
+    }
+
+    .olympic-rings-svg.small {
+      width: 48px;
+      height: 20px;
+    }
 
     .section-title {
       font-size: 0.875rem;
@@ -959,14 +973,83 @@
     }
 
     /* ========================================
+       BACK TO TOP BUTTON
+       ======================================== */
+    .back-to-top {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      font-size: 1.25rem;
+      cursor: pointer;
+      z-index: 99;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--transition-normal), transform var(--transition-normal);
+      backdrop-filter: blur(8px);
+    }
+
+    .back-to-top.visible {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .back-to-top:hover {
+      transform: translateY(-3px);
+      background: var(--bg-elevated);
+      border-color: var(--accent-primary);
+    }
+
+    /* ========================================
        26. RESPONSIVE
        ======================================== */
     @media (max-width: 767px) {
+      .container {
+        padding: var(--space-sm);
+      }
+
+      .dashboard-header {
+        padding: var(--space-md) 0 var(--space-sm);
+      }
+
+      .leaderboard-section {
+        margin-bottom: var(--space-md);
+      }
+
+      .portfolio-grid {
+        gap: var(--space-sm);
+      }
+
+      .view {
+        padding-bottom: 72px;
+      }
+
       .card-medals {
         flex-direction: column;
         gap: 0;
         font-size: 0.6875rem;
         text-align: right;
+      }
+
+      .briefing-card {
+        max-height: 90vh;
+      }
+
+      .briefing-header {
+        padding: var(--space-md) var(--space-md) 0;
+      }
+
+      .briefing-body {
+        padding: var(--space-sm) var(--space-md) var(--space-md);
+      }
+
+      .briefing-footer {
+        padding: 0 var(--space-md) var(--space-md);
       }
     }
 
@@ -1806,6 +1889,15 @@
     function initEventListeners() {
       // Briefing
       document.getElementById('briefing-dismiss-btn').addEventListener('click', dismissBriefing);
+
+      // Back to Top
+      const backToTop = document.getElementById('back-to-top');
+      window.addEventListener('scroll', () => {
+        backToTop.classList.toggle('visible', window.scrollY > 400);
+      });
+      backToTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
     }
 
     /* ========================================
