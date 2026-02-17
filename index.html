@@ -1277,6 +1277,12 @@
         projection: '~0 medals',
         description: 'Lucas Pinheiro Braathen made history by winning the Giant Slalom gold — South America\'s first-ever Winter Olympic medal.',
         olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/bra'
+      },
+      'geo': {
+        id: 'geo', name: 'Georgia', flag: '🇬🇪', price: 0, tier: 'penny-stock',
+        projection: '~0 medals',
+        description: 'Pairs figure skaters Anastasiia Metelkina and Luka Berulava earned Georgia\'s first-ever Winter Olympic medal.',
+        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/geo'
       }
     };
 
@@ -1564,44 +1570,68 @@
       { id: 'd8_stk_m_15_b', countryId: 'lat', eventDescription: "Men's 1500m Short Track Speed Skating", medal: 'bronze', timestamp: LAST_DATA_UPDATE },
 
       // ===== DAY 9 — February 15, 2026 =====
-      // Men's 4x10km Relay Cross-Country Skiing
-      { id: 'd9_ccs_m_rl_g', countryId: 'nor', eventDescription: "Men's 4x10km Relay Cross-Country Skiing", medal: 'gold', timestamp: LAST_DATA_UPDATE },
-      { id: 'd9_ccs_m_rl_s', countryId: 'ita', eventDescription: "Men's 4x10km Relay Cross-Country Skiing", medal: 'silver', timestamp: LAST_DATA_UPDATE },
-      { id: 'd9_ccs_m_rl_b', countryId: 'fra', eventDescription: "Men's 4x10km Relay Cross-Country Skiing", medal: 'bronze', timestamp: LAST_DATA_UPDATE },
-      // Women's 1500m Speed Skating
-      { id: 'd9_ssk_w_15_g', countryId: 'nor', eventDescription: "Women's 1500m Speed Skating", medal: 'gold', timestamp: LAST_DATA_UPDATE },
-      { id: 'd9_ssk_w_15_s', countryId: 'nor', eventDescription: "Women's 1500m Speed Skating", medal: 'silver', timestamp: LAST_DATA_UPDATE },
-      { id: 'd9_ssk_w_15_b', countryId: 'jpn', eventDescription: "Women's 1500m Speed Skating", medal: 'bronze', timestamp: LAST_DATA_UPDATE },
-      // Women's Giant Slalom Alpine Skiing
+      // Men's 4x7.5km Relay Cross-Country Skiing
+      { id: 'd9_ccs_m_rl_g', countryId: 'nor', eventDescription: "Men's 4x7.5km Relay Cross-Country Skiing", medal: 'gold', timestamp: LAST_DATA_UPDATE },
+      { id: 'd9_ccs_m_rl_s', countryId: 'fra', eventDescription: "Men's 4x7.5km Relay Cross-Country Skiing", medal: 'silver', timestamp: LAST_DATA_UPDATE },
+      { id: 'd9_ccs_m_rl_b', countryId: 'ita', eventDescription: "Men's 4x7.5km Relay Cross-Country Skiing", medal: 'bronze', timestamp: LAST_DATA_UPDATE },
+      // Women's Giant Slalom Alpine Skiing (shared silver — no bronze awarded)
       { id: 'd9_alp_w_gs_g', countryId: 'ita', eventDescription: "Women's Giant Slalom Alpine Skiing", medal: 'gold', timestamp: LAST_DATA_UPDATE },
-      { id: 'd9_alp_w_gs_s', countryId: 'nor', eventDescription: "Women's Giant Slalom Alpine Skiing", medal: 'silver', timestamp: LAST_DATA_UPDATE },
-      { id: 'd9_alp_w_gs_b', countryId: 'fra', eventDescription: "Women's Giant Slalom Alpine Skiing", medal: 'bronze', timestamp: LAST_DATA_UPDATE },
-      // Men's Pursuit Biathlon
-      { id: 'd9_bth_m_pu_g', countryId: 'ita', eventDescription: "Men's Pursuit Biathlon", medal: 'gold', timestamp: LAST_DATA_UPDATE },
-      { id: 'd9_bth_m_pu_s', countryId: 'nor', eventDescription: "Men's Pursuit Biathlon", medal: 'silver', timestamp: LAST_DATA_UPDATE },
-      { id: 'd9_bth_m_pu_b', countryId: 'ger', eventDescription: "Men's Pursuit Biathlon", medal: 'bronze', timestamp: LAST_DATA_UPDATE },
+      { id: 'd9_alp_w_gs_s1', countryId: 'swe', eventDescription: "Women's Giant Slalom Alpine Skiing", medal: 'silver', timestamp: LAST_DATA_UPDATE },
+      { id: 'd9_alp_w_gs_s2', countryId: 'nor', eventDescription: "Women's Giant Slalom Alpine Skiing", medal: 'silver', timestamp: LAST_DATA_UPDATE },
+      // Men's 12.5km Pursuit Biathlon
+      { id: 'd9_bth_m_pu_g', countryId: 'swe', eventDescription: "Men's 12.5km Pursuit Biathlon", medal: 'gold', timestamp: LAST_DATA_UPDATE },
+      { id: 'd9_bth_m_pu_s', countryId: 'nor', eventDescription: "Men's 12.5km Pursuit Biathlon", medal: 'silver', timestamp: LAST_DATA_UPDATE },
+      { id: 'd9_bth_m_pu_b', countryId: 'fra', eventDescription: "Men's 12.5km Pursuit Biathlon", medal: 'bronze', timestamp: LAST_DATA_UPDATE },
+      // Women's 10km Pursuit Biathlon
+      { id: 'd9_bth_w_pu_g', countryId: 'ita', eventDescription: "Women's 10km Pursuit Biathlon", medal: 'gold', timestamp: LAST_DATA_UPDATE },
+      { id: 'd9_bth_w_pu_s', countryId: 'nor', eventDescription: "Women's 10km Pursuit Biathlon", medal: 'silver', timestamp: LAST_DATA_UPDATE },
+      { id: 'd9_bth_w_pu_b', countryId: 'fin', eventDescription: "Women's 10km Pursuit Biathlon", medal: 'bronze', timestamp: LAST_DATA_UPDATE },
       // Women's 500m Speed Skating
       { id: 'd9_ssk_w_500_g', countryId: 'ned', eventDescription: "Women's 500m Speed Skating", medal: 'gold', timestamp: LAST_DATA_UPDATE },
-      { id: 'd9_ssk_w_500_s', countryId: 'swe', eventDescription: "Women's 500m Speed Skating", medal: 'silver', timestamp: LAST_DATA_UPDATE },
-      { id: 'd9_ssk_w_500_b', countryId: 'svn', eventDescription: "Women's 500m Speed Skating", medal: 'bronze', timestamp: LAST_DATA_UPDATE },
+      { id: 'd9_ssk_w_500_s', countryId: 'ned', eventDescription: "Women's 500m Speed Skating", medal: 'silver', timestamp: LAST_DATA_UPDATE },
+      { id: 'd9_ssk_w_500_b', countryId: 'jpn', eventDescription: "Women's 500m Speed Skating", medal: 'bronze', timestamp: LAST_DATA_UPDATE },
+      // Men's Dual Moguls Freestyle Skiing
+      { id: 'd9_frs_m_dm_g', countryId: 'can', eventDescription: "Men's Dual Moguls Freestyle Skiing", medal: 'gold', timestamp: LAST_DATA_UPDATE },
+      { id: 'd9_frs_m_dm_s', countryId: 'jpn', eventDescription: "Men's Dual Moguls Freestyle Skiing", medal: 'silver', timestamp: LAST_DATA_UPDATE },
+      { id: 'd9_frs_m_dm_b', countryId: 'aus', eventDescription: "Men's Dual Moguls Freestyle Skiing", medal: 'bronze', timestamp: LAST_DATA_UPDATE },
+      // Mixed Team Skeleton
+      { id: 'd9_skl_x_tm_g', countryId: 'gbr', eventDescription: "Mixed Team Skeleton", medal: 'gold', timestamp: LAST_DATA_UPDATE },
+      { id: 'd9_skl_x_tm_s', countryId: 'ger', eventDescription: "Mixed Team Skeleton", medal: 'silver', timestamp: LAST_DATA_UPDATE },
+      { id: 'd9_skl_x_tm_b', countryId: 'ger', eventDescription: "Mixed Team Skeleton", medal: 'bronze', timestamp: LAST_DATA_UPDATE },
+      // Mixed Team Snowboard Cross
+      { id: 'd9_sbd_x_sx_g', countryId: 'gbr', eventDescription: "Mixed Team Snowboard Cross", medal: 'gold', timestamp: LAST_DATA_UPDATE },
+      { id: 'd9_sbd_x_sx_s', countryId: 'ita', eventDescription: "Mixed Team Snowboard Cross", medal: 'silver', timestamp: LAST_DATA_UPDATE },
+      { id: 'd9_sbd_x_sx_b', countryId: 'fra', eventDescription: "Mixed Team Snowboard Cross", medal: 'bronze', timestamp: LAST_DATA_UPDATE },
+      // Women's Large Hill Ski Jumping
+      { id: 'd9_sjp_w_lh_g', countryId: 'nor', eventDescription: "Women's Large Hill Ski Jumping", medal: 'gold', timestamp: LAST_DATA_UPDATE },
+      { id: 'd9_sjp_w_lh_s', countryId: 'nor', eventDescription: "Women's Large Hill Ski Jumping", medal: 'silver', timestamp: LAST_DATA_UPDATE },
+      { id: 'd9_sjp_w_lh_b', countryId: 'svn', eventDescription: "Women's Large Hill Ski Jumping", medal: 'bronze', timestamp: LAST_DATA_UPDATE },
 
       // ===== DAY 10 — February 16, 2026 =====
-      // Men's Freeski Halfpipe
-      { id: 'd10_frs_m_hp_g', countryId: 'swe', eventDescription: "Men's Freeski Halfpipe", medal: 'gold', timestamp: LAST_DATA_UPDATE },
-      { id: 'd10_frs_m_hp_s', countryId: 'jpn', eventDescription: "Men's Freeski Halfpipe", medal: 'silver', timestamp: LAST_DATA_UPDATE },
-      { id: 'd10_frs_m_hp_b', countryId: 'fin', eventDescription: "Men's Freeski Halfpipe", medal: 'bronze', timestamp: LAST_DATA_UPDATE },
-      // Women's Monobob Bobsled
-      { id: 'd10_bob_w_mo_g', countryId: 'gbr', eventDescription: "Women's Monobob Bobsled", medal: 'gold', timestamp: LAST_DATA_UPDATE },
-      { id: 'd10_bob_w_mo_s', countryId: 'ger', eventDescription: "Women's Monobob Bobsled", medal: 'silver', timestamp: LAST_DATA_UPDATE },
-      { id: 'd10_bob_w_mo_b', countryId: 'ita', eventDescription: "Women's Monobob Bobsled", medal: 'bronze', timestamp: LAST_DATA_UPDATE },
-      // Men's Two-Man Bobsled
-      { id: 'd10_bob_m_2m_g', countryId: 'gbr', eventDescription: "Men's Two-Man Bobsled", medal: 'gold', timestamp: LAST_DATA_UPDATE },
-      { id: 'd10_bob_m_2m_s', countryId: 'fra', eventDescription: "Men's Two-Man Bobsled", medal: 'silver', timestamp: LAST_DATA_UPDATE },
-      { id: 'd10_bob_m_2m_b', countryId: 'aus', eventDescription: "Men's Two-Man Bobsled", medal: 'bronze', timestamp: LAST_DATA_UPDATE },
+      // Men's Slalom Alpine Skiing
+      { id: 'd10_alp_m_sl_g', countryId: 'sui', eventDescription: "Men's Slalom Alpine Skiing", medal: 'gold', timestamp: LAST_DATA_UPDATE },
+      { id: 'd10_alp_m_sl_s', countryId: 'aut', eventDescription: "Men's Slalom Alpine Skiing", medal: 'silver', timestamp: LAST_DATA_UPDATE },
+      { id: 'd10_alp_m_sl_b', countryId: 'nor', eventDescription: "Men's Slalom Alpine Skiing", medal: 'bronze', timestamp: LAST_DATA_UPDATE },
       // Women's 1000m Short Track Speed Skating
-      { id: 'd10_stk_w_1k_g', countryId: 'can', eventDescription: "Women's 1000m Short Track Speed Skating", medal: 'gold', timestamp: LAST_DATA_UPDATE },
-      { id: 'd10_stk_w_1k_s1', countryId: 'ned', eventDescription: "Women's 1000m Short Track Speed Skating", medal: 'silver', timestamp: LAST_DATA_UPDATE },
-      { id: 'd10_stk_w_1k_s2', countryId: 'nor', eventDescription: "Women's 1000m Short Track Speed Skating", medal: 'silver', timestamp: LAST_DATA_UPDATE },
+      { id: 'd10_stk_w_1k_g', countryId: 'ned', eventDescription: "Women's 1000m Short Track Speed Skating", medal: 'gold', timestamp: LAST_DATA_UPDATE },
+      { id: 'd10_stk_w_1k_s', countryId: 'can', eventDescription: "Women's 1000m Short Track Speed Skating", medal: 'silver', timestamp: LAST_DATA_UPDATE },
+      { id: 'd10_stk_w_1k_b', countryId: 'kor', eventDescription: "Women's 1000m Short Track Speed Skating", medal: 'bronze', timestamp: LAST_DATA_UPDATE },
+      // Women's Monobob Bobsled
+      { id: 'd10_bob_w_mo_g', countryId: 'usa', eventDescription: "Women's Monobob Bobsled", medal: 'gold', timestamp: LAST_DATA_UPDATE },
+      { id: 'd10_bob_w_mo_s', countryId: 'ger', eventDescription: "Women's Monobob Bobsled", medal: 'silver', timestamp: LAST_DATA_UPDATE },
+      { id: 'd10_bob_w_mo_b', countryId: 'usa', eventDescription: "Women's Monobob Bobsled", medal: 'bronze', timestamp: LAST_DATA_UPDATE },
+      // Men's Super Team Ski Jumping
+      { id: 'd10_sjp_m_st_g', countryId: 'aut', eventDescription: "Men's Super Team Ski Jumping", medal: 'gold', timestamp: LAST_DATA_UPDATE },
+      { id: 'd10_sjp_m_st_s', countryId: 'pol', eventDescription: "Men's Super Team Ski Jumping", medal: 'silver', timestamp: LAST_DATA_UPDATE },
+      { id: 'd10_sjp_m_st_b', countryId: 'nor', eventDescription: "Men's Super Team Ski Jumping", medal: 'bronze', timestamp: LAST_DATA_UPDATE },
+      // Figure Skating Pairs
+      { id: 'd10_fsk_x_pr_g', countryId: 'jpn', eventDescription: "Figure Skating Pairs", medal: 'gold', timestamp: LAST_DATA_UPDATE },
+      { id: 'd10_fsk_x_pr_s', countryId: 'geo', eventDescription: "Figure Skating Pairs", medal: 'silver', timestamp: LAST_DATA_UPDATE },
+      { id: 'd10_fsk_x_pr_b', countryId: 'ger', eventDescription: "Figure Skating Pairs", medal: 'bronze', timestamp: LAST_DATA_UPDATE },
+      // Women's Big Air Freestyle Skiing
+      { id: 'd10_frs_w_ba_g', countryId: 'can', eventDescription: "Women's Big Air Freestyle Skiing", medal: 'gold', timestamp: LAST_DATA_UPDATE },
+      { id: 'd10_frs_w_ba_s', countryId: 'chn', eventDescription: "Women's Big Air Freestyle Skiing", medal: 'silver', timestamp: LAST_DATA_UPDATE },
+      { id: 'd10_frs_w_ba_b', countryId: 'ita', eventDescription: "Women's Big Air Freestyle Skiing", medal: 'bronze', timestamp: LAST_DATA_UPDATE },
     ];
 
     let appState = {
