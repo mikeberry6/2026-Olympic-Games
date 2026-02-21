@@ -1283,6 +1283,12 @@
         projection: '~0 medals',
         description: 'Pairs figure skaters Anastasiia Metelkina and Luka Berulava earned Georgia\'s first-ever Winter Olympic medal.',
         olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026/countries/geo'
+      },
+      'ain': {
+        id: 'ain', name: 'Individual Neutral Athletes', flag: '🏳️', price: 0, tier: 'penny-stock',
+        projection: '~0 medals',
+        description: 'Individual Neutral Athletes competing under the Olympic flag.',
+        olympicsUrl: 'https://olympics.com/en/olympic-games/milan-cortina-2026'
       }
     };
 
@@ -1317,6 +1323,8 @@
     // Day 10 results — February 16, 2026
     // Day 11 results — February 17, 2026
     // Day 12 results — February 18, 2026
+    // Day 13 results — February 19, 2026
+    // Day 14 results — February 20, 2026
     const DEFAULT_MEDALS = [
       // ===== DAY 1 — February 7, 2026 =====
       // Men's Downhill Alpine Skiing
@@ -1698,6 +1706,63 @@
       { id: 'd12_stk_w_3krl_g', countryId: 'kor', eventDescription: "Women's 3000m Relay Short Track Speed Skating", medal: 'gold', timestamp: LAST_DATA_UPDATE },
       { id: 'd12_stk_w_3krl_s', countryId: 'ita', eventDescription: "Women's 3000m Relay Short Track Speed Skating", medal: 'silver', timestamp: LAST_DATA_UPDATE },
       { id: 'd12_stk_w_3krl_b', countryId: 'can', eventDescription: "Women's 3000m Relay Short Track Speed Skating", medal: 'bronze', timestamp: LAST_DATA_UPDATE },
+
+      // ===== DAY 13 — February 19, 2026 =====
+      // Men's 15km Mass Start Biathlon
+      { id: 'd13_bth_m_ms_g', countryId: 'nor', eventDescription: "Men's 15km Mass Start Biathlon", medal: 'gold', timestamp: LAST_DATA_UPDATE },
+      { id: 'd13_bth_m_ms_s', countryId: 'nor', eventDescription: "Men's 15km Mass Start Biathlon", medal: 'silver', timestamp: LAST_DATA_UPDATE },
+      { id: 'd13_bth_m_ms_b', countryId: 'fra', eventDescription: "Men's 15km Mass Start Biathlon", medal: 'bronze', timestamp: LAST_DATA_UPDATE },
+      // Women's 12.5km Mass Start Biathlon
+      { id: 'd13_bth_w_ms_g', countryId: 'nor', eventDescription: "Women's 12.5km Mass Start Biathlon", medal: 'gold', timestamp: LAST_DATA_UPDATE },
+      { id: 'd13_bth_w_ms_s', countryId: 'fra', eventDescription: "Women's 12.5km Mass Start Biathlon", medal: 'silver', timestamp: LAST_DATA_UPDATE },
+      { id: 'd13_bth_w_ms_b', countryId: 'swe', eventDescription: "Women's 12.5km Mass Start Biathlon", medal: 'bronze', timestamp: LAST_DATA_UPDATE },
+      // Men's Halfpipe Freestyle Skiing
+      { id: 'd13_frs_m_hp_g', countryId: 'usa', eventDescription: "Men's Halfpipe Freestyle Skiing", medal: 'gold', timestamp: LAST_DATA_UPDATE },
+      { id: 'd13_frs_m_hp_s', countryId: 'sui', eventDescription: "Men's Halfpipe Freestyle Skiing", medal: 'silver', timestamp: LAST_DATA_UPDATE },
+      { id: 'd13_frs_m_hp_b', countryId: 'can', eventDescription: "Men's Halfpipe Freestyle Skiing", medal: 'bronze', timestamp: LAST_DATA_UPDATE },
+      // Women's Halfpipe Freestyle Skiing
+      { id: 'd13_frs_w_hp_g', countryId: 'chn', eventDescription: "Women's Halfpipe Freestyle Skiing", medal: 'gold', timestamp: LAST_DATA_UPDATE },
+      { id: 'd13_frs_w_hp_s', countryId: 'est', eventDescription: "Women's Halfpipe Freestyle Skiing", medal: 'silver', timestamp: LAST_DATA_UPDATE },
+      { id: 'd13_frs_w_hp_b', countryId: 'sui', eventDescription: "Women's Halfpipe Freestyle Skiing", medal: 'bronze', timestamp: LAST_DATA_UPDATE },
+      // Women's Ski Cross Freestyle Skiing
+      { id: 'd13_frs_w_sx_g', countryId: 'sui', eventDescription: "Women's Ski Cross Freestyle Skiing", medal: 'gold', timestamp: LAST_DATA_UPDATE },
+      { id: 'd13_frs_w_sx_s', countryId: 'kor', eventDescription: "Women's Ski Cross Freestyle Skiing", medal: 'silver', timestamp: LAST_DATA_UPDATE },
+      { id: 'd13_frs_w_sx_b', countryId: 'fra', eventDescription: "Women's Ski Cross Freestyle Skiing", medal: 'bronze', timestamp: LAST_DATA_UPDATE },
+      // Women's Singles Figure Skating (shared bronze)
+      { id: 'd13_fsk_w_si_g', countryId: 'kor', eventDescription: "Women's Singles Figure Skating", medal: 'gold', timestamp: LAST_DATA_UPDATE },
+      { id: 'd13_fsk_w_si_s', countryId: 'kor', eventDescription: "Women's Singles Figure Skating", medal: 'silver', timestamp: LAST_DATA_UPDATE },
+      { id: 'd13_fsk_w_si_b1', countryId: 'jpn', eventDescription: "Women's Singles Figure Skating", medal: 'bronze', timestamp: LAST_DATA_UPDATE },
+      { id: 'd13_fsk_w_si_b2', countryId: 'usa', eventDescription: "Women's Singles Figure Skating", medal: 'bronze', timestamp: LAST_DATA_UPDATE },
+      // Women's 1500m Speed Skating
+      { id: 'd13_ssk_w_15_g', countryId: 'ned', eventDescription: "Women's 1500m Speed Skating", medal: 'gold', timestamp: LAST_DATA_UPDATE },
+      { id: 'd13_ssk_w_15_s', countryId: 'can', eventDescription: "Women's 1500m Speed Skating", medal: 'silver', timestamp: LAST_DATA_UPDATE },
+      { id: 'd13_ssk_w_15_b', countryId: 'ned', eventDescription: "Women's 1500m Speed Skating", medal: 'bronze', timestamp: LAST_DATA_UPDATE },
+
+      // ===== DAY 14 — February 20, 2026 =====
+      // Women's 2-Woman Bobsled
+      { id: 'd14_bob_w_2w_g', countryId: 'usa', eventDescription: "Women's 2-Woman Bobsled", medal: 'gold', timestamp: LAST_DATA_UPDATE },
+      { id: 'd14_bob_w_2w_s', countryId: 'nor', eventDescription: "Women's 2-Woman Bobsled", medal: 'silver', timestamp: LAST_DATA_UPDATE },
+      { id: 'd14_bob_w_2w_b', countryId: 'aut', eventDescription: "Women's 2-Woman Bobsled", medal: 'bronze', timestamp: LAST_DATA_UPDATE },
+      // Alpine Skiing Team Event
+      { id: 'd14_alp_x_tm_g', countryId: 'ger', eventDescription: "Alpine Skiing Team Event", medal: 'gold', timestamp: LAST_DATA_UPDATE },
+      { id: 'd14_alp_x_tm_s', countryId: 'jpn', eventDescription: "Alpine Skiing Team Event", medal: 'silver', timestamp: LAST_DATA_UPDATE },
+      { id: 'd14_alp_x_tm_b', countryId: 'ita', eventDescription: "Alpine Skiing Team Event", medal: 'bronze', timestamp: LAST_DATA_UPDATE },
+      // Women's 1500m Short Track Speed Skating
+      { id: 'd14_stk_w_15_g', countryId: 'ned', eventDescription: "Women's 1500m Short Track Speed Skating", medal: 'gold', timestamp: LAST_DATA_UPDATE },
+      { id: 'd14_stk_w_15_s', countryId: 'ain', eventDescription: "Women's 1500m Short Track Speed Skating", medal: 'silver', timestamp: LAST_DATA_UPDATE },
+      { id: 'd14_stk_w_15_b', countryId: 'can', eventDescription: "Women's 1500m Short Track Speed Skating", medal: 'bronze', timestamp: LAST_DATA_UPDATE },
+      // Men's Aerials Freestyle Skiing
+      { id: 'd14_frs_m_ae_g', countryId: 'chn', eventDescription: "Men's Aerials Freestyle Skiing", medal: 'gold', timestamp: LAST_DATA_UPDATE },
+      { id: 'd14_frs_m_ae_s', countryId: 'fin', eventDescription: "Men's Aerials Freestyle Skiing", medal: 'silver', timestamp: LAST_DATA_UPDATE },
+      { id: 'd14_frs_m_ae_b', countryId: 'chn', eventDescription: "Men's Aerials Freestyle Skiing", medal: 'bronze', timestamp: LAST_DATA_UPDATE },
+      // Men's 1500m Speed Skating
+      { id: 'd14_ssk_m_15_g', countryId: 'usa', eventDescription: "Men's 1500m Speed Skating", medal: 'gold', timestamp: LAST_DATA_UPDATE },
+      { id: 'd14_ssk_m_15_s', countryId: 'usa', eventDescription: "Men's 1500m Speed Skating", medal: 'silver', timestamp: LAST_DATA_UPDATE },
+      { id: 'd14_ssk_m_15_b', countryId: 'sui', eventDescription: "Men's 1500m Speed Skating", medal: 'bronze', timestamp: LAST_DATA_UPDATE },
+      // Men's Ski Mountaineering Sprint
+      { id: 'd14_skm_m_sp_g', countryId: 'esp', eventDescription: "Men's Ski Mountaineering Sprint", medal: 'gold', timestamp: LAST_DATA_UPDATE },
+      { id: 'd14_skm_m_sp_s', countryId: 'sui', eventDescription: "Men's Ski Mountaineering Sprint", medal: 'silver', timestamp: LAST_DATA_UPDATE },
+      { id: 'd14_skm_m_sp_b', countryId: 'esp', eventDescription: "Men's Ski Mountaineering Sprint", medal: 'bronze', timestamp: LAST_DATA_UPDATE },
     ];
 
     let appState = {
